@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS users;
 DROP TYPE IF EXISTS itemtype;
 DROP TYPE IF EXISTS hostel;
 
-CREATE TYPE itemtype AS ENUM ('Breakfast','Lunch','Tiffin','Dinner','Midnight');
+CREATE TYPE itemtype AS ENUM ('BREAKFAST','LUNCH','TIFFIN','DINNER','MIDNIGHT');
 CREATE TYPE hostel AS ENUM ('H1','H2','H3','H4','H5','H6','H7','H8','H9','H10','H11','H12','H13','H14','H15','H16');
 
 CREATE TABLE IF NOT EXISTS fooditems (itemid numeric PRIMARY KEY, itemname varchar NOT NULL);
