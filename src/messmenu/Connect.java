@@ -6,10 +6,11 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Connect {
+public class Connect extends HttpServlet {
 	//Open the connection here
 	Connection conn = null;
 	Statement st = null;
@@ -50,12 +51,20 @@ public class Connect {
 	ServletException, IOException
 	{
 		//Connection conn1 = null;
-		//String option= request.getParameter("option");
+		String username = request.getParameter("username");
+		String paSsword = request.getParameter("password");
+		System.out.println("fcefe");
 		try {
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
+	ServletException, IOException
+	{
+
 	}
 
 }
