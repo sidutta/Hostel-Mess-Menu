@@ -3,6 +3,8 @@ package messmenu;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.servlet.ServletException;
@@ -16,20 +18,27 @@ public class Connect extends HttpServlet {
 	Statement st = null;
 	public void init() throws ServletException {
 
-		String hostname = "hmm.heliohost.org";
-		String dbname = "siddutta_project";
-		String dbURL = "jdbc:postgresql://"+hostname+"/"+dbname;
-		String username = "siddutta_team";
+//		String hostname = "hmm.heliohost.org";
+//		String dbname = "siddutta_project";
+//		String username = "siddutta_team";
+//		String password = "iitbcse2016";
+		
+		String hostname = "localhost";
+		String dbname = "mydb";
+		String username = "Siddhartha";
 		String password = "iitbcse2016";
-		String scriptfile = "../scripts/createtables.sql";
+		
+		String dbURL = "jdbc:postgresql://"+hostname+"/"+dbname;
+		String scriptfile = "/Users/Siddhartha/Documents/HMR/Hostel-Mess-Menu/scripts/createtables.sql";
 
 		try {
 			Class.forName("org.postgresql.Driver");
 			conn = DriverManager.getConnection(dbURL, username, password);
 			st = conn.createStatement();
 			System.out.println("init"+conn);
-			//Runtime.getRuntime().exec("psql -U "+username+" -d "+dbname+" -h "+hostname+" -f "+scriptfile);
+			Runtime.getRuntime().exec("/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U "+username+" -d "+dbname+" -h "+hostname+" -f "+scriptfile);
 		} catch (Exception e) {
+			System.out.println("sdasda");
 			e.printStackTrace();
 		}
 	}
@@ -50,15 +59,19 @@ public class Connect extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
 	ServletException, IOException
 	{
-		//Connection conn1 = null;
+		ResultSet rs = null;
 		String username = request.getParameter("username");
-		String paSsword = request.getParameter("password");
-		System.out.println("fcefe");
+		String password = request.getParameter("password");
 		try {
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			rs = st.executeQuery("SELECT password FROM users WHERE username = '" + username + "'");
+			if(!rs.next()) {
+				response.sendRedirect("NewFile.jsp?status=wrong");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
