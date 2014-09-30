@@ -86,7 +86,7 @@ body {
 
 	<center>
 		<div class="wrapper">
-			<form class="form-signin" action="Connect">
+			<form class="form-signin" action="Login">
 				<h2 class="form-signin-heading">Please login</h2>
 				<input type="text" class="form-control" name="username"
 					placeholder="Username" required="" autofocus="" /> <input
@@ -104,8 +104,13 @@ body {
 					<%=invalidLoginPrompt %>
 					<input type="checkbox" value="remember-me" id="rememberMe"
 					name="rememberMe"> Remember me
-				</label>
+					
+					
+					
+				    </label>
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+				<br>
+				<a href="signup.jsp"> Register! </a>
 			</form>
 		</div>
 	</center>

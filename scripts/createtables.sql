@@ -12,7 +12,7 @@ CREATE TYPE hostel AS ENUM ('H1','H2','H3','H4','H5','H6','H7','H8','H9','H10','
 CREATE TYPE usertype AS ENUM ('ADMINISTRATOR', 'CONSUMER');
 
 CREATE TABLE IF NOT EXISTS fooditems (itemid numeric PRIMARY KEY, itemname varchar NOT NULL);
-CREATE TABLE IF NOT EXISTS users (userid numeric PRIMARY KEY, username varchar NOT NULL, password varchar NOT NULL, hostelnumber hostel NOT NULL, category usertype NOT NULL);
+CREATE TABLE IF NOT EXISTS users (username varchar PRIMARY KEY, name varchar, password varchar NOT NULL, hostelnumber hostel NOT NULL, category usertype NOT NULL, emailid varchar(30));
 CREATE TABLE IF NOT EXISTS foodtype (itemid numeric REFERENCES fooditems(itemid) ON DELETE RESTRICT, type itemtype NOT NULL);
 CREATE TABLE IF NOT EXISTS servings (sid numeric PRIMARY KEY, itemid numeric REFERENCES fooditems(itemid) ON DELETE RESTRICT NOT NULL, type itemtype NOT NULL, servedon date NOT NULL, hostelnumber hostel NOT NULL);
-CREATE TABLE IF NOT EXISTS reviews (userid numeric REFERENCES users(userid), sid numeric REFERENCES servings(sid) ON DELETE RESTRICT, rating numeric CHECK(rating>=0 AND rating<=5) NOT NULL, review varchar(150));
+CREATE TABLE IF NOT EXISTS reviews (username numeric REFERENCES users(username), sid numeric REFERENCES servings(sid) ON DELETE RESTRICT, rating numeric CHECK(rating>=0 AND rating<=5) NOT NULL, review varchar(150));

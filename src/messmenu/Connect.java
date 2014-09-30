@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Connect extends HttpServlet {
 	//Open the connection here
-	Connection conn = null;
+	static Connection conn = null;
 	Statement st = null;
 	public void init() throws ServletException {
 
@@ -43,8 +43,6 @@ public class Connect extends HttpServlet {
 		}
 	}
 
-
-
 	public void destroy() {
 		//Close the connection here
 		try{
@@ -55,22 +53,15 @@ public class Connect extends HttpServlet {
 			System.out.println(e);
 		}
 	}
-
+	
+	public static Connection getConnection() {
+		return conn;
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
 	ServletException, IOException
 	{
-		ResultSet rs = null;
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		try {
-			rs = st.executeQuery("SELECT password FROM users WHERE username = '" + username + "'");
-			if(!rs.next()) {
-				response.sendRedirect("login.jsp?status=wrong");
-			}
-		} catch (SQLException e) {
-			System.out.println("db query Exception");
-			e.printStackTrace();
-		}
+		response.sendRedirect("login.jsp");
 		
 		
 	}
