@@ -62,9 +62,30 @@ body {
 								</div>
 							</div>
 
-							<div class="form-group">
-								<input type="email" name="email" id="email"
-									class="form-control input-sm" placeholder="Email Address">
+
+
+							<div class="row">
+								<div class="col-xs-6 col-sm-6 col-md-6">
+									<div class="form-group">
+										<input type="text" name="email" id="email"
+											class="form-control input-sm" placeholder="Email Address">
+									</div>
+								</div>
+								<div class="dropdown">
+									<button class="btn btn-default dropdown-toggle" type="button"
+										id="hostelno" data-toggle="dropdown">
+										Hostel no <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu"
+										aria-labelledby="hostelno">
+										<li role="presentation"><a role="menuitem" tabindex="-1"
+											href="#">H1</a></li>
+										<li role="presentation"><a role="menuitem" tabindex="-1"
+											href="#">H2</a></li>
+										<li role="presentation"><a role="menuitem" tabindex="-1"
+											href="#">H3</a></li>
+									</ul>
+								</div>
 							</div>
 
 							<div class="row">
