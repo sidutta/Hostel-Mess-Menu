@@ -65,7 +65,7 @@ public class Connect extends HttpServlet {
 		try {
 			rs = st.executeQuery("SELECT password FROM users WHERE username = '" + username + "'");
 			if(!rs.next()) {
-				response.sendRedirect("NewFile.jsp?status=wrong");
+				response.sendRedirect("login.jsp?status=wrong");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
