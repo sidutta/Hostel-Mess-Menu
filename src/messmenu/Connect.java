@@ -38,7 +38,7 @@ public class Connect extends HttpServlet {
 			System.out.println("init"+conn);
 			Runtime.getRuntime().exec("/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U "+username+" -d "+dbname+" -h "+hostname+" -f "+scriptfile);
 		} catch (Exception e) {
-			System.out.println("sdasda");
+			System.out.println("JDBC Connection/ db initialization Exception");
 			e.printStackTrace();
 		}
 	}
@@ -68,6 +68,7 @@ public class Connect extends HttpServlet {
 				response.sendRedirect("login.jsp?status=wrong");
 			}
 		} catch (SQLException e) {
+			System.out.println("db query Exception");
 			e.printStackTrace();
 		}
 		
