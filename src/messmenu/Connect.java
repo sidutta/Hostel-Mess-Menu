@@ -3,7 +3,6 @@ package messmenu;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.servlet.ServletException;
@@ -16,20 +15,25 @@ public class Connect {
 	Statement st = null;
 	public void init() throws ServletException {
 
-		String dbURL2 = "jdbc:postgresql://10.105.1.12/cs387";
-		String user = "db120040005";
-		String pass = "sdutta123";
+		String hostname = "hmm.heliohost.org";
+		String dbname = "siddutta_project";
+		String dbURL = "jdbc:postgresql://"+hostname+"/"+dbname;
+		String username = "siddutta_team";
+		String password = "iitbcse2016";
+		String scriptfile = "../scripts/createtables.sql";
 
 		try {
 			Class.forName("org.postgresql.Driver");
-
-			conn = DriverManager.getConnection(dbURL2, user, pass);
+			conn = DriverManager.getConnection(dbURL, username, password);
 			st = conn.createStatement();
 			System.out.println("init"+conn);
+			//Runtime.getRuntime().exec("psql -U "+username+" -d "+dbname+" -h "+hostname+" -f "+scriptfile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
+
 
 	public void destroy() {
 		//Close the connection here
@@ -45,12 +49,10 @@ public class Connect {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
 	ServletException, IOException
 	{
-
 		//Connection conn1 = null;
-		String option= request.getParameter("option");
-		ResultSet rs, rs2, rs3, rs4, rs5;
+		//String option= request.getParameter("option");
 		try {
-			
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
