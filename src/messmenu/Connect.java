@@ -29,14 +29,16 @@ public class Connect extends HttpServlet {
 		String password = "iitbcse2016";
 		
 		String dbURL = "jdbc:postgresql://"+hostname+"/"+dbname;
-		String scriptfile = "/Users/Siddhartha/Documents/HMR/Hostel-Mess-Menu/scripts/createtables.sql";
+		String createTablesScript = "/Users/Siddhartha/Documents/HMR/Hostel-Mess-Menu/scripts/createtables.sql";
+		String fillTablesScript = "/Users/Siddhartha/Documents/HMR/Hostel-Mess-Menu/scripts/filltables.sql";
 
 		try {
 			Class.forName("org.postgresql.Driver");
 			conn = DriverManager.getConnection(dbURL, username, password);
 			st = conn.createStatement();
 			System.out.println("init"+conn);
-			Runtime.getRuntime().exec("/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U "+username+" -d "+dbname+" -h "+hostname+" -f "+scriptfile);
+			Runtime.getRuntime().exec("/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U "+username+" -d "+dbname+" -h "+hostname+" -f "+createTablesScript);
+			Runtime.getRuntime().exec("/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U "+username+" -d "+dbname+" -h "+hostname+" -f "+fillTablesScript);	
 		} catch (Exception e) {
 			System.out.println("JDBC Connection/ db initialization Exception");
 			e.printStackTrace();

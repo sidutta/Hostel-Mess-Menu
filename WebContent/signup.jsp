@@ -14,9 +14,6 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 
 <style>
@@ -47,6 +44,7 @@ body {
 					</div>
 					<div class="panel-body">
 						<form role="form" action="Registration">
+
 							<div class="row">
 								<div class="col-xs-6 col-sm-6 col-md-6">
 									<div class="form-group">
@@ -71,20 +69,18 @@ body {
 											class="form-control input-sm" placeholder="Email Address">
 									</div>
 								</div>
-								<div class="dropdown">
-									<button class="btn btn-default dropdown-toggle" type="button"
-										id="hostelno" data-toggle="dropdown">
-										Hostel no <span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu" role="menu"
-										aria-labelledby="hostelno">
-										<li role="presentation"><a role="menuitem" tabindex="-1"
-											href="#">H1</a></li>
-										<li role="presentation"><a role="menuitem" tabindex="-1"
-											href="#">H2</a></li>
-										<li role="presentation"><a role="menuitem" tabindex="-1"
-											href="#">H3</a></li>
-									</ul>
+								<div class="col-xs-2 col-sm-2 col-md-2">
+									<div class="form-group">
+										<input type="text" name="hostelno" id="hostelno"
+											class="form-control input-sm" placeholder="H1">
+									</div>
+								</div>
+								<div class="col-xs-4 col-sm-4 col-md-4">
+									<div class="form-group">
+										<input type="text" name="category" id="category"
+											class="form-control input-sm"
+											placeholder="Consumer/ Adminstrator">
+									</div>
 								</div>
 							</div>
 
@@ -105,14 +101,31 @@ body {
 							</div>
 
 							<input type="submit" value="Register"
-								class="btn btn-info btn-block">
-
+								class="btn btn-info btn-block"> <br>
+							<center>
+								<%
+									String invalidLoginPrompt = "";
+									String status = request.getParameter("status");
+									if ("usernametaken".equals(status))
+										invalidLoginPrompt = "ERROR: username taken <br>";
+									if ("emailregistered".equals(status))
+										invalidLoginPrompt = "ERROR: email id has been used before <br>";
+								%>
+								<%=invalidLoginPrompt%>
+								<br> <a href="login.jsp">Already Registered?</a>
+							</center>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- Latest compiled and minified JavaScript -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 </body>
 </html>
 
