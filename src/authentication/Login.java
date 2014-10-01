@@ -26,7 +26,7 @@ public class Login extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		try {
-			rs = st.executeQuery("SELECT password FROM users WHERE username = '" + username + "'");
+			rs = st.executeQuery("SELECT password FROM users WHERE username = '" + username + "' AND password = '"+password+"'" );
 			if(!rs.next()) {
 				response.sendRedirect("login.jsp?status=wrong");
 			}
