@@ -20,15 +20,16 @@ public class Connect extends HttpServlet {
 	Statement st = null;
 	public void init() throws ServletException {
 
-				String hostname = "hmm.heliohost.org";
-				String dbname = "siddutta_project";
-				String username = "siddutta_team";
-				String password = "iitbcse2016";
 
-		/*String hostname = "localhost";
-		String dbname = "postgres";
-		String username = "postgres";
-		String password = "postgres";*/
+		String hostname = "hmm.heliohost.org";
+		String dbname = "siddutta_project";
+		String username = "siddutta_team";
+		String password = "iitbcse2016";
+
+		//		String hostname = "localhost";
+		//		String dbname = "mydb";
+		//		String username = "Siddhartha";
+		//		String password = "iitbcse2016";
 
 		String dbURL = "jdbc:postgresql://"+hostname+"/"+dbname;
 		//String createTablesScript = "E:/study/cs387project/HMR/Hostel-Mess-Menu/WebContent/scripts/createtables.sql";
@@ -39,32 +40,34 @@ public class Connect extends HttpServlet {
 			conn = DriverManager.getConnection(dbURL, username, password);
 			st = conn.createStatement();
 			System.out.println("initialized connection: "+conn);
-			//Runtime runtime = Runtime.getRuntime();
-			//Process process = runtime.exec("/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U "+username+" -d "+dbname+" -h "+hostname+" -f "+createTablesScript);
-			//process.waitFor();
-			//if(process.exitValue()!=0) {
-			//Scanner scanner = new Scanner(process.getErrorStream());
-				//while (scanner.hasNext()) {
-					//System.out.println(scanner.nextLine());
-				//}
-				//scanner.close();
-			//}
-			//else {
-				//System.out.println("DB recreated");
-			//}
-			
-			//process = runtime.exec("/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U "+username+" -d "+dbname+" -h "+hostname+" -f "+fillTablesScript);	
-			//process.waitFor();
-			//if(process.exitValue()!=0) {
-				//Scanner scanner = new Scanner(process.getErrorStream());
-				//while (scanner.hasNext()) {
-					//System.out.println(scanner.nextLine());
-				//}
-				//scanner.close();
-			//}
-			//else {
-				//System.out.println("DB refilled");
-			//}
+
+			//			Runtime runtime = Runtime.getRuntime();
+			//			Process process = runtime.exec("/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U "+username+" -d "+dbname+" -h "+hostname+" -f "+createTablesScript);
+			//			process.waitFor();
+			//			if(process.exitValue()!=0) {
+			//				Scanner scanner = new Scanner(process.getErrorStream());
+			//				while (scanner.hasNext()) {
+			//					System.out.println(scanner.nextLine());
+			//				}
+			//				scanner.close();
+			//			}
+			//			else {
+			//				System.out.println("DB recreated");
+			//			}
+			//
+			//			process = runtime.exec("/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U "+username+" -d "+dbname+" -h "+hostname+" -f "+fillTablesScript);	
+			//			process.waitFor();
+			//			if(process.exitValue()!=0) {
+			//				Scanner scanner = new Scanner(process.getErrorStream());
+			//				while (scanner.hasNext()) {
+			//					System.out.println(scanner.nextLine());
+			//				}
+			//				scanner.close();
+			//			}
+			//			else {
+			//				System.out.println("DB refilled");
+			//			}
+
 
 		} catch (Exception e) {
 			System.out.println("JDBC Connection/ db initialization Exception");
