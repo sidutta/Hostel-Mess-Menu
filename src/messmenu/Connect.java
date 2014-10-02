@@ -20,6 +20,7 @@ public class Connect extends HttpServlet {
 	Statement st = null;
 	public void init() throws ServletException {
 
+
 		String hostname = "hmm.heliohost.org";
 		String dbname = "siddutta_project";
 		String username = "siddutta_team";
@@ -31,8 +32,8 @@ public class Connect extends HttpServlet {
 		//		String password = "iitbcse2016";
 
 		String dbURL = "jdbc:postgresql://"+hostname+"/"+dbname;
-		String createTablesScript = "/Users/Siddhartha/Documents/HMR/Hostel-Mess-Menu/WebContent/scripts/createtables.sql";
-		String fillTablesScript = "/Users/Siddhartha/Documents/HMR/Hostel-Mess-Menu/WebContent/scripts/filltables.sql";
+		//String createTablesScript = "E:/study/cs387project/HMR/Hostel-Mess-Menu/WebContent/scripts/createtables.sql";
+		//String fillTablesScript = "E:/study/cs387project/HMR/Hostel-Mess-Menu/WebContent/scripts/filltables.sql";
 
 		try {
 			Class.forName("org.postgresql.Driver") ;
@@ -66,6 +67,7 @@ public class Connect extends HttpServlet {
 			//			else {
 			//				System.out.println("DB refilled");
 			//			}
+
 
 		} catch (Exception e) {
 			System.out.println("JDBC Connection/ db initialization Exception");
