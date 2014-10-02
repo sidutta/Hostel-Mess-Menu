@@ -36,7 +36,7 @@ public class Putrating extends HttpServlet {
 		}
 		
 		try {
-			rs = st.executeQuery("SELECT now::date()");
+			rs = st.executeQuery("SELECT GETDATE() AS CurrentDateTime");
 			while(rs.next()){
 				System.out.println(rs);
 			}
@@ -45,6 +45,8 @@ public class Putrating extends HttpServlet {
 
 			e.printStackTrace();
 		}
+		String[] alldays =
+	         {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 		
 		Calendar c = Calendar.getInstance();
 	//	c.set(year, month, day);
