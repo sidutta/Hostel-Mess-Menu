@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="hostel-menu-mgmt">
-        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="hostel-menu-mgmt"/>
-        <property name="java-output-path" value="/hostel-menu-mgmt/build/classes"/>
-    </wb-module>
-</project-modules>
