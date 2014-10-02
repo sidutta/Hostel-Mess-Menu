@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>hostel-menu-mgmt</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
@@ -21,7 +21,7 @@
     <servlet-name>Connect</servlet-name>
     <url-pattern>/Connect</url-pattern>
   </servlet-mapping>
-  
+
   <servlet>
     <description></description>
     <display-name>Login</display-name>
@@ -32,7 +32,6 @@
     <servlet-name>Login</servlet-name>
     <url-pattern>/Login</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>Registration</display-name>
@@ -53,5 +52,16 @@
   <servlet-mapping>
     <servlet-name>Putrating</servlet-name>
     <url-pattern>/Putrating</url-pattern>
+      </servlet-mapping>
+    
+  <servlet>
+    <description></description>
+    <display-name>Othermenu</display-name>
+    <servlet-name>Othermenu</servlet-name>
+    <servlet-class>messmenu.Othermenu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Othermenu</servlet-name>
+    <url-pattern>/Othermenu</url-pattern>
   </servlet-mapping>
 </web-app>
