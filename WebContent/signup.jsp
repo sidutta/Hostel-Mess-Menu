@@ -214,7 +214,7 @@ body {
 			$('.combobox').combobox();
 		});
 	    jQuery.validator.setDefaults({
-			  debug: true,
+			  debug: false,
 			  success: "valid"
 			});
 		jQuery(document).ready(function() { 
