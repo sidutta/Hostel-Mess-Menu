@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,37 +13,43 @@ import javax.servlet.http.HttpServletResponse;
 
 import messmenu.Connect;
 
-public class Login extends HttpServlet {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
+public class Putrating extends HttpServlet {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
 	ServletException, IOException
 	{
 		ResultSet rs = null;
 		Statement st = null;
+		
+		String day = request.getParameter("day");
+		String foodtype=request.getParameter("foodtype");
+		
+		System.out.println(day);
+		System.out.println(foodtype);
+		
+		
+	
+		
 		try {
 			st = Connect.getConnection().createStatement();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		
 		try {
-			rs = st.executeQuery("SELECT password FROM users WHERE username = '" + username + "' AND password = '"+password+"'" );
-			if(!rs.next()) {
-				response.sendRedirect("login.jsp?status=wrong");
+			rs = st.executeQuery("SELECT now::date()");
+			while(rs.next()){
+				System.out.println(rs);
 			}
 		} catch (SQLException e) {
-			System.out.println("db query Exception");
+			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		
-		
-	}
+		Calendar c = Calendar.getInstance();
+	//	c.set(year, month, day);
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
-	ServletException, IOException
-	{
-		
+		//int day_of_week = c.get(Calendar.DAY_OF_WEEK);
 
 	}
-
 }

@@ -9,12 +9,13 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
+
   <servlet>
     <description></description>
     <display-name>Connect</display-name>
     <servlet-name>Connect</servlet-name>
     <servlet-class>messmenu.Connect</servlet-class>
+    <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>Connect</servlet-name>
@@ -41,5 +42,16 @@
   <servlet-mapping>
     <servlet-name>Registration</servlet-name>
     <url-pattern>/Registration</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <description></description>
+    <display-name>Putrating</display-name>
+    <servlet-name>Putrating</servlet-name>
+    <servlet-class>authentication.Putrating</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Putrating</servlet-name>
+    <url-pattern>/Putrating</url-pattern>
   </servlet-mapping>
 </web-app>
