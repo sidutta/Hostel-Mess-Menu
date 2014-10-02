@@ -42,6 +42,18 @@
     <servlet-name>Registration</servlet-name>
     <url-pattern>/Registration</url-pattern>
   </servlet-mapping>
+  
+    <servlet>
+    <description></description>
+    <display-name>Putrating</display-name>
+    <servlet-name>Putrating</servlet-name>
+    <servlet-class>authentication.Putrating</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Putrating</servlet-name>
+    <url-pattern>/Putrating</url-pattern>
+      </servlet-mapping>
+    
   <servlet>
     <description></description>
     <display-name>Othermenu</display-name>
