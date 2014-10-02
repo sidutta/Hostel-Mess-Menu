@@ -45,7 +45,7 @@ body {
 						</h3>
 					</div>
 					<div class="panel-body">
-						<form role="form" action="Registration">
+						<form role="form" action="Registration" id="registration-form">
 
 							<div class="row">
 								<div class="col-xs-6 col-sm-6 col-md-6">
@@ -105,8 +105,7 @@ body {
 
 								<div class="col-xs-3 col-sm-3 col-md-3">
 									<div class="form-group">
-										<select class="combobox form-control"
-											name="hostelno">
+										<select class="combobox form-control" name="hostelno">
 											<option value="" selected="selected">Hostel</option>
 											<option value="H1">H1</option>
 											<option value="H2">H2</option>
@@ -150,8 +149,7 @@ body {
 
 								<div class="col-xs-3 col-sm-4 col-md-3 	">
 									<div class="form-group">
-										<select class="combobox form-control"
-											name="category">
+										<select class="combobox form-control" name="category">
 											<option value="" selected="selected">Category</option>
 											<option value="Consumer">Consumer</option>
 											<option value="Administrator">Admin</option>
@@ -171,15 +169,15 @@ body {
 								</div>
 								<div class="col-xs-6 col-sm-6 col-md-6">
 									<div class="form-group">
-										<input type="password" name="password_confirmation"
-											id="password_confirmation" class="form-control input-sm"
+										<input type="password" name="password_again"
+											id="password_again" class="form-control input-sm"
 											placeholder="Confirm Password">
 									</div>
 								</div>
 							</div>
 
 							<input type="submit" value="Register"
-								class="btn btn-info btn-block"> <br>
+								class="btn btn-info btn-block" id="submit"> <br>
 							<center>
 								<%
 									String invalidLoginPrompt = "";
@@ -203,28 +201,44 @@ body {
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/scripts/jquery.validate.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/scripts/additional-methods.min.js"></script>
 
 	<%-- <script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/bootstrap-dropdown.js"></script> --%>
 	<script type="text/javascript">
-	
-		/* $(document).ready(function() {
-			$('.dropdown-toggle').dropdown();
-		}); */
+
 		$(document).ready(function() {
 			$('.combobox').combobox();
 		});
-		
-		<%-- $(function() {
-			$(".dropdown-menu li a").click(
-					function() {
-						$(this).parents(".btn-group").find('.selection').text(
-								$(this).text());
-						$(this).parents(".btn-group").find('.selection').val(
-								$(this).text());
-	<%session.setAttribute("dropdownMenuCategory", "a");%>
-		});
-		}); --%>
+	    jQuery.validator.setDefaults({
+			  debug: true,
+			  success: "valid"
+			});
+		jQuery(document).ready(function() { 
+			$("#registration-form").validate({
+			  rules: {
+				  email: {
+				      required: true,
+				      email: true
+				    },
+			    password: "required",
+			    password_again: {
+			      equalTo: "#password"
+			    },
+			    first_name: "required",
+			    username: "required"
+			  },
+			  submitHandler: function (form) {
+		            $("#submit").prop("disabled", true); //disable to prevent multiple submits
+		            form.submit(); 
+		            }
+			
+			})
+			
+		}); 
 	</script>
 	<script
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
