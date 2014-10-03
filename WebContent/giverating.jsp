@@ -69,20 +69,20 @@ body {
 							if (data.hasOwnProperty(key)) {
 								txt += "<tr><td>" + data[key] + "</td><td>"
 										+ key + "</td>";
-							
-								txt += "<td><select class='combobox form-control' name='rating"+i+"' id='rating"+i+"'>"
+
+								txt += "<td><select class='combobox form-control span2	' name='rating"+i+"' id='rating"+i+"'>"
 										+ "<option value='' selected='selected'>Rate</option>"
 										+ "<option value='Consumer'>1</option>"
 										+ "<option value='Administrator'>2</option>"
 										+ "</select></td>";
-								txt += "<td><select class='combobox form-control' name='rate"+i+"' id='rate"+i+"'>"
+								txt += "<td><select class='combobox form-control span2' name='rate"+i+"' id='rate"+i+"'>"
 										+ "<option value='' selected='selected'>Rate</option>"
 										+ "<option value='Consumer'>1</option>"
 										+ "<option value='Administrator'>2</option>"
 										+ "</select></td>";
-								txt += "<td><textarea class='span6' rows='3' placeholder='Comment' name='comment"+i+"' id='comment"+i+"' required></textarea></td>";
+								txt += "<td><textarea class='col-md-12 col-sm-12' rows='3' placeholder='Comment' name='comment"+i+"' id='comment"+i+"' required></textarea></td>";
 								txt += "</tr>";
-								i=i+1;
+								i = i + 1;
 							}
 						}
 						if (txt != "") {
@@ -164,15 +164,17 @@ body {
 						</div>
 
 						<div class="row">
-							<table id="table" class="hidden table">
-								<tr>
-									<th>ItemId</th>
-									<th>Food Name</th>
-									<th>Rating</th>
-									<th>Rate</th>
-									<th>Comment</th>
-								</tr>
-							</table>
+							<div class="col-xs-3 col-sm-12 col-md-12  ">
+								<table id="table" class=" table">
+									<tr>
+										<th class='col-md-2 col-sm-2'>ItemId</th>
+										<th class='col-md-2 col-sm-2'>Food Name</th>
+										<th class='col-md-2 col-sm-2'>Rating</th>
+										<th class='col-md-2 col-sm-2'>Rate</th>
+										<th class='col-md-4 col-sm-4'>Comment</th>
+									</tr>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
