@@ -94,9 +94,9 @@ public class Login extends HttpServlet {
 
 					request.setAttribute("consumername",rs.getString("name"));
 					request.setAttribute("hostelnumber",rs.getString("hostelnumber"));
+					session.setAttribute("hostelno", rs.getString("hostelnumber"));
 
 					ResultSet rsserving=st.executeQuery("SELECT itemname,type FROM servings natural join fooditems where servedon=current_date and hostelnumber='"+rs.getString("hostelnumber")+"'" );
-					session.setAttribute("hostelno", rs.getString("hostelnumber"));
 					ArrayList <String> bfast=new ArrayList<String>();
 					ArrayList <String> lunch=new ArrayList<String>();
 					ArrayList <String> tiffin=new ArrayList<String>();
