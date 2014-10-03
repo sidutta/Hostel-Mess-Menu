@@ -32,32 +32,32 @@ public class Login extends HttpServlet {
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
-        HttpSession session = request.getSession();
-        System.out.println(session);
-        String temp = (String) session.getAttribute("username"); 
-        if(temp!=null) {
-        	username = temp;
-        	isCookie = true; 
-        }
 
-//		Cookie cookie = null;
-//		Cookie[] cookies = null;
-//		// Get an array of Cookies associated with this domain
-//		cookies = request.getCookies();
-//		if( cookies != null ){
-//			for (int i = 0; i < cookies.length; i++){
-//				cookie = cookies[i];
-//				if((cookie.getName( )).toString().equals("username")){
-//					username = (cookie.getValue( )).toString(); 	
-//					isCookie = true;
-//					break;
-//				}
-//			}
-//		}
+		HttpSession session = request.getSession();
+		System.out.println(session);
+		String temp = (String) session.getAttribute("username"); 
+		if(temp!=null) {
+			username = temp;
+			isCookie = true; 
+		}
 
-		
-		
+		//		Cookie cookie = null;
+		//		Cookie[] cookies = null;
+		//		// Get an array of Cookies associated with this domain
+		//		cookies = request.getCookies();
+		//		if( cookies != null ){
+		//			for (int i = 0; i < cookies.length; i++){
+		//				cookie = cookies[i];
+		//				if((cookie.getName( )).toString().equals("username")){
+		//					username = (cookie.getValue( )).toString(); 	
+		//					isCookie = true;
+		//					break;
+		//				}
+		//			}
+		//		}
+
+
+
 		boolean valid = false;
 		try {
 
@@ -92,34 +92,11 @@ public class Login extends HttpServlet {
 				{
 					//System.out.println(rs.getString("name"));
 
-					request.setAttribute("consumername",rs.getString("name"));
-					request.setAttribute("hostelnumber",rs.getString("hostelnumber"));
+					session.setAttribute("consumername",rs.getString("name"));
+					//request.setAttribute("hostelnumber",rs.getString("hostelnumber"));
 					session.setAttribute("hostelno", rs.getString("hostelnumber"));
-
-					ResultSet rsserving=st.executeQuery("SELECT itemname,type FROM servings natural join fooditems where servedon=current_date and hostelnumber='"+rs.getString("hostelnumber")+"'" );
-					ArrayList <String> bfast=new ArrayList<String>();
-					ArrayList <String> lunch=new ArrayList<String>();
-					ArrayList <String> tiffin=new ArrayList<String>();
-					ArrayList <String> dinner=new ArrayList<String>();
-					while(rsserving.next())
-					{System.out.println("dedexe");
-						String mealtype=rsserving.getString("type");
-						if (mealtype.equals("BREAKFAST"))
-							bfast.add(rsserving.getString("itemname"));
-						else if (mealtype.equals("LUNCH"))
-							lunch.add(rsserving.getString("itemname"));
-						else if (mealtype.equals("TIFFIN"))
-							tiffin.add(rsserving.getString("itemname"));
-						else
-							dinner.add(rsserving.getString("itemname"));
-
-					}
-
-					request.setAttribute("bfast",bfast);
-					request.setAttribute("lunch",lunch);
-					request.setAttribute("tiffin",tiffin);
-					request.setAttribute("dinner",dinner);
-					RequestDispatcher rd = getServletContext().getRequestDispatcher("/consumermain.jsp");
+					request.setAttribute("initialCall","True");
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/Othermenu");
 					rd.forward(request, response);
 				}
 			}
