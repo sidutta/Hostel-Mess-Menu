@@ -24,7 +24,8 @@ body {
 }
 
 .centered-form {
-	margin-top: 60px;
+	margin-top: 80px;
+	margin-bottom: 80px;
 }
 
 .centered-form .panel {
