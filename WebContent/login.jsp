@@ -94,6 +94,7 @@ input[type="password"] {
 
 	<center>
 		<div class="wrapper">
+		
 			<form class="form-signin" action="Login" id="login">
 				<h2 class="form-signin-heading">Please login</h2>
 				<input type="text" class="form-control" name="username"
@@ -119,6 +120,7 @@ input[type="password"] {
 										if ((cookie.getName()).toString().equals("username")) {
 											cookie.setMaxAge(0);
 											response.addCookie(cookie);
+											session.invalidate();
 										}
 									}
 								}
@@ -128,6 +130,7 @@ input[type="password"] {
 										cookie = cookies[i];
 										if ((cookie.getName()).toString().equals("username")) {
 											response.addCookie(cookie);
+											session.setAttribute("username",(cookie.getValue()).toString());
 											/* request.setAttribute("logintype","cookie");
 											request.setAttribute("loggedinuser", (cookie.getValue()).toString()); */
 											response.sendRedirect("/hostel-menu-mgmt/Login");

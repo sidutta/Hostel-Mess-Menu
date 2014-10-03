@@ -192,6 +192,10 @@ body {
 							</center>
 
 						</form>
+						<%
+							if(session.getAttribute("username")!=null)
+								response.sendRedirect("login.jsp");
+						%>
 					</div>
 				</div>
 			</div>
