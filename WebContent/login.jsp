@@ -106,19 +106,35 @@ input[type="password"] {
 						String status = request.getParameter("status");
 						if ("wrong".equals(status))
 							invalidLoginPrompt = "Invalid username/ password <br>";
-						else if ("logout".equals(status)) {
+						else {
 							Cookie cookie = null;
-						  	Cookie[] cookies = null;
-					        // Get an array of Cookies associated with this domain
-					     	cookies = request.getCookies();
-					     	if( cookies != null ){
-					            for (int i = 0; i < cookies.length; i++){
-					               cookie = cookies[i];
-					               if((cookie.getName( )).toString().equals("username")){
-					            	   cookie.setMaxAge(0);											                    
-					               }
-					            }
-					         }
+							Cookie[] cookies = null;
+							// Get an array of Cookies associated with this domain
+							cookies = request.getCookies();
+							if ("logout".equals(status)) {
+
+								if (cookies != null) {
+									for (int i = 0; i < cookies.length; i++) {
+										cookie = cookies[i];
+										if ((cookie.getName()).toString().equals("username")) {
+											cookie.setMaxAge(0);
+											response.addCookie(cookie);
+										}
+									}
+								}
+							} else {
+								if (cookies != null) {
+									for (int i = 0; i < cookies.length; i++) {
+										cookie = cookies[i];
+										if ((cookie.getName()).toString().equals("username")) {
+											response.addCookie(cookie);
+											/* request.setAttribute("logintype","cookie");
+											request.setAttribute("loggedinuser", (cookie.getValue()).toString()); */
+											response.sendRedirect("/hostel-menu-mgmt/Login");
+										}
+									}
+								}
+							}
 						}
 					%> <%=invalidLoginPrompt%> <input type="checkbox" value="remember"
 					id="remember" name="remember"> Remember me
@@ -130,23 +146,7 @@ input[type="password"] {
 					id="submit">Login</button>
 				<br> <a href="signup.jsp"> Register! </a>
 			</form>
-			<%
-				Cookie cookie = null;
-			  	Cookie[] cookies = null;
-		        // Get an array of Cookies associated with this domain
-		     	cookies = request.getCookies();
-		     	if( cookies != null ){
-		            for (int i = 0; i < cookies.length; i++){
-		               cookie = cookies[i];
-		               if((cookie.getName( )).toString().equals("username")){
-		            	   response.addCookie( cookie );
-		            	   /* request.setAttribute("logintype","cookie");
-		            	   request.setAttribute("loggedinuser", (cookie.getValue()).toString()); */
-		            	   response.sendRedirect("/hostel-menu-mgmt/Login");											                    
-		               }
-		            }
-		         }
-			%>
+
 		</div>
 	</center>
 

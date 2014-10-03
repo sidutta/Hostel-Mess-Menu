@@ -42,6 +42,7 @@ public class Login extends HttpServlet {
 				if((cookie.getName( )).toString().equals("username")){
 					username = (cookie.getValue( )).toString(); 	
 					isCookie = true;
+					break;
 				}
 			}
 		}
