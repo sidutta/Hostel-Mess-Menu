@@ -40,64 +40,82 @@ body {
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
 	type="text/javascript"></script>
 <script>
+	function callAjax() {
+		dataString = $("#myAjaxRequestForm").serialize();
 
-function callAjax(){
-dataString = $("#myAjaxRequestForm").serialize();
+		//get the form data using another method 
+		var day = $("#day").val();
+		var foodtype = $("#foodtype").val();
+		dataString = "day=" + day + "&foodtype=" + foodtype;
+		console.log("yo");
 
-//get the form data using another method 
-var day = $("#day").val(); 
-var foodtype = $("#foodtype").val();
-dataString = "day=" + day+"&foodtype="+foodtype;
-console.log("yo");
+		var jsondata;
+		//make the AJAX request, dataType is set to json
+		//meaning we are expecting JSON data in response from the server
+		$
+				.ajax({
+					type : "POST",
+					url : "Putrating",
+					data : dataString,
+					dataType : "json",
 
-var jsondata;
-//make the AJAX request, dataType is set to json
-//meaning we are expecting JSON data in response from the server
-$.ajax({
-    type: "POST",
-    url: "Putrating",
-    data: dataString,
-    dataType: "json",
-    
-    //if received a response from the server
-    success: function( data, textStatus, jqXHR) {
-        //our country code was correct so we have some information to display
-        	
-    	    var txt = "";
-            for(var key in data){
-                  if(data.hasOwnProperty(key))
-                    txt += "<tr><td>"+data[key]+"</td><td>"+key+"</td></tr>"; 
-            }
-            if(txt != ""){
-                $("#table").append(txt).removeClass("hidden");
-                console.log(txt);
-            }
-        
-    },
-    
-    //If there was no resonse from the server
-    error: function(jqXHR, textStatus, errorThrown){
-         console.log("Something really bad happened " + textStatus);
-          $("#ajaxResponse").html(jqXHR.responseText);
-    },
-    
-    //capture the request before it was sent to server
-    beforeSend: function(jqXHR, settings){
-        //adding some Dummy data to the request
-        settings.data += "&dummyData=whatever";
-        //disable the button until we get the response
-       // $('#myButton').attr("disabled", true);
-    },
-    
-    //this is called after the response or error functions are finsihed
-    //so that we can take some action
-    complete: function(jqXHR, textStatus){
-        //enable the button 
-        //$('#myButton').attr("disabled", false);
-    }
+					//if received a response from the server
+					success : function(data, textStatus, jqXHR) {
+						//our country code was correct so we have some information to display
 
-});  
-}
+						var txt = "";
+						var i = 0;
+						for ( var key in data) {
+							if (data.hasOwnProperty(key)) {
+								txt += "<tr><td>" + data[key] + "</td><td>"
+										+ key + "</td>";
+
+								txt += "<td><select class='combobox form-control span2	' name='rating"+i+"' id='rating"+i+"'>"
+										+ "<option value='' selected='selected'>Rate</option>"
+										+ "<option value='Consumer'>1</option>"
+										+ "<option value='Administrator'>2</option>"
+										+ "</select></td>";
+								txt += "<td><select class='combobox form-control span2' name='rate"+i+"' id='rate"+i+"'>"
+										+ "<option value='' selected='selected'>Rate</option>"
+										+ "<option value='Consumer'>1</option>"
+										+ "<option value='Administrator'>2</option>"
+										+ "</select></td>";
+								txt += "<td><textarea class='col-md-12 col-sm-12' rows='3' placeholder='Comment' name='comment"+i+"' id='comment"+i+"' required></textarea></td>";
+								txt += "</tr>";
+								i = i + 1;
+							}
+						}
+						if (txt != "") {
+							$("#table").append(txt).removeClass("hidden");
+							console.log(txt);
+						}
+
+					},
+
+					//If there was no resonse from the server
+					error : function(jqXHR, textStatus, errorThrown) {
+						console.log("Something really bad happened "
+								+ textStatus);
+						$("#ajaxResponse").html(jqXHR.responseText);
+					},
+
+					//capture the request before it was sent to server
+					beforeSend : function(jqXHR, settings) {
+						//adding some Dummy data to the request
+						settings.data += "&dummyData=whatever";
+						//disable the button until we get the response
+						// $('#myButton').attr("disabled", true);
+					},
+
+					//this is called after the response or error functions are finsihed
+					//so that we can take some action
+					complete : function(jqXHR, textStatus) {
+						//enable the button 
+						//$('#myButton').attr("disabled", false);
+					}
+
+				});
+	}
 </script>
 </head>
 <body>
@@ -141,22 +159,45 @@ $.ajax({
 								</div>
 							</div>
 
-							
+
 
 						</div>
-						
-						<div class = "row">
-							<table id="table" class="hidden">
-								<tr>
-									<th>ItemId</th>
-									<th>Food Name</th>
-								</tr>
-							</table>
+
+						<div class="row">
+							<div class="col-xs-3 col-sm-12 col-md-12  ">
+								<table id="table" class="hidden table">
+									<tr>
+										<th class='col-md-2 col-sm-2'>ItemId</th>
+										<th class='col-md-2 col-sm-2'>Food Name</th>
+										<th class='col-md-2 col-sm-2'>Rating</th>
+										<th class='col-md-2 col-sm-2'>Rate</th>
+										<th class='col-md-4 col-sm-4'>Comment</th>
+									</tr>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</form>
+
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/scripts/jquery.validate.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/scripts/additional-methods.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.combobox').combobox();
+		});
+	</script>
+	<script
+		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>
