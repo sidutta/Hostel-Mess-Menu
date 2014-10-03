@@ -49,7 +49,8 @@
 </head>
 
 <body>
-
+<%if(session.getAttribute("consumername")==null)
+	response.sendRedirect("login.jsp");%>
 	<div class="container">
 
 		<div class="masthead">
