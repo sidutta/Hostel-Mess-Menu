@@ -106,7 +106,20 @@ input[type="password"] {
 						String status = request.getParameter("status");
 						if ("wrong".equals(status))
 							invalidLoginPrompt = "Invalid username/ password <br>";
-						request.setAttribute("logintype","password");
+						else if ("logout".equals(status)) {
+							Cookie cookie = null;
+						  	Cookie[] cookies = null;
+					        // Get an array of Cookies associated with this domain
+					     	cookies = request.getCookies();
+					     	if( cookies != null ){
+					            for (int i = 0; i < cookies.length; i++){
+					               cookie = cookies[i];
+					               if((cookie.getName( )).toString().equals("username")){
+					            	   cookie.setMaxAge(0);											                    
+					               }
+					            }
+					         }
+						}
 					%> <%=invalidLoginPrompt%> <input type="checkbox" value="remember"
 					id="remember" name="remember"> Remember me
 
@@ -127,8 +140,8 @@ input[type="password"] {
 		               cookie = cookies[i];
 		               if((cookie.getName( )).toString().equals("username")){
 		            	   response.addCookie( cookie );
-		            	   request.setAttribute("logintype","cookie");
-		            	   request.setAttribute("loggedinuser", (cookie.getValue()).toString());
+		            	   /* request.setAttribute("logintype","cookie");
+		            	   request.setAttribute("loggedinuser", (cookie.getValue()).toString()); */
 		            	   response.sendRedirect("/hostel-menu-mgmt/Login");											                    
 		               }
 		            }

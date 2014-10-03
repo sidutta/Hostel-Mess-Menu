@@ -101,6 +101,6 @@ Change Hostel
  <%}
  }%>
  <br><br>
- <a href="/hostel-menu-mgmt/login.jsp">Logout</a>
+ <a href="/hostel-menu-mgmt/login.jsp?status=logout">Logout</a>
 </body>
 </html>
