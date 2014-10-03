@@ -165,7 +165,7 @@ body {
 
 						<div class="row">
 							<div class="col-xs-3 col-sm-12 col-md-12  ">
-								<table id="table" class=" table">
+								<table id="table" class="hidden table">
 									<tr>
 										<th class='col-md-2 col-sm-2'>ItemId</th>
 										<th class='col-md-2 col-sm-2'>Food Name</th>
