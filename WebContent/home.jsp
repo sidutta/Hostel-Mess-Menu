@@ -1,6 +1,10 @@
+<%@page import="messmenu.Connect"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
 <%@ page import="java.util.*"%>
+<%@ page import="messmenu.Connect.*"%>
+<%@ page import="java.sql.ResultSet"%>
+<%@ page import="java.sql.Statement"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -82,7 +86,13 @@
 		<!-- Jumbotron -->
 		<div class="jumbotron"
 			style="margin-bottom: 0px; padding-bottom: 0px; padding-top: 0px">
-			<h2>Breakfast</h2>
+			<%
+				Statement st = Connect.getConnection().createStatement();
+				ResultSet rs = st.executeQuery("SELECT * FROM timeFoodType WHERE current_time>=startTime AND current_time<=endTime");
+				rs.next();
+				String mealJustEaten = rs.getString("type");
+			%>
+			<h2><%=mealJustEaten %></h2>
 
 			<p>
 				<a class="btn btn-lg btn-success" href="#" role="button">Review
