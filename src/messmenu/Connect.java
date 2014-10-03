@@ -40,6 +40,7 @@ public class Connect extends HttpServlet {
 			Class.forName("org.postgresql.Driver") ;
 			conn = DriverManager.getConnection(dbURL, username, password);
 			st = conn.createStatement();
+			st.executeUpdate("set time zone interval '05:30' hour to minute");
 			System.out.println("initialized connection: "+conn);
 
 
