@@ -107,15 +107,15 @@ body {
 									<div class="form-group">
 										<select class="combobox form-control" name="hostelno">
 											<option value="" selected="selected">Hostel</option>
-											<option value="H1">H1</option>
-											<option value="H2">H2</option>
-											<option value="H3">H3</option>
-											<option value="H4">H4</option>
-											<option value="H5">H5</option>
-											<option value="H6">H6</option>
-											<option value="H7">H7</option>
-											<option value="H8">H8</option>
-											<option value="H9">H9</option>
+											<option value="H1">H-1</option>
+											<option value="H2">H-2</option>
+											<option value="H3">H-3</option>
+											<option value="H4">H-4</option>
+											<option value="H5">H-5</option>
+											<option value="H6">H-6</option>
+											<option value="H7">H-7</option>
+											<option value="H8">H-8</option>
+											<option value="H9">H-9</option>
 											<option value="H10">H-10</option>
 											<option value="H11">H-11</option>
 											<option value="H12">H-12</option>

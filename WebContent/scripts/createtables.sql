@@ -18,3 +18,4 @@ CREATE TABLE IF NOT EXISTS users (username varchar PRIMARY KEY, name varchar, pa
 CREATE TABLE IF NOT EXISTS foodtype (itemid numeric REFERENCES fooditems(itemid) ON DELETE RESTRICT, type itemtype NOT NULL);
 CREATE TABLE IF NOT EXISTS servings (sid numeric PRIMARY KEY, itemid numeric REFERENCES fooditems(itemid) ON DELETE RESTRICT NOT NULL, type itemtype NOT NULL, servedon date NOT NULL, hostelnumber hostel NOT NULL);
 CREATE TABLE IF NOT EXISTS reviews (username varchar REFERENCES users(username), sid numeric REFERENCES servings(sid) ON DELETE RESTRICT, rating numeric CHECK(rating>=0 AND rating<=5) NOT NULL, review varchar(150));
+CREATE TABLE IF NOT EXISTS timeFoodType (type itemtype PRIMARY KEY, startTime time NOT NULL, endTime time NOT NULL);

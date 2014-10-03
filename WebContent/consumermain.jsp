@@ -7,10 +7,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-<%if(session.getAttribute("consumername")==null)
+<%if(session.getAttribute("name")==null)
 	response.sendRedirect("Login");%>
 <h1>
-<center>Welcome <%=session.getAttribute("consumername") %></center>
+<center>Welcome <%=session.getAttribute("name") %></center>
 </h1>
 
 <form action="Othermenu" method="get">

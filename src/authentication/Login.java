@@ -5,15 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.servlet.ServletException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import java.util.*;
 
 import messmenu.Connect;
 
@@ -40,23 +38,6 @@ public class Login extends HttpServlet {
 			username = temp;
 			isCookie = true; 
 		}
-
-		//		Cookie cookie = null;
-		//		Cookie[] cookies = null;
-		//		// Get an array of Cookies associated with this domain
-		//		cookies = request.getCookies();
-		//		if( cookies != null ){
-		//			for (int i = 0; i < cookies.length; i++){
-		//				cookie = cookies[i];
-		//				if((cookie.getName( )).toString().equals("username")){
-		//					username = (cookie.getValue( )).toString(); 	
-		//					isCookie = true;
-		//					break;
-		//				}
-		//			}
-		//		}
-
-
 
 		boolean valid = false;
 		try {
@@ -86,15 +67,14 @@ public class Login extends HttpServlet {
 				rs.next();
 			}
 			if(valid) {
-				String category=rs.getString("category");
-				//System.out.println(category);
+				String category = rs.getString("category");
+				session.setAttribute("category", category);
+				String name = rs.getString("name");
+				session.setAttribute("consumername", name);
+				String hostelno = rs.getString("hostelnumber");
+				session.setAttribute("hostelno", hostelno);
 				if(category.equals("CONSUMER"))
-				{
-					//System.out.println(rs.getString("name"));
-
-					session.setAttribute("consumername",rs.getString("name"));
-					//request.setAttribute("hostelnumber",rs.getString("hostelnumber"));
-					session.setAttribute("hostelno", rs.getString("hostelnumber"));
+				{					
 					request.setAttribute("initialCall","True");
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/Othermenu");
 					rd.forward(request, response);
@@ -106,15 +86,10 @@ public class Login extends HttpServlet {
 			System.out.println("db query Exception");
 			e.printStackTrace();
 		}
-
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
-	ServletException, IOException
-	{
-
-
+	ServletException, IOException {
 	}
 
 }

@@ -75,3 +75,10 @@ INSERT INTO foodtype VALUES (23, 'DINNER');
 INSERT INTO foodtype VALUES (24, 'DINNER');
 INSERT INTO foodtype VALUES (24, 'LUNCH');
 INSERT INTO foodtype VALUES (25, 'LUNCH');
+
+
+insert into timeFoodType values ('BREAKFAST', '7:00:00', '12:00:00');
+insert into timeFoodType values ('LUNCH', '12:00:00', '16:30:00');
+insert into timeFoodType values ('TIFFIN', '16:30:00', '19:30:00');
+insert into timeFoodType values ('DINNER', '19:30:00', '23:59:00');
+insert into timeFoodType values ('MIDNIGHT', '00:00:00', '7:00:00');

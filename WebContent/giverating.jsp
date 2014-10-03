@@ -1,10 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
+<%@ page import="java.util.*"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Register</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Hostel Menu Management</title>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
@@ -18,10 +26,24 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/css/bootstrap-combobox.css">
 
+<!-- Custom styles for this template -->
+<link
+	href="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/css/justified-nav.css"
+	rel="stylesheet">
+
+
+
+<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+<!--[if lt IE 9]><script src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<script
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie-emulation-modes-warning.js"></script>
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 <style>
-body {
-	background-color: #525252;
-}
 
 .centered-form {
 	margin-top: 60px;
@@ -32,7 +54,7 @@ body {
 	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
 }
 </style>
-<title>Give Ratings</title>
+
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"
 	type="text/javascript"></script>
@@ -70,12 +92,12 @@ body {
 								txt += "<tr><td>" + data[key] + "</td><td>"
 										+ key + "</td>";
 
-								txt += "<td><select class='combobox form-control span2	' name='rating"+i+"' id='rating"+i+"'>"
+								txt += "<td><select class='combobox form-control' name='rating"+i+"' id='rating"+i+"'>"
 										+ "<option value='' selected='selected'>Rate</option>"
 										+ "<option value='Consumer'>1</option>"
 										+ "<option value='Administrator'>2</option>"
 										+ "</select></td>";
-								txt += "<td><select class='combobox form-control span2' name='rate"+i+"' id='rate"+i+"'>"
+								txt += "<td><select class='combobox form-control' name='rate"+i+"' id='rate"+i+"'>"
 										+ "<option value='' selected='selected'>Rate</option>"
 										+ "<option value='Consumer'>1</option>"
 										+ "<option value='Administrator'>2</option>"
@@ -118,10 +140,40 @@ body {
 	}
 </script>
 </head>
+
+
+
 <body>
 	<form>
 		<div class="container">
-			<div class="row centered-form ">
+
+			<div class="masthead">
+				<!-- <table>
+			<tr> -->
+				<div class="row">
+					<!-- <td class='col-md-10	'> -->
+					<h3 class="text-muted col-md-10">Hostel Menu Management</h3>
+					<!-- </td> -->
+					<!-- <td> -->
+					<h4 class="text col-md-2" align="right" vertical-align="center"
+						style="margin-top: 25px;">
+						<%=session.getAttribute("consumername")%>
+					</h4>
+					<!-- </td> -->
+				</div>
+				<!-- </tr>
+			</table> -->
+				<ul class="nav nav-justified">
+					<li><a href="/hostel-menu-mgmt/login.jsp">Home</a></li>
+					<li class="active"><a href="/hostel-menu-mgmt/giverating.jsp">Rate</a></li>
+					<li><a href="#">Services</a></li>
+					<li><a href="#">Downloads</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="/hostel-menu-mgmt/login.jsp?status=logout">Logout</a></li>
+				</ul>
+			</div>
+
+			<div class="row centered-form" style="margin-right:0px; margin-left:0px">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">Give your Rating</h3>
@@ -186,11 +238,7 @@ body {
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/scripts/jquery.validate.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/scripts/additional-methods.min.js"></script>
-
+	
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.combobox').combobox();
@@ -198,6 +246,9 @@ body {
 	</script>
 	<script
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script
+		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie10-viewport-bug-workaround.js"></script>
 
 </body>
 </html>

@@ -1,21 +1,17 @@
 package messmenu;
 
 import java.io.IOException;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
-import javax.servlet.ServletException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import java.util.*;
-
-import messmenu.Connect;
 
 public class Othermenu extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
@@ -31,13 +27,11 @@ public class Othermenu extends HttpServlet {
 		try {
 			HttpSession session = request.getSession();
 			ResultSet rsserving=null;
-			if (request.getAttribute("initialCall")!=null)
-			{
+			if (request.getAttribute("initialCall")!=null) {
 				rsserving=st.executeQuery("SELECT itemname,type FROM servings natural join fooditems where servedon=current_date and hostelnumber='"+session.getAttribute("hostelno")+"'" );	
 				request.setAttribute("hostelnumber",session.getAttribute("hostelno"));
 			}
-			else
-			{
+			else {
 				rsserving=st.executeQuery("SELECT itemname,type FROM servings natural join fooditems where servedon=current_date and hostelnumber='"+request.getParameter("hostelnum")+"'" );
 				request.setAttribute("hostelnumber",request.getParameter("hostelnum"));
 			}
@@ -66,7 +60,7 @@ public class Othermenu extends HttpServlet {
 			request.setAttribute("dinner",dinner);
 			//request.setAttribute("consumername",request.getParameter("consumername"));
 			//request.setAttribute("hostelnumber",request.getParameter("hostelnum"));
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/consumermain.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/home.jsp");
 			rd.forward(request, response);
 
 
