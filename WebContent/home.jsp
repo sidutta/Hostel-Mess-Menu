@@ -87,6 +87,7 @@
 			style="margin-bottom: 0px; padding-bottom: 0px; padding-top: 0px">
 			<%
 				Statement st = Connect.getConnection().createStatement();
+				st.executeUpdate("set time zone interval '05:30' hour to minute");
 				ResultSet rs = st.executeQuery("SELECT * FROM timeFoodType WHERE current_time>=startTime AND current_time<=endTime");
 				rs.next();
 				String mealJustEaten = rs.getString("type");
