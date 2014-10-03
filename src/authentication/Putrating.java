@@ -1,15 +1,24 @@
 package authentication;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import messmenu.Connect;
 
@@ -23,10 +32,27 @@ public class Putrating extends HttpServlet {
 		String day = request.getParameter("day");
 		String foodtype=request.getParameter("foodtype");
 		
+		if( day != null && foodtype != null && foodtype != "" && day != ""){
 		System.out.println(day);
 		System.out.println(foodtype);
 		
+		String username ="";
+		String hostelno ="";
 		
+		Cookie cookie = null;
+		Cookie[] cookies = null;
+		// Get an array of Cookies associated with this domain
+		cookies = request.getCookies();
+		if( cookies != null ){
+			for (int i = 0; i < cookies.length; i++){
+				cookie = cookies[i];
+				if((cookie.getName( )).toString().equals("username")){
+					username = (cookie.getValue( )).toString(); 	
+					break;
+				}
+			}
+		}
+
 	
 		
 		try {
@@ -34,24 +60,79 @@ public class Putrating extends HttpServlet {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		
+		String dt;
+		String[] tp = {" "," "," "};
 		try {
-			rs = st.executeQuery("SELECT GETDATE() AS CurrentDateTime");
+			rs = st.executeQuery("SELECT now()::date");
 			while(rs.next()){
-				System.out.println(rs);
+				dt =rs.getString(1);
+				tp = dt.split("-");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 		}
-		String[] alldays =
-	         {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+		Map<String, Integer> x = new HashMap();
+		x.put("Monday", 1);
+		x.put("Tuesday", 2);
+		x.put("Wednesday", 3);
+		x.put("Thursday", 4);
+		x.put("Friday", 5);
+		x.put("Saturday", 6);
+		x.put("Sunday", 7);
+
+		int asked = x.get(day);
+		
+		
+		System.out.println(asked);
 		
 		Calendar c = Calendar.getInstance();
-	//	c.set(year, month, day);
+		c.set(Integer.parseInt(tp[0]), Integer.parseInt(tp[1]), Integer.parseInt(tp[0]));
+		
+		int day_of_week = c.get(Calendar.DAY_OF_WEEK);
+		System.out.println(day_of_week);
+		
+		int back_forw = day_of_week - asked;
+		String bs = String.valueOf(back_forw);
+		try {
+			rs = st.executeQuery("SELECT * FROM users WHERE username = '" + username +"'");
+			rs.next();
+			hostelno = rs.getString("hostelnumber");
+			System.out.println(hostelno+ " "+foodtype);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			String toex = "SELECT itemname , itemid FROM servings natural join fooditems where type='"+foodtype+"' and servedon=current_date-"+bs+" and hostelnumber='"+hostelno+"'" ;
+			System.out.println(toex);
+			ResultSet rs1=st.executeQuery(toex);
+			   JSONObject obj = new JSONObject();
 
-		//int day_of_week = c.get(Calendar.DAY_OF_WEEK);
+		   while(rs1.next()){
+			   
+		        obj.put(rs1.getString(1), rs1.getString(2));
+		        
+		   }
+		  System.out.print(obj);
+		  
+		  PrintWriter out = response.getWriter();
+	   
+	        out.println(obj.toString());
+	 
+	        out.close();
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		}
 
 	}
 }
