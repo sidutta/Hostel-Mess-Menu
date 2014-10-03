@@ -109,7 +109,7 @@
 			</div>
 			<div class="col-lg-6">
 
-				
+
 
 				<h2>
 					<center>
@@ -120,83 +120,81 @@
 						<%=hostel%>
 					</center>
 				</h2>
-				<p>
-				<h3>Breakfast</h3>
-				<%
+
+				<table class="table">
+					<tr>
+						<td>Breakfast</td>
+						<td>
+							<%
 					ArrayList<String> bfast = (ArrayList<String>) request
 							.getAttribute("bfast");
 					if (bfast.isEmpty()) {
-				%>
-				Data Not Available
-				<%
+				%> Data Not Available <%
 					} else {
 						for (String fooditem : bfast) {
-				%>
-				<%=fooditem%><br>
-				<%
+				%> <%=fooditem%><br> <%
 					}
 					}
 				%>
+						</td>
+					</tr>
 
-
-				<h3>Lunch</h3>
-				<%
+					<tr>
+						<td>Lunch</td>
+						<td>
+							<%
 					ArrayList<String> lunch = (ArrayList<String>) request
 							.getAttribute("lunch");
 					if (lunch.isEmpty()) {
-				%>
-				Data Not Available
-				<%
+				%> Data Not Available <%
 					} else {
 						for (String fooditem : lunch) {
-				%>
-				<%=fooditem%><br>
-				<%
+				%> <%=fooditem%><br> <%
 					}
 					}
 				%>
-
-
-				<h3>Tiffin</h3>
-				<%
+						</td>
+					</tr>
+					<tr>
+						<td>Tiffin</td>
+						<td>
+							<%
 					ArrayList<String> tiffin = (ArrayList<String>) request
 							.getAttribute("tiffin");
 					if (tiffin.isEmpty()) {
-				%>
-				Data Not Available
-				<%
+				%> Data Not Available <%
 					} else {
 						for (String fooditem : tiffin) {
-				%>
-				<%=fooditem%><br>
-				<%
+				%> <%=fooditem%><br> <%
 					}
 					}
 				%>
+						</td>
+					</tr>
 
-
-				<h3>Dinner</h3>
-				<%
+					<tr>
+						<td>Dinner</td>
+						<td>
+							<%
 					ArrayList<String> dinner = (ArrayList<String>) request
 							.getAttribute("dinner");
 					if (dinner.isEmpty()) {
-				%>
-				Data Not Available
-				<%
+				%> Data Not Available <%
 					} else {
 						for (String fooditem : dinner) {
-				%>
-				<%=fooditem%><br>
-				<%
+				%> <%=fooditem%><br> <%
 					}
 					}
 				%>
+						</td>
+					</tr>
+				</table>
 				<br> <br>
 
 
-				</p>
-				
-				
+
+
+
 				<form action="Othermenu" method="get" class="col-lg-3">
 					<center>
 						<div class="form-group">
@@ -218,9 +216,9 @@
 								<option value="H14">H-14</option>
 								<option value="H15">H-15</option>
 
-							</select>
-						<br>
-						<button class="btn btn-sm btn-primary btn-block" type="submit" value="Change">Go</button>
+							</select> <br>
+							<button class="btn btn-sm btn-primary btn-block" type="submit"
+								value="Change">Go</button>
 						</div>
 					</center>
 				</form>
@@ -262,7 +260,7 @@
 	</script>
 	<script
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
-	
+
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie10-viewport-bug-workaround.js"></script>
