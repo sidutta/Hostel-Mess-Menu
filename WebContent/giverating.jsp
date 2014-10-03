@@ -84,7 +84,8 @@
 					//if received a response from the server
 					success : function(data, textStatus, jqXHR) {
 						//our country code was correct so we have some information to display
-
+						$("#message").empty();
+						$("#table").empty();
 						var txt = "";
 						var i = 0;
 						for ( var key in data) {
@@ -108,8 +109,13 @@
 							}
 						}
 						if (txt != "") {
+							
 							$("#table").append(txt).removeClass("hidden");
 							console.log(txt);
+						}
+						else {
+							
+							$("#message").append("No Data Available");
 						}
 
 					},
@@ -123,6 +129,8 @@
 
 					//capture the request before it was sent to server
 					beforeSend : function(jqXHR, settings) {
+						$("#message").empty().append("Loading...");
+						$("#table").empty();
 						//adding some Dummy data to the request
 						settings.data += "&dummyData=whatever";
 						//disable the button until we get the response
@@ -228,6 +236,7 @@
 								</table>
 							</div>
 						</div>
+						<center><div class="text-muted" id="message"> </div></center>
 					</div>
 				</div>
 			</div>
