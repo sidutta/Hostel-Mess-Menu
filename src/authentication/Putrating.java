@@ -1,14 +1,15 @@
 package authentication;
 
 import java.io.IOException;
+
+
+
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -112,9 +113,9 @@ public class Putrating extends HttpServlet {
 				JSONObject obj = new JSONObject();
 
 				while(rs1.next()){
-
+					
 					obj.put(rs1.getString(1), rs1.getString(2));
-
+					
 				}
 				System.out.print(obj);
 
