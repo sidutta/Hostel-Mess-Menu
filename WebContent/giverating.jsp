@@ -286,7 +286,7 @@
 									</tr>
 								</table>
 							</div>
-							<button value="Submit"  id="butt" onclick = "sendratings()"class="hidden" ></button>
+							<button value="Submit"  id="butt" onclick = "sendratings()"class="hidden" >Submit Your Rating</button>
 						</div>
 						<center><div class="text-muted" id="message"> </div></center>
 					</div>
