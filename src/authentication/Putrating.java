@@ -5,22 +5,20 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import messmenu.Connect;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import messmenu.Connect;
 
 public class Putrating extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
