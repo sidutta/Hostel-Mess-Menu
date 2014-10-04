@@ -5,10 +5,10 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
+import java.util.*;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +26,7 @@ public class Putrating extends HttpServlet {
 	{
 		ResultSet rs = null;
 		Statement st = null;
+		System.out.println("Gooooogle");
 
 		String day = request.getParameter("day");
 		String foodtype = request.getParameter("foodtype");
@@ -55,6 +56,7 @@ public class Putrating extends HttpServlet {
 
 			try {
 				st = Connect.getConnection().createStatement();
+				st.executeUpdate("set time zone interval '05:30' hour to minute");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -71,28 +73,30 @@ public class Putrating extends HttpServlet {
 
 				e.printStackTrace();
 			}
-			Map<String, Integer> x = new HashMap<String, Integer>();
-			x.put("Monday", 1);
-			x.put("Tuesday", 2);
-			x.put("Wednesday", 3);
-			x.put("Thursday", 4);
-			x.put("Friday", 5);
-			x.put("Saturday", 6);
-			x.put("Sunday", 7);
+
+			Map<String, Integer> x = new HashMap();
+			x.put("Monday", 2);
+			x.put("Tuesday", 3);
+			x.put("Wednesday", 4);
+			x.put("Thursday", 5);
+			x.put("Friday", 6);
+			x.put("Saturday", 7);
+			x.put("Sunday", 1);
 
 			int asked = x.get(day);
 
 
-			System.out.println(asked);
+			System.out.println( Integer.parseInt(tp[2]));
 
 			Calendar c = Calendar.getInstance();
-			c.set(Integer.parseInt(tp[0]), Integer.parseInt(tp[1]), Integer.parseInt(tp[0]));
+			c.set(Integer.parseInt(tp[0]), Integer.parseInt(tp[1])-1, Integer.parseInt(tp[2]));
 
 			int day_of_week = c.get(Calendar.DAY_OF_WEEK);
+			//day_of_week = (day_of_week+6)
 			System.out.println(day_of_week);
 
 			int back_forw = day_of_week - asked;
-			String bs = String.valueOf(back_forw);
+			String bs = String.valueOf(-back_forw);
 			try {
 				rs = st.executeQuery("SELECT * FROM users WHERE username = '" + username +"'");
 				rs.next();
@@ -104,7 +108,7 @@ public class Putrating extends HttpServlet {
 			}
 
 			try {
-				String toex = "SELECT itemname , itemid FROM servings natural join fooditems where type='"+foodtype+"' and servedon=current_date-"+bs+" and hostelnumber='"+hostelno+"'" ;
+				String toex = "SELECT itemname , sid FROM servings natural join fooditems where type='"+foodtype+"' and servedon=current_date+"+bs+" and hostelnumber='"+hostelno+"'" ;
 				System.out.println(toex);
 				ResultSet rs1=st.executeQuery(toex);
 				JSONObject obj = new JSONObject();

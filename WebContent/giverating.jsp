@@ -62,6 +62,8 @@
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
 	type="text/javascript"></script>
 <script>
+ var jsondata;
+
 	function callAjax() {
 		dataString = $("#myAjaxRequestForm").serialize();
 
@@ -71,11 +73,10 @@
 		dataString = "day=" + day + "&foodtype=" + foodtype;
 		console.log("yo");
 
-		var jsondata;
+		// jsondata;
 		//make the AJAX request, dataType is set to json
 		//meaning we are expecting JSON data in response from the server
-		$
-				.ajax({
+		$.ajax({
 					type : "POST",
 					url : "Putrating",
 					data : dataString,
@@ -88,8 +89,10 @@
 						$("#table").empty();
 						var txt = "";
 						var i = 0;
+						jsondata = data;
 						for ( var key in data) {
 							if (data.hasOwnProperty(key)) {
+								
 								txt += "<tr><td>" + data[key] + "</td><td>"
 										+ key + "</td>";
 
@@ -98,20 +101,26 @@
 										+ "<option value='Consumer'>1</option>"
 										+ "<option value='Administrator'>2</option>"
 										+ "</select></td>";
-								txt += "<td><select class='combobox form-control' name='rate"+i+"' id='rate"+i+"'>"
+								txt += "<td><select class='combobox form-control' name='rate@"+data[key]+"' id='rate@"+data[key]+"'>"
 										+ "<option value='' selected='selected'>Rate</option>"
-										+ "<option value='Consumer'>1</option>"
-										+ "<option value='Administrator'>2</option>"
+										+ "<option value='1'>1</option>"
+										+ "<option value='2'>2</option>"
+										+ "<option value='3'>3</option>"
+										+ "<option value='4'>4</option>"
+										+ "<option value='5'>5</option>"
 										+ "</select></td>";
-								txt += "<td><textarea class='col-md-12 col-sm-12' rows='3' placeholder='Comment' name='comment"+i+"' id='comment"+i+"' required></textarea></td>";
+								txt += "<td><textarea class='col-md-12 col-sm-12' rows='3' placeholder='Comment' name='comment@"+data[key]+"' id='comment@"+data[key]+"' required></textarea></td>";
 								txt += "</tr>";
+								
 								i = i + 1;
 							}
 						}
 						if (txt != "") {
-							
+						//	txt += "<input type=submit onclick='sendratings()'>"
+						  //  txt += "</form>"
 							$("#table").append(txt).removeClass("hidden");
-							console.log(txt);
+						    $('#butt').removeClass("hidden");
+							//console.log(txt);
 						}
 						else {
 							
@@ -131,6 +140,7 @@
 					beforeSend : function(jqXHR, settings) {
 						$("#message").empty().append("Loading...");
 						$("#table").empty();
+						console.log("yoo3243o");
 						//adding some Dummy data to the request
 						settings.data += "&dummyData=whatever";
 						//disable the button until we get the response
@@ -145,6 +155,47 @@
 					}
 
 				});
+	}
+	
+	function sendratings(){
+		
+		 
+		 dataString1 = "yo=yo" ;
+		 console.log(jsondata);
+		 for ( var key in jsondata) {
+				if (jsondata.hasOwnProperty(key)) {
+					var createid = "rate@"+jsondata[key].toString();
+					var createcomm = "comment@"+jsondata[key].toString();
+					console.log("-----");
+					console.log(createid);console.log(createcomm);
+					var rate = document.getElementById(createid).value;
+					var comment = document.getElementById(createcomm).value;
+						console.log(rate);console.log(comment);
+
+					dataString1 += "&rate:"+jsondata[key].toString()+"="+rate;
+					dataString1 += "&comment:"+jsondata[key].toString()+"="+comment;
+
+				}
+		 }
+		 console.log(dataString1);
+		 
+			$.ajax({
+				type : "POST",
+				url : "Putrating2",
+				data : dataString1,	
+				dataType : "json",
+
+				//if received a response from the server
+				success : function(data, textStatus, jqXHR) {
+				
+				},
+			beforeSend : function(jqXHR, settings) {
+				console.log("yooo");
+				console.log(dataString1);
+			},
+				
+			});	
+		 
 	}
 </script>
 </head>
@@ -235,6 +286,7 @@
 									</tr>
 								</table>
 							</div>
+							<button value="Submit"  id="butt" onclick = "sendratings()"class="hidden" >Submit Your Rating</button>
 						</div>
 						<center><div class="text-muted" id="message"> </div></center>
 					</div>

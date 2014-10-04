@@ -53,6 +53,18 @@
     <servlet-name>Putrating</servlet-name>
     <url-pattern>/Putrating</url-pattern>
       </servlet-mapping>
+      
+       <servlet>
+    <description></description>
+    <display-name>Putrating2</display-name>
+    <servlet-name>Putrating2</servlet-name>
+    <servlet-class>authentication.Putrating2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Putrating2</servlet-name>
+    <url-pattern>/Putrating2</url-pattern>
+      </servlet-mapping>
+    
     
   <servlet>
     <description></description>
