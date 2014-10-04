@@ -106,7 +106,7 @@ body {
 
 								<div class="col-xs-3 col-sm-3 col-md-3">
 									<div class="form-group">
-										<select class="combobox form-control" name="hostelno">
+										<select multiple class="combobox form-control" name="hostelno">
 											<option value="" selected="selected">Hostel</option>
 											<option value="H1">H-1</option>
 											<option value="H2">H-2</option>

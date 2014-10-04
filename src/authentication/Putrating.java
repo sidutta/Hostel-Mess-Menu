@@ -71,7 +71,7 @@ public class Putrating extends HttpServlet {
 
 				e.printStackTrace();
 			}
-			Map<String, Integer> x = new HashMap();
+			Map<String, Integer> x = new HashMap<String, Integer>();
 			x.put("Monday", 1);
 			x.put("Tuesday", 2);
 			x.put("Wednesday", 3);
@@ -110,9 +110,9 @@ public class Putrating extends HttpServlet {
 				JSONObject obj = new JSONObject();
 
 				while(rs1.next()){
-
+					
 					obj.put(rs1.getString(1), rs1.getString(2));
-
+					
 				}
 				System.out.print(obj);
 
