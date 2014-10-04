@@ -101,7 +101,7 @@
 										+ "<option value='Consumer'>1</option>"
 										+ "<option value='Administrator'>2</option>"
 										+ "</select></td>";
-								txt += "<td><select class='combobox form-control' name='rate"+i+"' id='rate:"+key+"'>"
+								txt += "<td><select class='combobox form-control' name='rate@"+data[key]+"' id='rate@"+data[key]+"'>"
 										+ "<option value='' selected='selected'>Rate</option>"
 										+ "<option value='1'>1</option>"
 										+ "<option value='2'>2</option>"
@@ -109,7 +109,7 @@
 										+ "<option value='4'>4</option>"
 										+ "<option value='5'>5</option>"
 										+ "</select></td>";
-								txt += "<td><textarea class='col-md-12 col-sm-12' rows='3' placeholder='Comment' name='comment"+i+"' id='comment:"+key+"' required></textarea></td>";
+								txt += "<td><textarea class='col-md-12 col-sm-12' rows='3' placeholder='Comment' name='comment@"+data[key]+"' id='comment@"+data[key]+"' required></textarea></td>";
 								txt += "</tr>";
 								
 								i = i + 1;
@@ -140,6 +140,7 @@
 					beforeSend : function(jqXHR, settings) {
 						$("#message").empty().append("Loading...");
 						$("#table").empty();
+						console.log("yoo3243o");
 						//adding some Dummy data to the request
 						settings.data += "&dummyData=whatever";
 						//disable the button until we get the response
@@ -163,18 +164,22 @@
 		 console.log(jsondata);
 		 for ( var key in jsondata) {
 				if (jsondata.hasOwnProperty(key)) {
-					var createid = "#rate:"+key.toString();
-					var createcomm = "#comment:"+key.toString();
-					var rate = $(createid).val();
-					var comment = $(createcomm).val();
-					dataString1 += "&rate:"+key.toString()+"="+rate;
-					dataString1 += "&comment:"+key.toString()+"="+comment;
+					var createid = "rate@"+jsondata[key].toString();
+					var createcomm = "comment@"+jsondata[key].toString();
+					console.log("-----");
+					console.log(createid);console.log(createcomm);
+					var rate = document.getElementById(createid).value;
+					var comment = document.getElementById(createcomm).value;
+						console.log(rate);console.log(comment);
+
+					dataString1 += "&rate:"+jsondata[key].toString()+"="+rate;
+					dataString1 += "&comment:"+jsondata[key].toString()+"="+comment;
 
 				}
 		 }
 		 console.log(dataString1);
 		 
-			/* $.ajax({
+			$.ajax({
 				type : "POST",
 				url : "Putrating2",
 				data : dataString1,	
@@ -183,10 +188,14 @@
 				//if received a response from the server
 				success : function(data, textStatus, jqXHR) {
 				
-				}
+				},
+			beforeSend : function(jqXHR, settings) {
+				console.log("yooo");
+				console.log(dataString1);
+			},
 				
 			});	
-		 */
+		 
 	}
 </script>
 </head>
