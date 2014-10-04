@@ -71,8 +71,7 @@
 		var jsondata;
 		//make the AJAX request, dataType is set to json
 		//meaning we are expecting JSON data in response from the server
-		$
-				.ajax({
+		$.ajax({
 					type : "GET",
 					url : "Othermenu",
 					data : dataString,
@@ -360,7 +359,7 @@ details &raquo;</a></p>
 
 </select> <br>
 <button class="btn btn-sm btn-primary btn-block"
-	value="Change"onclick="callAjax();">Go</button>
+	value="Change" onclick="callAjax();">Go</button>
 </div>
 </center>
 </form>
