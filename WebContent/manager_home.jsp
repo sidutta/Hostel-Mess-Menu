@@ -80,8 +80,9 @@ function asd() {
 } 
  
 function updateValue(){ 
+	callAjax2();
 	callAjax();
-    callAjax2();
+    
     }
 
 window.addEvent(window, "load", updateValue, false); 
@@ -97,22 +98,33 @@ window.addEvent(window, "load", updateValue, false);
  
 	function callAjax() {
 		//dataString = $("#myAjaxRequestForm").serialize();
-
+		var day = $("#day").val();
+		if(day=="") day="initial";
+		//if(day=="") hnum="<%=session.getAttribute("hostelno")%>";
 		
 		
 		
 		//get the form data using another method 
 		var hnum ="<%=session.getAttribute("hostelno")%>";
-		$("#hosteltitle").empty().append("This week's menu at "+ hnum);
-		dataString = "hostelnum=" + hnum + "&initialCall=False";
-		console.log("yo");
+		if(day=="initial")
+		$("#settitle").empty().append("Set today's menu");
+		else
+			$("#settitle").empty().append("Set "+day+"'s menu");
+		
+		if(day=="initial")
+			$("#hosteltitle").empty().append("Today's menu at "+ hnum);
+			else
+				$("#hosteltitle").empty().append(day+"'s menu at "+ hnum);
+		
+		dataString = "day=" + day + "&initialCall=False";
+		console.log("yocallhua");
 
 		var jsondata;
 		//make the AJAX request, dataType is set to json
 		//meaning we are expecting JSON data in response from the server
 		$.ajax({
 			type : "GET",
-			url : "Othermenu",
+			url : "AddMenu",
 			data : dataString,
 			dataType : "json",
 			//if received a response from the server
@@ -123,10 +135,11 @@ window.addEvent(window, "load", updateValue, false);
 				//alert("eeff" + data.dinner);
 
 				//obj = JSON.parse(data);
-				var bfastArray = data.bfast;//alert("eegg"+bfastArray);
+				console.log("yocallreturnhua");
 				var lunchArray = data.lunch;//alert("eeff" + data.dinner);
 				var tiffinArray = data.tiffin;
 				var dinnerArray = data.dinner;//alert("eeff" + data.dinner);
+				var bfastArray = data.bfast;//alert("eegg"+bfastArray);
 				var bfasttxt = "";
 				var lunchtxt = "";
 				var tiffintxt = "";
@@ -199,11 +212,10 @@ window.addEvent(window, "load", updateValue, false);
 		});
 	}
 	function callAjax2() {
-		
+		console.log("Ajax2callhua");
 		$.ajax({
 			type : "GET",
-			url : "AddMenu",
-			data : dataString,
+			url : "GetItems",
 			dataType : "json",
 			//if received a response from the server
 			success : function(data, textStatus, jqXHR) {
@@ -213,6 +225,7 @@ window.addEvent(window, "load", updateValue, false);
 				//alert("eeff" + data.dinner);
 
 				//obj = JSON.parse(data);
+				console.log("Ajax2callreturnhua");
 				var bfastArray = data.bfast;//alert("eegg"+bfastArray);
 				var lunchArray = data.lunch;//alert("eeff" + data.dinner);
 				var tiffinArray = data.tiffin;
@@ -224,6 +237,7 @@ window.addEvent(window, "load", updateValue, false);
 
 				for (i = 0; i < bfastArray.length; i++) {
 						var o = new Option(bfastArray[i], bfastArray[i]);
+						//o.setAttribute("selected","selected");
 						$(o).html(bfastArray[i]);
 						$("#bfast").append(o);
 						
@@ -307,7 +321,7 @@ window.addEvent(window, "load", updateValue, false);
 						<center>
 							<div class="form-group">
 								<select class="combobox form-control" name="day"
-									onchange="callAjax2()" id="day">
+									id="day"onchange="callAjax()">
 									<option value="" selected="selected">Day</option>
 									<option value="Monday">Monday</option>
 									<option value="Tuesday">Tuesday</option>
@@ -331,7 +345,7 @@ window.addEvent(window, "load", updateValue, false);
 				<div class="panel panel-default col-lg-5"
 					style="margin-right: 0px; margin-left: 3.8%">
 					<div class="panel-heading">
-						<h3 class="panel-title" id="hosteltitle">This week's menu</h3>
+						<h3 class="panel-title" id="hosteltitle">Today's menu</h3>
 					</div>
 					<div class="panel-body">
 
@@ -347,7 +361,7 @@ window.addEvent(window, "load", updateValue, false);
 				<div class="col-lg-1"></div>
 				<div class="panel panel-default col-lg-5">
 					<div class="panel-heading">
-						<h3 class="panel-title">Set this week's menu</h3>
+						<h3 class="panel-title"id="settitle">Set this week's menu</h3>
 
 					</div>
 					<div class="panel-body">

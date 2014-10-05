@@ -9,7 +9,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-
   <servlet>
     <description></description>
     <display-name>Connect</display-name>
@@ -21,7 +20,6 @@
     <servlet-name>Connect</servlet-name>
     <url-pattern>/Connect</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <description></description>
     <display-name>Login</display-name>
@@ -42,8 +40,7 @@
     <servlet-name>Registration</servlet-name>
     <url-pattern>/Registration</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>Putrating</display-name>
     <servlet-name>Putrating</servlet-name>
@@ -52,9 +49,8 @@
   <servlet-mapping>
     <servlet-name>Putrating</servlet-name>
     <url-pattern>/Putrating</url-pattern>
-      </servlet-mapping>
-      
-       <servlet>
+  </servlet-mapping>
+  <servlet>
     <description></description>
     <display-name>Putrating2</display-name>
     <servlet-name>Putrating2</servlet-name>
@@ -63,9 +59,7 @@
   <servlet-mapping>
     <servlet-name>Putrating2</servlet-name>
     <url-pattern>/Putrating2</url-pattern>
-      </servlet-mapping>
-    
-    
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>Othermenu</display-name>
@@ -76,7 +70,6 @@
     <servlet-name>Othermenu</servlet-name>
     <url-pattern>/Othermenu</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>AddMenu</display-name>
@@ -87,8 +80,17 @@
     <servlet-name>AddMenu</servlet-name>
     <url-pattern>/AddMenu</url-pattern>
   </servlet-mapping>
-  
   <session-config>
     <session-timeout>60</session-timeout>
   </session-config>
+  <servlet>
+    <description></description>
+    <display-name>GetItems</display-name>
+    <servlet-name>GetItems</servlet-name>
+    <servlet-class>messmenu.GetItems</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetItems</servlet-name>
+    <url-pattern>/GetItems</url-pattern>
+  </servlet-mapping>
 </web-app>
