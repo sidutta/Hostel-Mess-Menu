@@ -84,8 +84,12 @@ public class Putrating2 extends HttpServlet {
 			 try {
 				rs = st.executeQuery(tocheck);
 				if(rs.next()){
-					 String upd = "UPDATE reviews set rating='"+entry.getValue()+"',' review='"+comments.get(entry.getKey())+"' where username='"+username+"' and sid ='"+entry.getKey()+"'";
-					 st.executeUpdate(upd);
+					 String upd1 = "UPDATE reviews set rating='"+entry.getValue()+"' where username='"+username+"' and sid ='"+entry.getKey()+"'";
+					 String upd2 = "UPDATE reviews set  review='"+comments.get(entry.getKey())+"' where username='"+username+"' and sid ='"+entry.getKey()+"'";
+
+					 st.executeUpdate(upd1);
+					 st.executeUpdate(upd2);
+
 				 }
 				else{
 					 String toex = "INSERT INTO reviews values('"+username+"','"+entry.getKey()+"','"+entry.getValue()+"','"+comments.get(entry.getKey())+"')";
