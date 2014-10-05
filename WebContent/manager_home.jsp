@@ -76,6 +76,7 @@
  window.addEvent=function(e,ev,f,c){if(e.addEventListener){e.addEventListener(ev,f,c);}else if(e.attachEvent){var r=e.attachEvent('on'+ev,f);return r;}else{e['on'+ev]=f;}};
 
 function updateValue(){ 
+	callAjax();
     callAjax2();
     }
 
@@ -351,7 +352,7 @@ window.addEvent(window, "load", updateValue, false);
 							<div class="col-lg-5">
 								<h4>Breakfast</h4>
 
-								<select multiple id="bfast">
+								<select multiple id="bfast" style="width:300px min-width:300px">
 									<option value="AL">Alabama</option>
 									<option value="WY">Wyoming</option>
 								</select>
@@ -360,7 +361,7 @@ window.addEvent(window, "load", updateValue, false);
 						<div class="row">
 							<div class="col-lg-5">
 								<h4>Lunch</h4>
-								<select multiple id="lunch">
+								<select multiple id="lunch" style="width:300px min-width:300px">
 									<option value="AL">Alabama</option>
 									<option value="WY">Wyoming</option>
 								</select>
@@ -371,7 +372,7 @@ window.addEvent(window, "load", updateValue, false);
 							<div class="col-lg-5">
 								<h4>Tiffin</h4>
 
-								<select multiple id="tiffin">
+								<select multiple id="tiffin" style="width:300px min-width:300px">
 									<option value="AL">Alabama</option>
 									<option value="WY">Wyoming</option>
 								</select>
@@ -380,7 +381,7 @@ window.addEvent(window, "load", updateValue, false);
 						<div class="row">
 							<div class="col-lg-5">
 								<h4>Dinner</h4>
-								<select multiple id="dinner">
+								<select multiple id="dinner" style="width:300px min-width:300px">
 									<option value="AL">Alabama</option>
 									<option value="WY">Wyoming</option>
 								</select>

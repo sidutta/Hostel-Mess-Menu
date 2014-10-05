@@ -79,13 +79,13 @@
   
   <servlet>
     <description></description>
-    <display-name>Addmenu</display-name>
-    <servlet-name>Addmenu</servlet-name>
-    <servlet-class>messmenu.Addmenu</servlet-class>
+    <display-name>AddMenu</display-name>
+    <servlet-name>AddMenu</servlet-name>
+    <servlet-class>messmenu.AddMenu</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Addmenu</servlet-name>
-    <url-pattern>/Addmenu</url-pattern>
+    <servlet-name>AddMenu</servlet-name>
+    <url-pattern>/AddMenu</url-pattern>
   </servlet-mapping>
   
   <session-config>

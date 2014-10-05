@@ -40,7 +40,7 @@ public class AddMenu extends HttpServlet {
 			ArrayList <String> dinner=new ArrayList<String>();
 			
 				
-				rsserving=st.executeQuery("SELECT itemname,itemid,type FROM foodtype natural join fooditems where servedon=current_date and hostelnumber='"+request.getParameter("hostelnum")+"'" );
+				rsserving=st.executeQuery("SELECT itemname,itemid,type FROM foodtype natural join fooditems " );
 
 				request.setAttribute("hostelnumber",request.getParameter("hostelnum"));
 				System.out.println(request.getParameter("hostelnum"));
@@ -101,7 +101,7 @@ public class AddMenu extends HttpServlet {
 		System.out.println("enteredyo11");
 		System.out.println(request.getParameter("hostelnum"));
 		
-		rsserving=st.executeQuery("SELECT itemname, itemid, type FROM foodtype natural join fooditems where servedon=current_date and hostelnumber='"+request.getParameter("hostelnum")+"'" );
+		rsserving=st.executeQuery("SELECT itemname, itemid, type FROM foodtype natural join fooditems" );
 
 		request.setAttribute("hostelnumber",request.getParameter("hostelnum"));
 		System.out.println(request.getParameter("hostelnum"));
