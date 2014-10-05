@@ -286,15 +286,18 @@
 									</tr>
 								</table>
 							</div>
-							<button value="Submit"  id="butt" onclick = "sendratings()"class="hidden" >Submit Your Rating</button>
 						</div>
+						
 						<center><div class="text-muted" id="message"> </div></center>
 					</div>
 				</div>
 			</div>
 		</div>
 	</form>
-
+	<div class="row"><center>
+						<button value="Submit"  id="butt" onclick = "sendratings()"class="hidden" >Submit Your Rating</button>
+						</center>
+						</div>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
 	<script type="text/javascript"

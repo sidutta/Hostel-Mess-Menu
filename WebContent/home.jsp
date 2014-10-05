@@ -179,7 +179,6 @@ window.addEvent(window, "load", updateValue, false);
 		});
 	}
 </script>
-<!-- Ajax json ends -->
 
 
 

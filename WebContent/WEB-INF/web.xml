@@ -77,6 +77,17 @@
     <url-pattern>/Othermenu</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <description></description>
+    <display-name>Addmenu</display-name>
+    <servlet-name>Addmenu</servlet-name>
+    <servlet-class>messmenu.Addmenu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Addmenu</servlet-name>
+    <url-pattern>/Addmenu</url-pattern>
+  </servlet-mapping>
+  
   <session-config>
     <session-timeout>60</session-timeout>
   </session-config>
