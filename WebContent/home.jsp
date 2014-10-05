@@ -84,7 +84,7 @@ window.addEvent(window, "load", updateValue, false);
 		//get the form data using another method 
 		var hnum = $("#hostelnum").val();
 		if(hnum=="") hnum="<%=session.getAttribute("hostelno")%>";
-		
+		$("#hosteltitle").empty().append(hnum);
 		dataString = "hostelnum=" + hnum + "&initialCall=False";
 		console.log("yo");
 
@@ -261,47 +261,53 @@ window.addEvent(window, "load", updateValue, false);
 				<h2>
 					<center>
 						
-					</center>
+						Today's Menu at <div id="hosteltitle"></div></center>
 				</h2>
 
 				<table id="table" class="table">
-					
+
 				</table>
-				<br><div id="message"></div> <br>
-
-
-
-
-
-				<form class="col-lg-3">
-					<center>
-						<div class="form-group">
-							<select class="combobox form-control" id="hostelnum">
-								<option value="" selected="selected">Hostel</option>
-								<option value="H1">H-1</option>
-								<option value="H2">H-2</option>
-								<option value="H3">H-3</option>
-								<option value="H4">H-4</option>
-								<option value="H5">H-5</option>
-								<option value="H6">H-6</option>
-								<option value="H7">H-7</option>
-								<option value="H8">H-8</option>
-								<option value="H9">H-9</option>
-								<option value="H10">H-10</option>
-								<option value="H11">H-11</option>
-								<option value="H12">H-12</option>
-								<option value="H13">H-13</option>
-								<option value="H14">H-14</option>
-								<option value="H15">H-15</option>
-
-							</select> <br>
-							
-						</div>
-					</center>
-				</form>
-				<button class="btn btn-sm btn-primary btn-block" value="Change"
-								onclick="callAjax();">Go</button>
 				<br>
+				<div id="message"></div>
+				<br>
+
+
+
+				<div class="row">
+					<div class="col-lg-3">
+						<form>
+							<center>
+								<div class="form-group">
+									<select class="combobox form-control" id="hostelnum">
+										<option value="" selected="selected">Hostel</option>
+										<option value="H1">H-1</option>
+										<option value="H2">H-2</option>
+										<option value="H3">H-3</option>
+										<option value="H4">H-4</option>
+										<option value="H5">H-5</option>
+										<option value="H6">H-6</option>
+										<option value="H7">H-7</option>
+										<option value="H8">H-8</option>
+										<option value="H9">H-9</option>
+										<option value="H10">H-10</option>
+										<option value="H11">H-11</option>
+										<option value="H12">H-12</option>
+										<option value="H13">H-13</option>
+										<option value="H14">H-14</option>
+										<option value="H15">H-15</option>
+
+									</select> <br>
+
+								</div>
+							</center>
+						</form>
+					</div>
+					<div class="col-lg-3">
+						<button class="btn btn-sm btn-primary btn-block" value="Change"
+							onclick="callAjax();">Go</button>
+						<br>
+					</div>
+				</div>
 
 			</div>
 			<div class="col-lg-3">
