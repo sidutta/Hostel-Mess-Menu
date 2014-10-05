@@ -1,13 +1,11 @@
 package authentication;
 
 import java.io.IOException;
-
-
-
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.*;
 
 import javax.servlet.RequestDispatcher;
@@ -17,10 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import messmenu.Connect;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import messmenu.Connect;
 
 public class Putrating extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
@@ -75,6 +73,7 @@ public class Putrating extends HttpServlet {
 
 				e.printStackTrace();
 			}
+
 			Map<String, Integer> x = new HashMap();
 			x.put("Monday", 2);
 			x.put("Tuesday", 3);

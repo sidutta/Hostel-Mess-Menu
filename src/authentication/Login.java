@@ -74,10 +74,8 @@ public class Login extends HttpServlet {
 				String hostelno = rs.getString("hostelnumber");
 				session.setAttribute("hostelno", hostelno);
 				if(category.equals("CONSUMER"))
-				{					
-					request.setAttribute("initialCall","True");
-					RequestDispatcher rd = getServletContext().getRequestDispatcher("/Othermenu");
-					rd.forward(request, response);
+				{				
+					response.sendRedirect("/hostel-menu-mgmt/home.jsp");
 				}
 			}
 
