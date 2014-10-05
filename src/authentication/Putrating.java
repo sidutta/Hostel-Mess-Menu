@@ -2,10 +2,11 @@ package authentication;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.*;
 
 import javax.servlet.RequestDispatcher;
@@ -93,18 +94,25 @@ public class Putrating extends HttpServlet {
 			int asked = x.get(day);
 
 			System.out.println( "Shivam Check");
-			System.out.println( Integer.parseInt(tp[2]));
+			System.out.println(Integer.parseInt(tp[0])+" "+ Integer.parseInt(tp[1])+" "+ Integer.parseInt(tp[2]));
 			System.out.println( "Shivam Check");
 			
-			Calendar c = Calendar.getInstance();
-			c.set(Integer.parseInt(tp[0]), Integer.parseInt(tp[1])-1, Integer.parseInt(tp[2]));
-
+			Calendar c = new GregorianCalendar(TimeZone.getTimeZone("Asia/Kolkata"));
+			//c.set(Integer.parseInt(tp[0]), Integer.parseInt(tp[1]), Integer.parseInt(tp[2]), 3, 30);
 			int day_of_week = c.get(Calendar.DAY_OF_WEEK);
 			//day_of_week = (day_of_week+6)
-			System.out.println(day_of_week);
+			//System.out.println(day_of_week);
 
-			int back_forw = day_of_week - asked;
-			String bs = String.valueOf(-back_forw);
+			System.out.println(day_of_week + " " + asked);
+			String bs = "";
+			if(asked - day_of_week >= 0 ) {
+				bs = "+" + String.valueOf(asked - day_of_week);
+			}
+			else {
+				bs = String.valueOf(asked - day_of_week);
+			}
+			//int back_forw = day_of_week - asked;
+			//String bs = String.valueOf(-back_forw);
 			try {
 				rs = st.executeQuery("SELECT * FROM users WHERE username = '" + username +"'");
 				rs.next();
@@ -116,7 +124,7 @@ public class Putrating extends HttpServlet {
 			}
 
 			try {
-				String toex = "SELECT itemname , sid FROM servings natural join fooditems where type='"+foodtype+"' and servedon=current_date+"+bs+" and hostelnumber='"+hostelno+"'" ;
+				String toex = "SELECT itemname , sid FROM servings natural join fooditems where type='"+foodtype+"' and servedon=current_date"+bs+" and hostelnumber='"+hostelno+"'" ;
 				System.out.println(toex);
 				
 
@@ -152,5 +160,60 @@ public class Putrating extends HttpServlet {
 			} 
 		}
 
+	}
+	public static void main(String[] args) {
+		String hostname = "hmm.heliohost.org";
+		String dbname = "siddutta_project";
+		String username = "siddutta_team";
+		String password = "iitbcse2016";
+
+		//		String hostname = "localhost";
+		//		String dbname = "mydb";
+		//		String username = "Siddhartha";
+		//		String password = "iitbcse2016";
+
+		String dbURL = "jdbc:postgresql://"+hostname+"/"+dbname;
+		Connection conn = null;
+		Statement st =null;
+		try {
+			Class.forName("org.postgresql.Driver") ;
+			conn = DriverManager.getConnection(dbURL, username, password);
+			st = conn.createStatement();
+			st.executeUpdate("set time zone interval '05:30' hour to minute");
+			System.out.println("initialized connection: "+conn);
+
+
+		} catch (Exception e) {
+			System.out.println("JDBC Connection/ db initialization Exception");
+			e.printStackTrace();
+
+		}
+		
+		ResultSet rs = null;
+		try {
+			rs = st.executeQuery("SELECT now()::date");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String dt =null;
+		String tp[] = null;
+		try {
+			while(rs.next()){
+				dt =rs.getString(1);
+				tp = dt.split("-");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Calendar c = Calendar.getInstance();
+		c.set(Integer.parseInt(tp[0]), Integer.parseInt(tp[1]), Integer.parseInt(tp[2]));
+
+		System.out.println(tp[0] + " " + tp[1] + " " + tp[2]);
+		System.out.println(Calendar.MONDAY +" "+  Calendar.DAY_OF_WEEK);
+		int day_of_week = c.get(Calendar.DAY_OF_WEEK);
+		//day_of_week = (day_of_week+6)
+		System.out.println(day_of_week);
 	}
 }

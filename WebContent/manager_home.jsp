@@ -156,7 +156,6 @@ window.addEvent(window, "load", updateValue, false);
 				else {
 					for (i = 0; i < lunchArray.length; i++) {
 						lunchtxt += lunchArray[i] + "<br>";
-						
 					}
 				}
 
@@ -165,6 +164,8 @@ window.addEvent(window, "load", updateValue, false);
 				else {
 					for (i = 0; i < tiffinArray.length; i++) {
 						tiffintxt += tiffinArray[i] + "<br>";
+						$("#tiffin").select2("val", tiffinArray[i]);
+
 					}
 				}
 
