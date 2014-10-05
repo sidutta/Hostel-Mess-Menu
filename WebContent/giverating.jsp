@@ -66,6 +66,12 @@
  var day;
  var foodtype;
  var flag = false;
+ $(function() {
+	    $('#myForm').on('submit', function(e) {
+	      
+	        e.preventDefault();
+	    });
+	});
 	function callAjax() {
 		dataString = $("#myAjaxRequestForm").serialize();
 
@@ -229,12 +235,13 @@
 			complete : function(jqXHR, textStatus) {
 				//enable the button 
 				//$('#myButton').attr("disabled", false);
+				callAjax();
 				
 			}
 				
 			});	
 			
-			callAjax();
+			
 		 
 	}
 </script>
@@ -243,7 +250,7 @@
 
 
 <body>
-	<form>
+	<form id = 'myForm'>
 		<div class="container">
 
 			<div class="masthead">
@@ -326,7 +333,7 @@
 									</tr>
 								</table>
 							</div>
-							 <button   id="butt" onclick = "sendratings()"class="hidden" >Submit Your Rating</button>
+							<center> <button   id="butt" onclick = "sendratings()"class="hidden" >Submit Your Rating</button></center>
 						</div>
 						
 						
