@@ -75,6 +75,10 @@
 
  window.addEvent=function(e,ev,f,c){if(e.addEventListener){e.addEventListener(ev,f,c);}else if(e.attachEvent){var r=e.attachEvent('on'+ev,f);return r;}else{e['on'+ev]=f;}};
 
+function asd() {
+	alert($("#dinner").val());
+} 
+ 
 function updateValue(){ 
 	callAjax();
     callAjax2();
@@ -195,7 +199,7 @@ window.addEvent(window, "load", updateValue, false);
 		});
 	}
 	function callAjax2() {
-		alert("f3fdd");
+		
 		$.ajax({
 			type : "GET",
 			url : "AddMenu",
@@ -216,7 +220,7 @@ window.addEvent(window, "load", updateValue, false);
 				var bfasttxt = "";
 				var lunchtxt = "";
 				var tiffintxt = "";
-				var dinnertxt = "";alert("f3f");
+				var dinnertxt = "";
 
 				for (i = 0; i < bfastArray.length; i++) {
 						var o = new Option(bfastArray[i], bfastArray[i]);
@@ -256,7 +260,7 @@ window.addEvent(window, "load", updateValue, false);
 				//$('#myButton').attr("disabled", false);
 			},
 			beforeSend : function(jqXHR, settings) {
-				alert("f3f");
+				
 			}
 
 		});
@@ -387,7 +391,12 @@ window.addEvent(window, "load", updateValue, false);
 								</select>
 							</div>
 						</div>
-
+						<br />
+						<div class="row">
+							<div class="col-lg-1">
+						<button id="button2" onclick = "asd()" class="btn" >Submit</button>
+						</div>
+						</div>
 					</div>
 				</div>
 
