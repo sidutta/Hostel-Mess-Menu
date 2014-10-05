@@ -80,17 +80,37 @@ public class Putrating2 extends HttpServlet {
 		 for (Map.Entry<Integer, Integer> entry : rating.entrySet())
 		 {
 		     //entry.getKey() + "/" + entry.getValue());
-			 
-			 String toex = "INSERT INTO reviews values('"+username+"','"+entry.getKey()+"','"+entry.getValue()+"','"+comments.get(entry.getKey())+"')";
-			 System.out.println(toex);
-				try {
-					st.executeUpdate(toex);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			 String tocheck = "SELECT * FROM reviews where username='"+username+"' and sid='"+entry.getKey()+"'";
+			 try {
+				rs = st.executeQuery(tocheck);
+				if(rs.next()){
+					 String upd1 = "UPDATE reviews set rating='"+entry.getValue()+"' where username='"+username+"' and sid ='"+entry.getKey()+"'";
+					 String upd2 = "UPDATE reviews set  review='"+comments.get(entry.getKey())+"' where username='"+username+"' and sid ='"+entry.getKey()+"'";
+
+					 st.executeUpdate(upd1);
+					 st.executeUpdate(upd2);
+
+				 }
+				else{
+					 String toex = "INSERT INTO reviews values('"+username+"','"+entry.getKey()+"','"+entry.getValue()+"','"+comments.get(entry.getKey())+"')";
+					 System.out.println(toex);
+					 st.executeUpdate(toex);
+					
 				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			 
+			
 			 
 		 }
+		 
+		 PrintWriter out = response.getWriter();
+		 	
+			out.println("yo");
+
+			out.close();
 		 
 					
 

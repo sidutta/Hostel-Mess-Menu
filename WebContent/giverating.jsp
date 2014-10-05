@@ -63,16 +63,27 @@
 	type="text/javascript"></script>
 <script>
  var jsondata;
-
+ var day;
+ var foodtype;
+ var flag = false;
+ $(function() {
+	    $('#myForm').on('submit', function(e) {
+	      
+	        e.preventDefault();
+	    });
+	});
 	function callAjax() {
 		dataString = $("#myAjaxRequestForm").serialize();
 
 		//get the form data using another method 
-		var day = $("#day").val();
-		var foodtype = $("#foodtype").val();
+		if(flag == false){
+		day = $("#day").val();
+		foodtype = $("#foodtype").val();
+		}
 		dataString = "day=" + day + "&foodtype=" + foodtype;
+		flag = false;
 		console.log("yo");
-
+		
 		// jsondata;
 		//make the AJAX request, dataType is set to json
 		//meaning we are expecting JSON data in response from the server
@@ -87,34 +98,39 @@
 						//our country code was correct so we have some information to display
 						$("#message").empty();
 						$("#table").empty();
+						console.log(data);
 						var txt = "";
+						txt += "<tr><th>ID</th><th>Item Name</th><th>Average Rating</th><th>Your Rating</th><th>Comments</th></td>";
 						var i = 0;
 						jsondata = data;
+						var n;
 						for ( var key in data) {
 							if (data.hasOwnProperty(key)) {
-								
-								txt += "<tr><td>" + data[key] + "</td><td>"
-										+ key + "</td>";
+								if(isNaN(key)){
+									txt += "<tr><td>" + data[key] + "</td><td>"
+									+ key + "</td>";
 
-								txt += "<td><select class='combobox form-control' name='rating"+i+"' id='rating"+i+"'>"
-										+ "<option value='' selected='selected'>Rate</option>"
-										+ "<option value='Consumer'>1</option>"
-										+ "<option value='Administrator'>2</option>"
-										+ "</select></td>";
-								txt += "<td><select class='combobox form-control' name='rate@"+data[key]+"' id='rate@"+data[key]+"'>"
-										+ "<option value='' selected='selected'>Rate</option>"
-										+ "<option value='1'>1</option>"
-										+ "<option value='2'>2</option>"
-										+ "<option value='3'>3</option>"
-										+ "<option value='4'>4</option>"
-										+ "<option value='5'>5</option>"
-										+ "</select></td>";
-								txt += "<td><textarea class='col-md-12 col-sm-12' rows='3' placeholder='Comment' name='comment@"+data[key]+"' id='comment@"+data[key]+"' required></textarea></td>";
-								txt += "</tr>";
+							txt += "<td><span id = 'avg"+data[key]+"'></span></td>";
+							txt += "<td><select class='combobox form-control' name='rate@"+data[key]+"' id='rate@"+data[key]+"'>"
+									+ "<option value='' selected='selected'>Rate</option>"
+									+ "<option value='1'>1</option>"
+									+ "<option value='2'>2</option>"
+									+ "<option value='3'>3</option>"
+									+ "<option value='4'>4</option>"
+									+ "<option value='5'>5</option>"
+									+ "</select></td>";
+							txt += "<td><textarea class='col-md-12 col-sm-12' rows='3' placeholder='Comment' name='comment@"+data[key]+"' id='comment@"+data[key]+"' required></textarea></td>";
+							txt += "</tr>";
+							
+							i = i + 1;
+								}
+								else{
 								
-								i = i + 1;
+								console.log("Aditi");
+								}
 							}
 						}
+
 						if (txt != "") {
 						//	txt += "<input type=submit onclick='sendratings()'>"
 						  //  txt += "</form>"
@@ -125,6 +141,19 @@
 						else {
 							
 							$("#message").append("No Data Available");
+						}
+						
+						for ( var key in data) {
+							if (data.hasOwnProperty(key)) {
+								if(isNaN(key)){
+									
+									
+								}
+								else{
+									var createid = "avg"+key.toString();
+									document.getElementById(createid).innerHTML = data[key];
+								}
+							}
 						}
 
 					},
@@ -164,16 +193,18 @@
 		 console.log(jsondata);
 		 for ( var key in jsondata) {
 				if (jsondata.hasOwnProperty(key)) {
-					var createid = "rate@"+jsondata[key].toString();
-					var createcomm = "comment@"+jsondata[key].toString();
+					if(isNaN(key)){
+					var createid1 = "rate@"+jsondata[key].toString();
+					var createcomm1 = "comment@"+jsondata[key].toString();
 					console.log("-----");
-					console.log(createid);console.log(createcomm);
-					var rate = document.getElementById(createid).value;
-					var comment = document.getElementById(createcomm).value;
+					console.log(createid1);console.log(createcomm1);
+					var rate = document.getElementById(createid1).value;
+					var comment = document.getElementById(createcomm1).value;
 						console.log(rate);console.log(comment);
 
 					dataString1 += "&rate:"+jsondata[key].toString()+"="+rate;
 					dataString1 += "&comment:"+jsondata[key].toString()+"="+comment;
+					}
 
 				}
 		 }
@@ -183,18 +214,34 @@
 				type : "POST",
 				url : "Putrating2",
 				data : dataString1,	
-				dataType : "json",
+				dataType : "text",
 
 				//if received a response from the server
 				success : function(data, textStatus, jqXHR) {
-				
+					console.log(data);
+					
+					
 				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					console.log("Something really bad happened "
+							+ textStatus);
+					$("#ajaxResponse").html(jqXHR.responseText);
+				},
+
 			beforeSend : function(jqXHR, settings) {
 				console.log("yooo");
 				console.log(dataString1);
 			},
+			complete : function(jqXHR, textStatus) {
+				//enable the button 
+				//$('#myButton').attr("disabled", false);
+				callAjax();
+				
+			}
 				
 			});	
+			
+			
 		 
 	}
 </script>
@@ -203,7 +250,7 @@
 
 
 <body>
-	<form>
+	<form id = 'myForm'>
 		<div class="container">
 
 			<div class="masthead">
@@ -286,18 +333,20 @@
 									</tr>
 								</table>
 							</div>
+
+							<center> <button   id="butt" onclick = "sendratings()"class="hidden" >Submit Your Rating</button></center>
 						</div>
+						
 						
 						<center><div class="text-muted" id="message"> </div></center>
 					</div>
 				</div>
 			</div>
 		</div>
-	</form>
-	<div class="row"><center>
-						<button value="Submit"  id="butt" onclick = "sendratings()"class="hidden" >Submit Your Rating</button>
-						</center>
-						</div>
+
+	
+</form>
+
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
 	<script type="text/javascript"

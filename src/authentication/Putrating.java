@@ -26,6 +26,7 @@ public class Putrating extends HttpServlet {
 	{
 		ResultSet rs = null;
 		Statement st = null;
+		Statement st2 = null;
 		System.out.println("Gooooogle");
 
 		String day = request.getParameter("day");
@@ -57,6 +58,12 @@ public class Putrating extends HttpServlet {
 			try {
 				st = Connect.getConnection().createStatement();
 				st.executeUpdate("set time zone interval '05:30' hour to minute");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			try {
+				st2 = Connect.getConnection().createStatement();
+				st2.executeUpdate("set time zone interval '05:30' hour to minute");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -110,12 +117,22 @@ public class Putrating extends HttpServlet {
 			try {
 				String toex = "SELECT itemname , sid FROM servings natural join fooditems where type='"+foodtype+"' and servedon=current_date+"+bs+" and hostelnumber='"+hostelno+"'" ;
 				System.out.println(toex);
+				
+
 				ResultSet rs1=st.executeQuery(toex);
+				ResultSet rs2 = null;
+				
 				JSONObject obj = new JSONObject();
 
 				while(rs1.next()){
 					
-					obj.put(rs1.getString(1), rs1.getString(2));
+					toex = "SELECT avg(rating) from reviews where sid='"+rs1.getString(2)+"' group by sid";
+					System.out.println(toex);
+					rs2  = st2.executeQuery(toex);
+					if(rs2.next()){
+						obj.put(rs1.getString(2), rs2.getString(1).substring(0, 3)); // sid, average rating
+					}
+					obj.put(rs1.getString(1), rs1.getString(2)); // itemname, sid
 					
 				}
 				System.out.print(obj);
