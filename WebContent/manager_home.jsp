@@ -45,7 +45,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 <style>
-
 .centered-form {
 	margin-top: 60px;
 }
@@ -110,12 +109,11 @@
 							}
 						}
 						if (txt != "") {
-							
+
 							$("#table").append(txt).removeClass("hidden");
 							console.log(txt);
-						}
-						else {
-							
+						} else {
+
 							$("#message").append("No Data Available");
 						}
 
@@ -182,35 +180,218 @@
 				</ul>
 			</div>
 
-			<div class="row centered-form" style="margin-right:0px; margin-left:0px">
+			<div class="row centered-form"
+				style="margin-right: 0px; margin-left: 0px">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Give your Rating</h3>
+						<h3 class="panel-title">Set this week's menu</h3>
 					</div>
 					<div class="panel-body">
-						
-						<section class="container">
-    <div>
-        <select id="leftValues" size="5" multiple>
-        	<option>1</option>
-            <option>2</option>
-            <option>3</option>
-        </select>
-    </div>
-    <div>
-        <input type="button" id="btnLeft" value="&lt;&lt;" />
-        <input type="button" id="btnRight" value="&gt;&gt;" />
-    </div>
-    <div>
-        <select id="rightValues" size="4" multiple>
-            
-        </select>
-        
-    </div>
-</section>
-						
-						
-						<center><div class="text-muted" id="message"> </div></center>
+						<div class="row">
+							<div class="col-lg-5">
+								<center>
+									<h3>Breakfast</h3>
+								</center>
+							</div>
+
+							<div class="col-lg-1"></div>
+
+							<div class="col-lg-5">
+								<center>
+									<h3>Lunch</h3>
+								</center>
+
+							</div>
+
+
+						</div>
+
+
+						<div class="row">
+							<div class="col-lg-5">
+
+								<div class="col-lg-5">
+									<select id="leftValues" size="5" multiple>
+										<option id="1" name="1" value="1">1</option>
+										<option>2</option>
+										<option>3</option>
+									</select>
+								</div>
+								<div class="col-lg-2">
+									<center>
+										<div class="row">
+											<input type="button" id="btnRight" value="&gt;&gt;" />
+										</div>
+										<div class="row">
+											<input type="button" id="btnLeft" value="&lt;&lt;" />
+										</div>
+									</center>
+								</div>
+								<div class="col-lg-5">
+									<select id="rightValues" size="4" multiple>
+
+									</select>
+
+								</div>
+							</div>
+							<div class="col-lg-1"></div>
+
+							<div class="col-lg-5">
+
+								<div class="col-lg-5">
+									<select id="leftValues" size="5" multiple>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+									</select>
+								</div>
+								<div class="col-lg-2">
+									<center>
+										<div class="row">
+											<input type="button" id="btnRight" value="&gt;&gt;" />
+										</div>
+										<div class="row">
+											<input type="button" id="btnLeft" value="&lt;&lt;" />
+										</div>
+									</center>
+								</div>
+								<div class="col-lg-5">
+									<select id="rightValues" size="4" multiple>
+
+									</select>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-5">
+								<center>
+									<h3>Tiffin</h3>
+								</center>
+							</div>
+
+							<div class="col-lg-1"></div>
+
+							<div class="col-lg-5">
+								<center>
+									<h3>Dinner</h3>
+								</center>
+
+							</div>
+
+
+						</div>
+
+
+						<div class="row">
+							<div class="col-lg-5">
+
+								<div class="col-lg-5">
+									<select id="leftValues" size="5" multiple>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+									</select>
+								</div>
+								<div class="col-lg-2">
+									<center>
+										<div class="row">
+											<input type="button" id="btnRight" value="&gt;&gt;" />
+										</div>
+										<div class="row">
+											<input type="button" id="btnLeft" value="&lt;&lt;" />
+										</div>
+									</center>
+								</div>
+								<div class="col-lg-5">
+									<select id="rightValues" size="4" multiple>
+
+									</select>
+
+								</div>
+							</div>
+							<div class="col-lg-1"></div>
+
+							<div class="col-lg-5">
+
+								<div class="col-lg-5">
+									<select id="leftValues" size="5" multiple>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+									</select>
+								</div>
+								<div class="col-lg-2">
+									<center>
+										<div class="row">
+											<input type="button" id="btnRight" value="&gt;&gt;" />
+										</div>
+										<div class="row">
+											<input type="button" id="btnLeft" value="&lt;&lt;" />
+										</div>
+									</center>
+								</div>
+								<div class="col-lg-5">
+									<select id="rightValues" size="4" multiple>
+
+									</select>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-5">
+								<center>
+									<h3>Midnight</h3>
+								</center>
+							</div>
+
+							<div class="col-lg-1"></div>
+
+							<div class="col-lg-5"></div>
+
+
+						</div>
+
+
+						<div class="row">
+							<div class="col-lg-5">
+
+								<div class="col-lg-5">
+									<select id="leftValues" size="5" multiple>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+									</select>
+								</div>
+								<div class="col-lg-2">
+									<center>
+										<div class="row">
+											<input type="button" id="btnRight" value="&gt;&gt;" />
+										</div>
+										<div class="row">
+											<input type="button" id="btnLeft" value="&lt;&lt;" />
+										</div>
+									</center>
+								</div>
+								<div class="col-lg-5">
+									<select id="rightValues" size="4" multiple>
+
+									</select>
+
+								</div>
+							</div>
+							<div class="col-lg-1"></div>
+
+							<div class="col-lg-5"></div>
+						</div>
+
+
+						<center>
+							<div class="text-muted" id="message"></div>
+						</center>
 					</div>
 				</div>
 			</div>
@@ -219,28 +400,29 @@
 
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
-		<%-- <script type="text/javascript"
+	<%-- <script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/multiselect.js"></script> --%>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
-	
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.combobox').combobox();
 		});
-		$("#btnLeft").click(function () {
-		    var selectedItem = $("#rightValues option:selected");
-		    $("#leftValues").append(selectedItem);
+		$("#btnLeft").click(function() {
+			var selectedItem = $("#rightValues option:selected");
+			$("#leftValues").append(selectedItem);
 		});
 
-		$("#btnRight").click(function () {
-		    var selectedItem = $("#leftValues option:selected");
-		    $("#rightValues").append(selectedItem);
+		$("#btnRight").click(function() {
+			var selectedItem = $("#leftValues option:selected");
+			alert(selectedItem.text());
+			$("#rightValues").append(selectedItem);
 		});
 
-		$("#rightValues").change(function () {
-		    var selectedItem = $("#rightValues option:selected");
-		    $("#txtRight").val(selectedItem.text());
+		$("#rightValues").change(function() {
+			var selectedItem = $("#rightValues option:selected");
+			$("#txtRight").val(selectedItem.text());
 		});
 	</script>
 	<script

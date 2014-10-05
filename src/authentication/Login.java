@@ -75,7 +75,7 @@ public class Login extends HttpServlet {
 				session.setAttribute("hostelno", hostelno);
 				if(category.equals("CONSUMER"))
 				{				
-					response.sendRedirect("/hostel-menu-mgmt/Othermenu?initialCall=True");
+					response.sendRedirect("/hostel-menu-mgmt/home.jsp");
 				}
 			}
 

@@ -38,35 +38,7 @@ public class Othermenu extends HttpServlet {
 			ArrayList <String> lunch=new ArrayList<String>();
 			ArrayList <String> tiffin=new ArrayList<String>();
 			ArrayList <String> dinner=new ArrayList<String>();
-			if ("True".equals(request.getParameter("initialCall"))) {
-				System.out.println("enteredyo" + request.getHeader("Referer") + " " +request.getAttribute("javax.servlet.forward.request_uri")  );
-				rsserving=st.executeQuery("SELECT itemname,type FROM servings natural join fooditems where servedon=current_date and hostelnumber='"+session.getAttribute("hostelno")+"'" );	
-				request.setAttribute("hostelnumber",session.getAttribute("hostelno"));
-				
-				while(rsserving.next())
-				{
-					String mealtype=rsserving.getString("type");
-					if (mealtype.equals("BREAKFAST"))
-						bfast.add(rsserving.getString("itemname"));
-					else if (mealtype.equals("LUNCH"))
-						lunch.add(rsserving.getString("itemname"));
-					else if (mealtype.equals("TIFFIN"))
-						tiffin.add(rsserving.getString("itemname"));
-					else
-						dinner.add(rsserving.getString("itemname"));
-				}
-				session.setAttribute("bfast",bfast);
-				session.setAttribute("lunch",lunch);
-				session.setAttribute("tiffin",tiffin);
-				session.setAttribute("dinner",dinner);
-				//request.setAttribute("consumername",request.getParameter("consumername"));
-				//request.setAttribute("hostelnumber",request.getParameter("hostelnum"));
-//				RequestDispatcher rd = getServletContext().getRequestDispatcher("/home.jsp?action=forward");
-//				System.out.println("enteredyo123");
-//				rd.forward(request, response);
-				response.sendRedirect("/hostel-menu-mgmt/home.jsp");
-			}
-			else {
+			
 				
 				rsserving=st.executeQuery("SELECT itemname,type FROM servings natural join fooditems where servedon=current_date and hostelnumber='"+request.getParameter("hostelnum")+"'" );
 
@@ -97,7 +69,7 @@ public class Othermenu extends HttpServlet {
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
 				response.getWriter().write(foodMap);
-			}
+			
 		}
 		catch (SQLException e) {
 			System.out.println("db query Exception");
