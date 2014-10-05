@@ -106,6 +106,12 @@ public class Putrating2 extends HttpServlet {
 			 
 		 }
 		 
+		 PrintWriter out = response.getWriter();
+		 	
+			out.println("yo");
+
+			out.close();
+		 
 					
 
 	}
