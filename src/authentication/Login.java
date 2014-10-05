@@ -77,6 +77,10 @@ public class Login extends HttpServlet {
 				{				
 					response.sendRedirect("/hostel-menu-mgmt/home.jsp");
 				}
+				else
+				{				
+					response.sendRedirect("/hostel-menu-mgmt/manager_home.jsp");
+				}
 			}
 
 		}

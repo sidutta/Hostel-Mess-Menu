@@ -92,9 +92,10 @@ public class Putrating extends HttpServlet {
 
 			int asked = x.get(day);
 
-
+			System.out.println( "Shivam Check");
 			System.out.println( Integer.parseInt(tp[2]));
-
+			System.out.println( "Shivam Check");
+			
 			Calendar c = Calendar.getInstance();
 			c.set(Integer.parseInt(tp[0]), Integer.parseInt(tp[1])-1, Integer.parseInt(tp[2]));
 
