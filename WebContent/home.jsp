@@ -208,12 +208,12 @@ window.addEvent(window, "load", updateValue, false);
 			<!-- </tr>
 			</table> -->
 			<ul class="nav nav-justified">
-				<li class="active"><a href="/hostel-menu-mgmt/giverating.jsp">Home</a></li>
-				<li><a href="/hostel-menu-mgmt/giverating.jsp">Rate</a></li>
+				<li class="active"><a href="${pageContext.request.contextPath}/home.jsp">Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
 				<li><a href="#">Services</a></li>
 				<li><a href="#">Downloads</a></li>
 				<li><a href="#">About</a></li>
-				<li><a href="/hostel-menu-mgmt/login.jsp?status=logout">Logout</a></li>
+				<li><a href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
 			</ul>
 		</div>
 

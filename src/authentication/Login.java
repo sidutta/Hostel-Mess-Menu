@@ -75,11 +75,11 @@ public class Login extends HttpServlet {
 				session.setAttribute("hostelno", hostelno);
 				if(category.equals("CONSUMER"))
 				{				
-					response.sendRedirect("/hostel-menu-mgmt/home.jsp");
+					response.sendRedirect("home.jsp");
 				}
 				else
 				{				
-					response.sendRedirect("/hostel-menu-mgmt/manager_home.jsp");
+					response.sendRedirect("manager_home.jsp");
 				}
 			}
 

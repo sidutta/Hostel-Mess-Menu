@@ -32,6 +32,17 @@
 	rel="stylesheet">
 
 
+<link rel="stylesheet" id="rangecalendar-style-css"
+	href="${pageContext.request.contextPath}/jQuery-Range-Calendar/css/rangecalendar.css"
+	type="text/css" media="all">
+<link rel="stylesheet" id="rangecalendar-style-css"
+	href="${pageContext.request.contextPath}/jQuery-Range-Calendar/css/style.css"
+	type="text/css" media="all">
+<link rel="stylesheet" id="jquery-ui-style-css"
+	href="${pageContext.request.contextPath}/jQuery-Range-Calendar/css/jquery-ui-1.10.3.custom.min.css"
+	type="text/css" media="all">
+
+
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -44,7 +55,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 <style>
-
 .centered-form {
 	margin-top: 60px;
 }
@@ -62,32 +72,33 @@
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
 	type="text/javascript"></script>
 <script>
- var jsondata;
- var day;
- var foodtype;
- var flag = false;
- $(function() {
-	    $('#myForm').on('submit', function(e) {
-	      
-	        e.preventDefault();
-	    });
+	var jsondata;
+	var day;
+	var foodtype;
+	var flag = false;
+	$(function() {
+		$('#myForm').on('submit', function(e) {
+
+			e.preventDefault();
+		});
 	});
 	function callAjax() {
 		dataString = $("#myAjaxRequestForm").serialize();
 
 		//get the form data using another method 
-		if(flag == false){
-		day = $("#day").val();
-		foodtype = $("#foodtype").val();
+		if (flag == false) {
+			day = $("#day").val();
+			foodtype = $("#foodtype").val();
 		}
 		dataString = "day=" + day + "&foodtype=" + foodtype;
 		flag = false;
 		console.log("yo");
-		
+
 		// jsondata;
 		//make the AJAX request, dataType is set to json
 		//meaning we are expecting JSON data in response from the server
-		$.ajax({
+		$
+				.ajax({
 					type : "POST",
 					url : "Putrating",
 					data : dataString,
@@ -106,51 +117,47 @@
 						var n;
 						for ( var key in data) {
 							if (data.hasOwnProperty(key)) {
-								if(isNaN(key)){
+								if (isNaN(key)) {
 									txt += "<tr><td>" + data[key] + "</td><td>"
-									+ key + "</td>";
+											+ key + "</td>";
 
-							txt += "<td><span id = 'avg"+data[key]+"'></span></td>";
-							txt += "<td><select class='combobox form-control' name='rate@"+data[key]+"' id='rate@"+data[key]+"'>"
-									+ "<option value='' selected='selected'>Rate</option>"
-									+ "<option value='1'>1</option>"
-									+ "<option value='2'>2</option>"
-									+ "<option value='3'>3</option>"
-									+ "<option value='4'>4</option>"
-									+ "<option value='5'>5</option>"
-									+ "</select></td>";
-							txt += "<td><textarea class='col-md-12 col-sm-12' rows='3' placeholder='Comment' name='comment@"+data[key]+"' id='comment@"+data[key]+"' required></textarea></td>";
-							txt += "</tr>";
-							
-							i = i + 1;
-								}
-								else{
-								
-								console.log("Aditi");
+									txt += "<td><span id = 'avg"+data[key]+"'></span></td>";
+									txt += "<td><select class='combobox form-control' name='rate@"+data[key]+"' id='rate@"+data[key]+"'>"
+											+ "<option value='' selected='selected'>Rate</option>"
+											+ "<option value='1'>1</option>"
+											+ "<option value='2'>2</option>"
+											+ "<option value='3'>3</option>"
+											+ "<option value='4'>4</option>"
+											+ "<option value='5'>5</option>"
+											+ "</select></td>";
+									txt += "<td><textarea class='col-md-12 col-sm-12' rows='3' placeholder='Comment' name='comment@"+data[key]+"' id='comment@"+data[key]+"' required></textarea></td>";
+									txt += "</tr>";
+
+									i = i + 1;
+								} else {
+
+									console.log("Aditi");
 								}
 							}
 						}
 
 						if (txt != "") {
-						//	txt += "<input type=submit onclick='sendratings()'>"
-						  //  txt += "</form>"
+							//	txt += "<input type=submit onclick='sendratings()'>"
+							//  txt += "</form>"
 							$("#table").append(txt).removeClass("hidden");
-						    $('#butt').removeClass("hidden");
+							$('#butt').removeClass("hidden");
 							//console.log(txt);
-						}
-						else {
-							
+						} else {
+
 							$("#message").append("No Data Available");
 						}
-						
+
 						for ( var key in data) {
 							if (data.hasOwnProperty(key)) {
-								if(isNaN(key)){
-									
-									
-								}
-								else{
-									var createid = "avg"+key.toString();
+								if (isNaN(key)) {
+
+								} else {
+									var createid = "avg" + key.toString();
 									document.getElementById(createid).innerHTML = data[key];
 								}
 							}
@@ -186,71 +193,71 @@
 				});
 	}
 	
-	function sendratings(){
+	
+$(document).ready(function(){
 		
-		 
-		 dataString1 = "yo=yo" ;
-		 console.log(jsondata);
-		 for ( var key in jsondata) {
-				if (jsondata.hasOwnProperty(key)) {
-					if(isNaN(key)){
-					var createid1 = "rate@"+jsondata[key].toString();
-					var createcomm1 = "comment@"+jsondata[key].toString();
-					console.log("-----");
-					console.log(createid1);console.log(createcomm1);
-					var rate = document.getElementById(createid1).value;
-					var comment = document.getElementById(createcomm1).value;
-						console.log(rate);console.log(comment);
-
-					dataString1 += "&rate:"+jsondata[key].toString()+"="+rate;
-					dataString1 += "&comment:"+jsondata[key].toString()+"="+comment;
-					}
-
-				}
-		 }
-		 console.log(dataString1);
-		 
-			$.ajax({
-				type : "POST",
-				url : "Putrating2",
-				data : dataString1,	
-				dataType : "text",
-
-				//if received a response from the server
-				success : function(data, textStatus, jqXHR) {
-					console.log(data);
-					
-					
-				},
-				error : function(jqXHR, textStatus, errorThrown) {
-					console.log("Something really bad happened "
-							+ textStatus);
-					$("#ajaxResponse").html(jqXHR.responseText);
-				},
-
-			beforeSend : function(jqXHR, settings) {
-				console.log("yooo");
-				console.log(dataString1);
-			},
-			complete : function(jqXHR, textStatus) {
-				//enable the button 
-				//$('#myButton').attr("disabled", false);
-				callAjax();
-				
-			}
-				
-			});	
+		var defaultCalendar = $("#cal1").rangeCalendar();
+		
+		
+		$("#setDateBt").click(function () {
+			var newDate = new Date(2014, 4, 24);
+			rangeCalendar.setStartDate(newDate);
 			
+			rangeCalendar.update();
+		});
+		
+		$("#addMonthBt").click(function () {
+		
+			var newDate = moment().add('months', 1);
+			rangeCalendar.setStartDate(newDate);
+		});
+		
+		
+		
+		
+		var customizedRangeCalendar = $("#cal2").rangeCalendar({theme:"full-green-theme"});
+		var languageCalendar = $("#cal3").rangeCalendar({lang:"it"});
+		var rangeCalendar =  $("#cal4").rangeCalendar({weekends:false});
+		var callbackRangeCalendar =  $("#cal5").rangeCalendar({changeRangeCallback: rangeChanged,weekends:false});
+		
+		function rangeChanged(target,range){
+	    
 			
-		 
-	}
+			console.log(range);
+		    var startDay = moment(range.start).format('DD');
+		    var startMonth = moment(range.start).format('MMM');
+		    var startYear = moment(range.start).format('YY');
+		    var endDay = moment(range.end).format('DD');
+		    var endMonth = moment(range.end).format('MMM');
+		    var endYear = moment(range.end).format('YY');
+		    
+		    
+		    $(".calendar-values .start-date .value").html(startDay);
+		    $(".calendar-values .start-date .label").html("");
+		    $(".calendar-values .start-date .label").append(startMonth);
+		    $(".calendar-values .start-date .label").append("<small>"+startYear+"</small>");
+		    $(".calendar-values .end-date .value").html(endDay);
+		    $(".calendar-values .end-date .label").html("");
+		    $(".calendar-values .end-date .label").append(endMonth);
+		    $(".calendar-values .end-date .label").append("<small>"+endYear+"</small>");
+		    $(".calendar-values .days-width .value").html(range.width);
+		    $(".calendar-values .from-now .label").html(range.fromNow);
+		    
+		}
+    
+		function ragneChanged(target,range) {
+			
+			console.log(range);
+		}
+    
+	});
 </script>
-</head>
+</head>		
 
 
 
 <body>
-	<form id = 'myForm'>
+	<form id='myForm'>
 		<div class="container">
 
 			<div class="masthead">
@@ -279,79 +286,59 @@
 				</ul>
 			</div>
 
-			<div class="row centered-form" style="margin-right:0px; margin-left:0px">
+			<div class="row centered-form"
+				style="margin-right: 0px; margin-left: 0px">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Give your Rating</h3>
+						<h3 class="panel-title">Weekly Menu</h3>
 					</div>
 					<div class="panel-body">
 
 						<div class="row">
-							<div class="col-xs-3 col-sm-3 col-md-3 col-md-offset-2">
-								<div class="form-group">
-									<select class="combobox form-control" name="day"
-										onchange="callAjax()" id="day">
-										<option value="" selected="selected">Day</option>
-										<option value="Monday">Monday</option>
-										<option value="Tuesday">Tuesday</option>
-										<option value="Wednesday">Wednesday</option>
-										<option value="Thursday">Thursday</option>
-										<option value="Friday">Friday</option>
-										<option value="Saturday">Saturday</option>
-										<option value="Sunday">Sunday</option>
-									</select>
-								</div>
+							<div class="section">
+								<h2>Set date programmatically</h2>
+
+								<div id="setDateBt" class="btn btn-primary btn-lg">Set a
+									new date programmatically</div>
+								<div id="addMonthBt" class="btn btn-primary btn-lg">+ 1
+									month from now</div>
+
+
+								<div id="cal4"></div>
+
+
 							</div>
-
-
-							<div class="col-xs-3 col-sm-3 col-md-3 col-md-offset-2 ">
-								<div class="form-group">
-									<select class="combobox form-control" name="foodtype"
-										onchange="callAjax()" id="foodtype">
-										<option value="" selected="selected">Type</option>
-										<option value="BREAKFAST">Breakfast</option>
-										<option value="LUNCH">Lunch</option>
-										<option value="TIFFIN">Snacks</option>
-										<option value="DINNER">Dinner</option>
-									</select>
-								</div>
-							</div>
-
-
-
 						</div>
 
-						<div class="row">
-							<div class="col-xs-3 col-sm-12 col-md-12  ">
-								<table id="table" class="hidden table">
-									<tr>
-										<th class='col-md-2 col-sm-2'>ItemId</th>
-										<th class='col-md-2 col-sm-2'>Food Name</th>
-										<th class='col-md-2 col-sm-2'>Rating</th>
-										<th class='col-md-2 col-sm-2'>Rate</th>
-										<th class='col-md-4 col-sm-4'>Comment</th>
-									</tr>
-								</table>
-							</div>
+						<div class="row"></div>
 
-							<center> <button   id="butt" onclick = "sendratings()"class="hidden" >Submit Your Rating</button></center>
-						</div>
-						
-						
-						<center><div class="text-muted" id="message"> </div></center>
+
+						<center>
+							<div class="text-muted" id="message"></div>
+						</center>
 					</div>
 				</div>
 			</div>
 		</div>
 
-	
-</form>
+
+	</form>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jQuery-Range-Calendar/js/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jQuery-Range-Calendar/js/jquery-ui.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jQuery-Range-Calendar/js/jquery.ui.touch-punch.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jQuery-Range-Calendar/js/moment+langs.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/jQuery-Range-Calendar/js/jquery.rangecalendar.js"></script>
 
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
-	
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.combobox').combobox();

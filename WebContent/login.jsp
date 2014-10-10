@@ -133,7 +133,7 @@ input[type="password"] {
 											session.setAttribute("username",(cookie.getValue()).toString());
 											/* request.setAttribute("logintype","cookie");
 											request.setAttribute("loggedinuser", (cookie.getValue()).toString()); */
-											response.sendRedirect("/hostel-menu-mgmt/Login");
+											response.sendRedirect("Login");
 										}
 									}
 								}
@@ -149,6 +149,7 @@ input[type="password"] {
 					id="submit">Login</button>
 				<br> <a href="signup.jsp"> Register! </a>
 			</form>
+			<br>
 
 		</div>
 	</center>
