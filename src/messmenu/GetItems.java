@@ -34,17 +34,18 @@ public class GetItems extends HttpServlet {
 		try {
 			HttpSession session = request.getSession();
 			ResultSet rsserving=null;
-			ArrayList <String> bfast=new ArrayList<String>();
+			/*ArrayList <String> bfast=new ArrayList<String>();
 			ArrayList <String> lunch=new ArrayList<String>();
 			ArrayList <String> tiffin=new ArrayList<String>();
-			ArrayList <String> dinner=new ArrayList<String>();
-			
+			ArrayList <String> dinner=new ArrayList<String>();*/
+			ArrayList <String> food=new ArrayList<String>();
 				
-				rsserving=st.executeQuery("SELECT distinct itemname,type FROM foodtype natural join fooditems " );
+				rsserving=st.executeQuery("SELECT distinct itemname FROM fooditems " );
 
 				while(rsserving.next())
 				{
-					String mealtype=rsserving.getString("type");
+					food.add(rsserving.getString("itemname"));
+					/*String mealtype=rsserving.getString("type");
 					if (mealtype.equals("BREAKFAST"))
 						bfast.add(rsserving.getString("itemname"));
 					else if (mealtype.equals("LUNCH"))
@@ -52,16 +53,16 @@ public class GetItems extends HttpServlet {
 					else if (mealtype.equals("TIFFIN"))
 						tiffin.add(rsserving.getString("itemname"));
 					else
-						dinner.add(rsserving.getString("itemname"));
+						dinner.add(rsserving.getString("itemname"));*/
 
 				}
-				Map<String, ArrayList<String>> listMap = new HashMap<String, ArrayList<String>>();
+				/*Map<String, ArrayList<String>> listMap = new HashMap<String, ArrayList<String>>();
 				listMap.put("bfast", bfast);
 				listMap.put("lunch", lunch);
 				listMap.put("tiffin", tiffin);
-				listMap.put("dinner", dinner);
+				listMap.put("dinner", dinner);*/
 
-				String foodMap = new Gson().toJson(listMap);
+				String foodMap = new Gson().toJson(food);
 				
 				System.out.println(foodMap);
 				response.setContentType("application/json");

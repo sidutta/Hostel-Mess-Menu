@@ -127,6 +127,7 @@ public class AddMenu extends HttpServlet {
 				int flagLunch=0;
 				int flagTiffin=0;
 				int flagDinner=0;
+				
 				while(rsserving.next())
 				{
 					System.out.println("check1");
@@ -134,40 +135,63 @@ public class AddMenu extends HttpServlet {
 					if (mealtype.equals("BREAKFAST"))
 					{
 						flagBfast=1;
+						if(bfast.isEmpty())
+							bfast.add("thisweek");
 						bfast.add(rsserving.getString("itemname"));
 					}	
 					else if (mealtype.equals("LUNCH"))
 					{
 						flagLunch=1;
+						if(lunch.isEmpty())
+							lunch.add("thisweek");
 						System.out.println("KuchToGadbadHaiDaya");
 						lunch.add(rsserving.getString("itemname"));
 					}
 					else if (mealtype.equals("TIFFIN"))
 					{
 						flagTiffin=1;
+						if(tiffin.isEmpty())
+							tiffin.add("thisweek");
 						tiffin.add(rsserving.getString("itemname"));
 					}
 					else
 					{
 						flagDinner=1;
+						if(dinner.isEmpty())
+							dinner.add("thisweek");
 						dinner.add(rsserving.getString("itemname"));
 					}
 				}
+				
 				while(rsprevweek.next())
 				{
 					System.out.println("check2");
 					String mealtype=rsprevweek.getString("type");
 					if (mealtype.equals("BREAKFAST") && flagBfast==0)
+					{
+						if(bfast.isEmpty())
+							bfast.add("prevweek");
 						bfast.add(rsprevweek.getString("itemname"));
+					}	
 					else if (mealtype.equals("LUNCH")&& flagLunch==0)
 					{
+						if(lunch.isEmpty())
+							lunch.add("prevweek");
 						System.out.println("SabTheekHai");
 						lunch.add(rsprevweek.getString("itemname") );
 					}
 					else if (mealtype.equals("TIFFIN") && flagTiffin==0)
+					{
+						if(tiffin.isEmpty())
+							tiffin.add("prevweek");
 						tiffin.add(rsprevweek.getString("itemname"));
+					}
 					else if(flagDinner==0)
+					{
+						if(dinner.isEmpty())
+							dinner.add("prevweek");
 						dinner.add(rsprevweek.getString("itemname"));
+					}
 
 				}
 

@@ -224,4 +224,47 @@ insert into foodtype values(53, 'DINNER');
 
 insert into foodtype values(53, 'BREAKFAST');
 
+insert into servings values('1','35','BREAKFAST','2014-10-11','H1');
+insert into servings values('2','37','BREAKFAST','2014-10-11','H1');
+insert into servings values('3','38','BREAKFAST','2014-10-11','H1');
+insert into servings values('4','39','LUNCH','2014-10-11','H1');
+insert into servings values('5','40','LUNCH','2014-10-11','H1');
+insert into servings values('6','41','LUNCH','2014-10-11','H1');
+insert into servings values('7','42','TIFFIN','2014-10-11','H1');
+insert into servings values('8','43','TIFFIN','2014-10-11','H1');
+insert into servings values('9','44','TIFFIN','2014-10-11','H1');
+insert into servings values('10','31','DINNER','2014-10-11','H1');
+insert into servings values('11','58','DINNER','2014-10-11','H1');
+insert into servings values('12','33','DINNER','2014-10-11','H1');
+insert into servings values('13','32','DINNER','2014-10-11','H1');
+insert into servings values('14','51','BREAKFAST','2014-10-05','H1');
+insert into servings values('15','52','BREAKFAST','2014-10-05','H1');
+insert into servings values('16','38','BREAKFAST','2014-10-05','H1');
+insert into servings values('17','60','LUNCH','2014-10-05','H1');
+insert into servings values('18','40','LUNCH','2014-10-05','H1');
+insert into servings values('19','41','LUNCH','2014-10-05','H1');
+insert into servings values('20','42','TIFFIN','2014-10-05','H1');
+insert into servings values('21','43','TIFFIN','2014-10-05','H1');
+insert into servings values('22','44','TIFFIN','2014-10-05','H1');
+insert into servings values('23','31','DINNER','2014-10-05','H1');
+insert into servings values('24','58','DINNER','2014-10-05','H1');
+insert into servings values('25','33','DINNER','2014-10-12','H1');
+insert into servings values('26','32','DINNER','2014-10-12','H1');
+insert into servings values('27','51','BREAKFAST','2014-10-02','H1');
+insert into servings values('28','52','BREAKFAST','2014-10-02','H1');
+insert into servings values('29','38','BREAKFAST','2014-10-02','H1');
+insert into servings values('30','60','LUNCH','2014-10-02','H1');
+insert into servings values('31','40','LUNCH','2014-10-02','H1');
+insert into servings values('32','41','LUNCH','2014-10-02','H1');
+insert into servings values('33','42','TIFFIN','2014-10-02','H1');
+insert into servings values('34','43','TIFFIN','2014-10-02','H1');
+insert into servings values('35','44','TIFFIN','2014-10-02','H1');
+insert into servings values('36','31','DINNER','2014-10-02','H1');
+insert into servings values('37','58','DINNER','2014-10-02','H1');
+insert into servings values('38','33','DINNER','2014-10-09','H1');
+insert into servings values('39','32','DINNER','2014-10-09','H1');
+
+
+
+
 

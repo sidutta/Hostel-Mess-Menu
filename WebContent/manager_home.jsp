@@ -82,7 +82,6 @@ function asd() {
 function updateValue(){ 
 	callAjax2();
 	callAjax();
-    
     }
 
 window.addEvent(window, "load", updateValue, false); 
@@ -144,38 +143,45 @@ window.addEvent(window, "load", updateValue, false);
 				var lunchtxt = "";
 				var tiffintxt = "";
 				var dinnertxt = "";
-				if (bfastArray.length == 0)
+				
+				$("#bfast").select2("val", bfastArray);
+				$("#lunch").select2("val", lunchArray);
+				$("#tiffin").select2("val", tiffinArray);
+				$("#dinner").select2("val", dinnerArray);
+				
+				if ((bfastArray.length == 0) || (bfastArray[0]=="prevweek"))
 					bfasttxt = "Data not available";
 				else {
-					for (i = 0; i < bfastArray.length; i++) {
+					for (i = 1; i < bfastArray.length; i++) {
 						bfasttxt += bfastArray[i] + "<br>";
 					}
 				}
-				if (lunchArray.length == 0)
+				if (lunchArray.length == 0 || (lunchArray[0]=="prevweek"))
 					lunchtxt = "Data not available";
 				else {
-					for (i = 0; i < lunchArray.length; i++) {
+					for (i = 1; i < lunchArray.length; i++) {
 						lunchtxt += lunchArray[i] + "<br>";
 					}
 				}
 
-				if (tiffinArray.length == 0)
+				if (tiffinArray.length == 0 || (tiffinArray[0]=="prevweek"))
 					tiffintxt = "Data not available";
 				else {
-					for (i = 0; i < tiffinArray.length; i++) {
+					for (i = 1; i < tiffinArray.length; i++) {
 						tiffintxt += tiffinArray[i] + "<br>";
-						$("#tiffin").select2("val", tiffinArray[i]);
+						//$("#tiffin").select2("val", tiffinArray[i]);
 
 					}
 				}
 
-				if (dinnerArray.length == 0)
+				if (dinnerArray.length == 0 || (dinnerArray[0]=="prevweek"))
 					dinnertxt = "Data not available";
 				else {
-					for (i = 0; i < dinnerArray.length; i++) {
+					for (i = 1; i < dinnerArray.length; i++) {
 						dinnertxt += dinnerArray[i] + "<br>";
 					}
 				}
+				
 				var appendtxt = "";
 
 				appendtxt += "<tr>" + "<td>Breakfast</td>"  + "<td>"
@@ -227,39 +233,44 @@ window.addEvent(window, "load", updateValue, false);
 
 				//obj = JSON.parse(data);
 				console.log("Ajax2callreturnhua");
-				var bfastArray = data.bfast;//alert("eegg"+bfastArray);
+				/*var bfastArray = data.bfast;//alert("eegg"+bfastArray);
 				var lunchArray = data.lunch;//alert("eeff" + data.dinner);
 				var tiffinArray = data.tiffin;
 				var dinnerArray = data.dinner;//alert("eeff" + data.dinner);
 				var bfasttxt = "";
 				var lunchtxt = "";
 				var tiffintxt = "";
-				var dinnertxt = "";
+				var dinnertxt = "";*/
 
-				for (i = 0; i < bfastArray.length; i++) {
-						var o = new Option(bfastArray[i], bfastArray[i]);
+				for (i = 0; i < data.length; i++) {
+						var o = new Option(data[i], data[i]);
 						//o.setAttribute("selected","selected");
-						$(o).html(bfastArray[i]);
+						$(o).html(data[i]);
 						$("#bfast").append(o);
 						
 					}
-					for (i = 0; i < lunchArray.length; i++) {
-						var o = new Option(lunchArray[i], lunchArray[i]);
-						$(o).html(lunchArray[i]);
-						$("#lunch").append(o);
-					}
+				for (i = 0; i < data.length; i++) {
+					var o = new Option(data[i], data[i]);
+					//o.setAttribute("selected","selected");
+					$(o).html(data[i]);
+					$("#lunch").append(o);
+					
+				}
 
-					for (i = 0; i < tiffinArray.length; i++) {
-						var o = new Option(tiffinArray[i], tiffinArray[i]);
-						$(o).html(tiffinArray[i]);
-						$("#tiffin").append(o);
-					}
-					for (i = 0; i < dinnerArray.length; i++) {
-						var o = new Option(dinnerArray[i], dinnerArray[i]);
-						$(o).html(dinnerArray[i]);
-						$("#dinner").append(o);
-					}
-				
+				for (i = 0; i < data.length; i++) {
+					var o = new Option(data[i], data[i]);
+					//o.setAttribute("selected","selected");
+					$(o).html(data[i]);
+					$("#tiffin").append(o);
+					
+				}
+				for (i = 0; i < data.length; i++) {
+					var o = new Option(data[i], data[i]);
+					//o.setAttribute("selected","selected");
+					$(o).html(data[i]);
+					$("#dinner").append(o);
+					
+				}
 			},
 
 			//If there was no resonse from the server
@@ -286,147 +297,136 @@ window.addEvent(window, "load", updateValue, false);
 
 
 <body>
-	<form>
-		<div class="container">
+<form>
+<div class="container">
 
-			<div class="masthead">
-				<!-- <table>
+<div class="masthead"><!-- <table>
 			<tr> -->
-				<div class="row">
-					<!-- <td class='col-md-10	'> -->
-					<h3 class="text-muted col-md-10">Hostel Menu Management</h3>
-					<!-- </td> -->
-					<!-- <td> -->
-					<h4 class="text col-md-2" align="right" vertical-align="center"
-						style="margin-top: 25px;">
-						<%=session.getAttribute("consumername")%>
-					</h4>
-					<!-- </td> -->
-				</div>
-				<!-- </tr>
+<div class="row"><!-- <td class='col-md-10	'> -->
+<h3 class="text-muted col-md-10">Hostel Menu Management</h3>
+<!-- </td> --> <!-- <td> -->
+<h4 class="text col-md-2" align="right" vertical-align="center"
+	style="margin-top: 25px;"><%=session.getAttribute("consumername")%>
+</h4>
+<!-- </td> --></div>
+<!-- </tr>
 			</table> -->
-				<ul class="nav nav-justified">
-					<li><a href="${pageContext.request.contextPath}/login.jsp">Home</a></li>
-					<li class="active"><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
-					<li><a href="#">Services</a></li>
-					<li><a href="#">Downloads</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
-				</ul>
-			</div>
+<ul class="nav nav-justified">
+	<li><a href="${pageContext.request.contextPath}/login.jsp">Home</a></li>
+	<li class="active"><a
+		href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
+	<li><a href="#">Services</a></li>
+	<li><a href="#">Downloads</a></li>
+	<li><a href="#">About</a></li>
+	<li><a
+		href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
+</ul>
+</div>
 
-			<div class="row centered-form">
-				<div class="col-lg-5"></div>
-				<div class="col-lg-2">
-					<form>
-						<center>
-							<div class="form-group">
-								<select class="combobox form-control" name="day"
-									id="day"onchange="callAjax()">
-									<option value="" selected="selected">Day</option>
-									<option value="Monday">Monday</option>
-									<option value="Tuesday">Tuesday</option>
-									<option value="Wednesday">Wednesday</option>
-									<option value="Thursday">Thursday</option>
-									<option value="Friday">Friday</option>
-									<option value="Saturday">Saturday</option>
-									<option value="Sunday">Sunday</option>
-								</select>
+<div class="row centered-form">
+<div class="col-lg-5"></div>
+<div class="col-lg-2">
+<form>
+<center>
+<div class="form-group"><select class="combobox form-control"
+	name="day" id="day" onchange="callAjax()">
+	<option value="" selected="selected">Day</option>
+	<option value="Monday">Monday</option>
+	<option value="Tuesday">Tuesday</option>
+	<option value="Wednesday">Wednesday</option>
+	<option value="Thursday">Thursday</option>
+	<option value="Friday">Friday</option>
+	<option value="Saturday">Saturday</option>
+	<option value="Sunday">Sunday</option>
+</select></div>
+</center>
+</form>
+</div>
 
+</div>
 
-							</div>
-						</center>
-					</form>
-				</div>
-
-			</div>
-
-			<div class="row" style="margin-right: 0px; margin-left: 0px">
-				<div class=""></div>
-				<div class="panel panel-default col-lg-5"
-					style="margin-right: 0px; margin-left: 3.8%">
-					<div class="panel-heading">
-						<h3 class="panel-title" id="hosteltitle">Today's menu</h3>
-					</div>
-					<div class="panel-body">
+<div class="row" style="margin-right: 0px; margin-left: 0px">
+<div class=""></div>
+<div class="panel panel-default col-lg-5"
+	style="margin-right: 0px; margin-left: 3.8%">
+<div class="panel-heading">
+<h3 class="panel-title" id="hosteltitle">Today's menu</h3>
+</div>
+<div class="panel-body">
 
 
-						<center>
-							<table id="table" class="table">
+<center>
+<table id="table" class="table">
 
-							</table>
-							<div class="text-muted" id="message"></div>
-						</center>
-					</div>
-				</div>
-				<div class="col-lg-1"></div>
-				<div class="panel panel-default col-lg-5">
-					<div class="panel-heading">
-						<h3 class="panel-title"id="settitle">Set this week's menu</h3>
+</table>
+<div class="text-muted" id="message"></div>
+</center>
+</div>
+</div>
+<div class="col-lg-1"></div>
+<div class="panel panel-default col-lg-5">
+<div class="panel-heading">
+<h3 class="panel-title" id="settitle">Set this week's menu</h3>
 
-					</div>
-					<div class="panel-body">
+</div>
+<div class="panel-body">
 
-						<div class="row">
-							<div class="col-lg-5">
-								<h4>Breakfast</h4>
+<div class="row">
+<div class="col-lg-5">
+<h4>Breakfast</h4>
 
-								<select multiple id="bfast" style="width:300px min-width:300px">
-									<option value="AL">Alabama</option>
-									<option value="WY">Wyoming</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-5">
-								<h4>Lunch</h4>
-								<select multiple id="lunch" style="width:300px min-width:300px">
-									<option value="AL">Alabama</option>
-									<option value="WY">Wyoming</option>
-								</select>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-lg-5">
-								<h4>Tiffin</h4>
+<select multiple id="bfast" style="width: 300px min-width :   300px">
+	<option value="AL">Alabama</option>
+	<option value="WY">Wyoming</option>
+</select></div>
+</div>
+<div class="row">
+<div class="col-lg-5">
+<h4>Lunch</h4>
+<select multiple id="lunch" style="width: 300px min-width :   300px">
+	<option value="AL">Alabama</option>
+	<option value="WY">Wyoming</option>
+</select></div>
+</div>
 
-								<select multiple id="tiffin" style="width:300px min-width:300px">
-									<option value="AL">Alabama</option>
-									<option value="WY">Wyoming</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-5">
-								<h4>Dinner</h4>
-								<select multiple id="dinner" style="width:300px min-width:300px">
-									<option value="AL">Alabama</option>
-									<option value="WY">Wyoming</option>
-								</select>
-							</div>
-						</div>
-						<br />
-						<div class="row">
-							<div class="col-lg-1">
-						<button id="button2" onclick = "asd()" class="btn" >Submit</button>
-						</div>
-						</div>
-					</div>
-				</div>
+<div class="row">
+<div class="col-lg-5">
+<h4>Tiffin</h4>
 
-			</div>
-		</div>
-	</form>
+<select multiple id="tiffin" style="width: 300px min-width :   300px">
+	<option value="AL">Alabama</option>
+	<option value="WY">Wyoming</option>
+</select></div>
+</div>
+<div class="row">
+<div class="col-lg-5">
+<h4>Dinner</h4>
+<select multiple id="dinner" style="width: 300px min-width :   300px">
+	<option value="AL">Alabama</option>
+	<option value="WY">Wyoming</option>
+</select></div>
+</div>
+<br />
+<div class="row">
+<div class="col-lg-1">
+<button id="button2" onclick="asd()" class="btn">Submit</button>
+</div>
+</div>
+</div>
+</div>
 
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
-	<%-- <script type="text/javascript"
+</div>
+</div>
+</form>
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
+<%-- <script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/multiselect.js"></script> --%>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 		$(document).ready(function() {
 			$('.combobox').combobox();
 		});
@@ -446,9 +446,9 @@ window.addEvent(window, "load", updateValue, false);
 			$("#txtRight").val(selectedItem.text());
 		});
 	</script>
-	<script
-		src="${pageContext.request.contextPath}/scripts/select2-3.5.1/select2.js"></script>
-	<script>
+<script
+	src="${pageContext.request.contextPath}/scripts/select2-3.5.1/select2.js"></script>
+<script>
         $(document).ready(function() {
         	$("#bfast").select2({
             placeholder: "Select an item"
@@ -467,11 +467,11 @@ window.addEvent(window, "load", updateValue, false);
             	});
         });
     </script>
-	<script
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie10-viewport-bug-workaround.js"></script>
+<script
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie10-viewport-bug-workaround.js"></script>
 
 </body>
 </html>
