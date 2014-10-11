@@ -14,6 +14,7 @@
 
 <title>Hostel Menu Management</title>
 
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/css/bootstrap.min.css">
@@ -33,16 +34,14 @@
 
 
 <link rel="stylesheet" id="rangecalendar-style-css"
-	href="${pageContext.request.contextPath}/jQuery-Range-Calendar/css/rangecalendar.css"
+	href="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/css/rangecalendar.css"
 	type="text/css" media="all">
-<link rel="stylesheet" id="rangecalendar-style-css"
-	href="${pageContext.request.contextPath}/jQuery-Range-Calendar/css/style.css"
-	type="text/css" media="all">
-<link rel="stylesheet" id="jquery-ui-style-css"
-	href="${pageContext.request.contextPath}/jQuery-Range-Calendar/css/jquery-ui-1.10.3.custom.min.css"
-	type="text/css" media="all">
+<link rel="stylesheet" id="rangecalendar-style-css" href="css/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="jquery-ui-style-css" href="css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="all">
 
-
+	
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -65,12 +64,6 @@
 }
 </style>
 
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"
-	type="text/javascript"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
-	type="text/javascript"></script>
 <script>
 	var jsondata;
 	var day;
@@ -194,70 +187,14 @@
 	}
 	
 	
-$(document).ready(function(){
-		
-		var defaultCalendar = $("#cal1").rangeCalendar();
-		
-		
-		$("#setDateBt").click(function () {
-			var newDate = new Date(2014, 4, 24);
-			rangeCalendar.setStartDate(newDate);
-			
-			rangeCalendar.update();
-		});
-		
-		$("#addMonthBt").click(function () {
-		
-			var newDate = moment().add('months', 1);
-			rangeCalendar.setStartDate(newDate);
-		});
-		
-		
-		
-		
-		var customizedRangeCalendar = $("#cal2").rangeCalendar({theme:"full-green-theme"});
-		var languageCalendar = $("#cal3").rangeCalendar({lang:"it"});
-		var rangeCalendar =  $("#cal4").rangeCalendar({weekends:false});
-		var callbackRangeCalendar =  $("#cal5").rangeCalendar({changeRangeCallback: rangeChanged,weekends:false});
-		
-		function rangeChanged(target,range){
-	    
-			
-			console.log(range);
-		    var startDay = moment(range.start).format('DD');
-		    var startMonth = moment(range.start).format('MMM');
-		    var startYear = moment(range.start).format('YY');
-		    var endDay = moment(range.end).format('DD');
-		    var endMonth = moment(range.end).format('MMM');
-		    var endYear = moment(range.end).format('YY');
-		    
-		    
-		    $(".calendar-values .start-date .value").html(startDay);
-		    $(".calendar-values .start-date .label").html("");
-		    $(".calendar-values .start-date .label").append(startMonth);
-		    $(".calendar-values .start-date .label").append("<small>"+startYear+"</small>");
-		    $(".calendar-values .end-date .value").html(endDay);
-		    $(".calendar-values .end-date .label").html("");
-		    $(".calendar-values .end-date .label").append(endMonth);
-		    $(".calendar-values .end-date .label").append("<small>"+endYear+"</small>");
-		    $(".calendar-values .days-width .value").html(range.width);
-		    $(".calendar-values .from-now .label").html(range.fromNow);
-		    
-		}
-    
-		function ragneChanged(target,range) {
-			
-			console.log(range);
-		}
-    
-	});
+
 </script>
 </head>		
 
 
 
 <body>
-	<form id='myForm'>
+	
 		<div class="container">
 
 			<div class="masthead">
@@ -278,8 +215,8 @@ $(document).ready(function(){
 			</table> -->
 				<ul class="nav nav-justified">
 					<li><a href="${pageContext.request.contextPath}/login.jsp">Home</a></li>
-					<li class="active"><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
-					<li><a href="#">Services</a></li>
+					<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
+					<li class="active"><a href="#">Weekly Menu</a></li>
 					<li><a href="#">Downloads</a></li>
 					<li><a href="#">About</a></li>
 					<li><a href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
@@ -295,18 +232,70 @@ $(document).ready(function(){
 					<div class="panel-body">
 
 						<div class="row">
+							<div class="col-lg-12">
 							<div class="section">
-								<h2>Set date programmatically</h2>
-
-								<div id="setDateBt" class="btn btn-primary btn-lg">Set a
-									new date programmatically</div>
-								<div id="addMonthBt" class="btn btn-primary btn-lg">+ 1
-									month from now</div>
-
 
 								<div id="cal4"></div>
+								<table class="table table-bordered">
+								<tr>
+									<th>Date</th>
+									<th>Breakfast</th>
+									<th>Lunch</th>
+									<th>Tiffin</th>
+									<th>Dinner</th>
+								</tr>
+								<tr>
+									<td id="11"></td>
+									<td id="12"></td>
+									<td id="13"></td>
+									<td id="14"></td>
+									<td id="15"></td>
+								</tr>
+								<tr>
+									<td id="21"></td>
+									<td id="22"></td>
+									<td id="23"></td>
+									<td id="24"></td>
+									<td id="25"></td>
+								</tr>
+								<tr>
+									<td id="31"></td>
+									<td id="32"></td>
+									<td id="33"></td>
+									<td id="34"></td>
+									<td id="35"></td>
+								</tr>
+								<tr>
+									<td id="41"></td>
+									<td id="42"></td>
+									<td id="43"></td>
+									<td id="44"></td>
+									<td id="45"></td>
+								</tr>
+								<tr>
+									<td id="51"></td>
+									<td id="52"></td>
+									<td id="53"></td>
+									<td id="54"></td>
+									<td id="55"></td>
+								</tr>
+								<tr>
+									<td id="61"></td>
+									<td id="62"></td>
+									<td id="63"></td>
+									<td id="64"></td>
+									<td id="65"></td>
+								</tr>
+								<tr>
+									<td id="71"></td>
+									<td id="72"></td>
+									<td id="73"></td>
+									<td id="74"></td>
+									<td id="75"></td>
+								</tr>
+								</table>
 
-
+							</div>
 							</div>
 						</div>
 
@@ -318,31 +307,88 @@ $(document).ready(function(){
 						</center>
 					</div>
 				</div>
+					
 			</div>
 		</div>
 
 
-	</form>
+	
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/jQuery-Range-Calendar/js/jquery.min.js"></script>
+		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery.min.js">alert("frc");</script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/jQuery-Range-Calendar/js/jquery-ui.min.js"></script>
+		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery-ui.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/jQuery-Range-Calendar/js/jquery.ui.touch-punch.min.js"></script>
+		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery.ui.touch-punch.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/jQuery-Range-Calendar/js/moment+langs.min.js"></script>
+		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/moment+langs.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/jQuery-Range-Calendar/js/jquery.rangecalendar.js"></script>
-
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
+		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery.rangecalendar.js"></script>
+	
+	
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
-
+	
+	
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.combobox').combobox();
 		});
+		
+		$(document).ready(function(){
+
+			
+			
+			var rangeCalendar =  $("#cal4").rangeCalendar({weekends:true,startRangeWidth:7,changeRangeCallback: rangeChanged});
+
+			function rangeChanged(target,range){
+		    
+				
+				console.log(range);
+			    var startDay = moment(range.start).format('DD');
+			    var startMonth = moment(range.start).format('MM');
+			    var startYear = moment(range.start).format('YY');
+			    
+			    var today = new Date();
+			    /* today.setDate(startDay);
+			    today.setMonth(startMonth);
+ */			    today.setFullYear(20+startYear,(parseInt(startMonth)-1),startDay); 
+			    
+			    $("#11").empty();
+			    $("#21").empty();
+			    $("#31").empty();
+			    $("#41").empty();
+			    $("#51").empty();
+			    $("#61").empty();
+			    $("#71").empty();
+			    
+			    $("#11").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    today.setDate(today.getDate() + 1);
+			    $("#21").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    today.setDate(today.getDate() + 1);
+			    $("#31").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    today.setDate(today.getDate() + 1);
+			    $("#41").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    today.setDate(today.getDate() + 1);
+			    $("#51").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    today.setDate(today.getDate() + 1);
+			    $("#61").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    today.setDate(today.getDate() + 1);
+			    $("#71").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    
+				for(var j=2; j<6; j++)
+					for(var i=1; i<8; i++)
+						$("#"+i+j).append("de");
+			
+			}
+			
+			
+			function ragneChanged(target,range) {
+				
+				console.log(range);
+			}
+	    
+		});
+
 	</script>
 	<script
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
