@@ -297,7 +297,7 @@ window.addEvent(window, "load", updateValue, false);
 
 
 <body>
-<form>
+
 <div class="container">
 
 <div class="masthead"><!-- <table>
@@ -417,7 +417,8 @@ window.addEvent(window, "load", updateValue, false);
 
 </div>
 </div>
-</form>
+
+
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
