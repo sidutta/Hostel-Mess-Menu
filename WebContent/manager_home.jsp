@@ -75,9 +75,7 @@
 
  window.addEvent=function(e,ev,f,c){if(e.addEventListener){e.addEventListener(ev,f,c);}else if(e.attachEvent){var r=e.attachEvent('on'+ev,f);return r;}else{e['on'+ev]=f;}};
 
-function asd() {
-	alert($("#dinner").val());
-} 
+
  
 function updateValue(){ 
 	callAjax2();
@@ -148,7 +146,7 @@ window.addEvent(window, "load", updateValue, false);
 				$("#lunch").select2("val", lunchArray);
 				$("#tiffin").select2("val", tiffinArray);
 				$("#dinner").select2("val", dinnerArray);
-				
+				$("#table").empty();
 				if ((bfastArray.length == 0) || (bfastArray[0]=="prevweek"))
 					bfasttxt = "Data not available";
 				else {
@@ -214,6 +212,7 @@ window.addEvent(window, "load", updateValue, false);
 			},
 			beforeSend : function(jqXHR, settings) {
 				$("#table").empty();
+				$("#table").append("Loading...");
 			}
 
 		});
@@ -291,13 +290,84 @@ window.addEvent(window, "load", updateValue, false);
 
 		});
 	}
+	
+	function callAjax3() {
+		//alert($("#dinner").val());
+		var day=$("#day").val();
+		if(day=="") day="initial";
+		var bfast=$("#bfast").val();
+		var lunch=$("#lunch").val();
+		var tiffin=$("#tiffin").val();
+		var dinner=$("#dinner").val();
+		var repeat=$("#repeat").val();
+		console.log(bfast);
+		console.log(lunch);
+		console.log(repeat);
+		if(bfast==null)
+			{
+			alert("Breakfast can not be empty.");
+			return;
+			}
+		if(lunch==null)
+		{
+		alert("Lunch can not be empty.");
+		return;
+		}
+		if(tiffin==null)
+		{
+		alert(" Tiffin not be empty.");
+		return;
+		}
+		if(dinner==null)
+		{
+		alert("Dinner can not be empty.");
+		return;
+		}
+		
+		dataString = "day=" + day + "&bfast="+bfast+ "&lunch="+lunch+ "&tiffin="+tiffin+ "&dinner="+dinner+ "&repeat="+repeat;
+		console.log(dataString);
+
+		var jsondata;
+		//make the AJAX request, dataType is set to json
+		//meaning we are expecting JSON data in response from the server
+		$.ajax({
+			type : "GET",
+			url : "ChangeMenu",
+			data : dataString,
+			dataType : "json",
+			//if received a response from the server
+			success : function(data, textStatus, jqXHR) {
+			},
+
+			//If there was no resonse from the server
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log("Something really bad happened " + textStatus);
+				$("#ajaxResponse").html(jqXHR.responseText);
+			},
+
+			//this is called after the response or error functions are finsihed
+			//so that we can take some action
+			complete : function(jqXHR, textStatus) {
+				//$("#table").empty();
+				callAjax();
+				//enable the button 
+				//$('#myButton').attr("disabled", false);
+			},
+			beforeSend : function(jqXHR, settings) {
+				$("#table").empty();
+				$("#table").append("Loading...");
+			}
+
+		});
+
+	} 
 </script>
 </head>
 
 
 
 <body>
-<form>
+
 <div class="container">
 
 <div class="masthead"><!-- <table>
@@ -343,6 +413,22 @@ window.addEvent(window, "load", updateValue, false);
 </form>
 </div>
 
+<div class="row centered-form">
+<div class="col-lg-5"></div>
+<div class="col-lg-2">
+<form>
+<center>
+Repeat
+<div class="form-group"><select class="combobox form-control"
+	name="repeat" id="repeat">
+	<option value="1" selected="selected">1 Week</option>
+	<option value="2">2 Weeks</option>
+	<option value="3">3 Weeks</option>
+</select></div>
+</center>
+</form>
+</div>
+
 </div>
 
 <div class="row" style="margin-right: 0px; margin-left: 0px">
@@ -375,17 +461,15 @@ window.addEvent(window, "load", updateValue, false);
 <div class="col-lg-5">
 <h4>Breakfast</h4>
 
-<select multiple id="bfast" style="width: 300px min-width :   300px">
-	<option value="AL">Alabama</option>
-	<option value="WY">Wyoming</option>
+<select multiple id="bfast" style="width: 300px min-width :       300px">
+
 </select></div>
 </div>
 <div class="row">
 <div class="col-lg-5">
 <h4>Lunch</h4>
-<select multiple id="lunch" style="width: 300px min-width :   300px">
-	<option value="AL">Alabama</option>
-	<option value="WY">Wyoming</option>
+<select multiple id="lunch" style="width: 300px min-width :       300px">
+
 </select></div>
 </div>
 
@@ -393,23 +477,23 @@ window.addEvent(window, "load", updateValue, false);
 <div class="col-lg-5">
 <h4>Tiffin</h4>
 
-<select multiple id="tiffin" style="width: 300px min-width :   300px">
-	<option value="AL">Alabama</option>
-	<option value="WY">Wyoming</option>
+<select multiple id="tiffin"
+	style="width: 300px min-width :       300px">
+
 </select></div>
 </div>
 <div class="row">
 <div class="col-lg-5">
 <h4>Dinner</h4>
-<select multiple id="dinner" style="width: 300px min-width :   300px">
-	<option value="AL">Alabama</option>
-	<option value="WY">Wyoming</option>
+<select multiple id="dinner"
+	style="width: 300px min-width :       300px">
+
 </select></div>
 </div>
 <br />
 <div class="row">
 <div class="col-lg-1">
-<button id="button2" onclick="asd()" class="btn">Submit</button>
+<button id="button2" onclick="callAjax3()" class="btn">Submit</button>
 </div>
 </div>
 </div>
@@ -417,7 +501,7 @@ window.addEvent(window, "load", updateValue, false);
 
 </div>
 </div>
-</form>
+
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>

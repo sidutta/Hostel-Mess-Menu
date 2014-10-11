@@ -93,7 +93,7 @@
     <servlet-name>GetItems</servlet-name>
     <url-pattern>/GetItems</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>WeeklyMenu</display-name>
     <servlet-name>WeeklyMenu</servlet-name>
@@ -102,5 +102,15 @@
   <servlet-mapping>
     <servlet-name>WeeklyMenu</servlet-name>
     <url-pattern>/WeeklyMenu</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChangeMenu</display-name>
+    <servlet-name>ChangeMenu</servlet-name>
+    <servlet-class>messmenu.ChangeMenu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangeMenu</servlet-name>
+    <url-pattern>/ChangeMenu</url-pattern>
   </servlet-mapping>
 </web-app>
