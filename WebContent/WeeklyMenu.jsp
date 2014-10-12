@@ -34,12 +34,12 @@
 
 
 <link rel="stylesheet" id="rangecalendar-style-css"
-	href="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/css/rangecalendar.css"
+	href="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/css/rangecalendar.css"
 	type="text/css" media="all">
-<link rel="stylesheet" id="rangecalendar-style-css" href="css/style.css"
+<link rel="stylesheet" id="rangecalendar-style-css" href="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/css/style.css"
 	type="text/css" media="all">
 <link rel="stylesheet" id="jquery-ui-style-css"
-	href="css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="all">
+	href="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="all">
 
 
 
@@ -190,15 +190,15 @@
 
 
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery.min.js"></script>
+		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/jquery.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery-ui.min.js"></script>
+		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/jquery-ui.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery.ui.touch-punch.min.js"></script>
+		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/jquery.ui.touch-punch.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/moment+langs.min.js"></script>
+		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/moment+langs.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery.rangecalendar.js"></script>
+		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/jquery.rangecalendar.js"></script>
 
 
 	<script type="text/javascript"
@@ -211,11 +211,15 @@
 		});
 		
 		$(document).ready(function(){
-
 			
-			
-			var rangeCalendar =  $("#cal4").rangeCalendar({weekends:true,startRangeWidth:7,changeRangeCallback: rangeChanged});
-
+			  var currentTime = new Date();
+			var month = currentTime.getMonth();
+			var day = currentTime.getDate()-13;
+			var year = currentTime.getFullYear();
+			 
+			var rangeCalendar =  $("#cal4").rangeCalendar({startDate: new Date(year, month, day), weekends:true,startRangeWidth:7,changeRangeCallback: rangeChanged});
+			/* rangeCalendar.setStartDate(); */
+				
 			function rangeChanged(target,range){
 		    
 				
@@ -227,7 +231,7 @@
 			    var today = new Date();
 			    /* today.setDate(startDay);
 			    today.setMonth(startMonth);
- */			    today.setFullYear(20+startYear,(parseInt(startMonth)-1),startDay); 
+ */			    today.setFullYear(20+startYear,(parseInt(startMonth)-1),startDay-13); 
 			    
 			    $("#11").empty();
 			    $("#21").empty();
@@ -251,8 +255,22 @@
 			    today.setDate(today.getDate() + 1);
 			    $("#71").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
 			    
-				
-				var dateset = today.getFullYear() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getDate();
+			    today.setDate(today.getDate() - 6);
+			    var date1 = "";
+			    if(today.getDate()<10) {
+			    	date1 = "0" + today.getDate();
+			    } 
+			    else {
+			    	date1 = "" + today.getDate();
+			    }
+			    var month1 = "";
+			    if(today.getMonth()<9) {
+			    	month1 = "0" + (parseInt(today.getMonth())+1);
+			    } 
+			    else {
+			    	month1 = (parseInt(today.getMonth())+1);
+			    }
+				var dateset = today.getFullYear() + "-" + (parseInt(today.getMonth())+1) + "-" + date1;
 				
 				$.ajax({
 					type : "GET",

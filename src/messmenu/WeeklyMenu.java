@@ -52,20 +52,42 @@ public class WeeklyMenu extends HttpServlet {
 		
 		try {
 			
-			rs = st.executeQuery("SELECT itemname, type, servedon FROM fooditems NATURAL JOIN servings WHERE servedon >= date '"+dateset+"' AND servedon < date '"+dateset+"' + interval '"+7+"' day AND hostelnumber = '"+hostelno+"' ORDER BY servedon");
+			rs = st.executeQuery("SELECT itemname, type, servedon FROM fooditems NATURAL JOIN servings WHERE servedon >= date '"+dateset+"' AND servedon < date '"+dateset+"' + interval '"+7+"' day AND hostelnumber = '"+hostelno+"' ORDER BY servedon, type");
+			
+			for(int i=1; i<=7; i++) {
+				for(int j=2; j<=5; j++) {
+					obj.put(String.valueOf(i)+String.valueOf(j), "No data available");
+				}
+			}
 			
 			String type = "";
 			String typeno = "";
 			Date date = null;
+			System.out.println("Start date is " + dateset);
 			Date today = Date.valueOf(dateset);
 			String datediff = "";
+			String item = "";
+			
+			String tag = "";
+			String items = "";
 			
 			while(rs.next()) {
 				type = rs.getString("type");
 				typeno = foodtype.get(type);
 				date = rs.getDate("servedon");
-				datediff = String.valueOf(date.compareTo(today)+1);
-				obj.get(datediff+typeno);
+				datediff = String.valueOf((date.getTime() - today.getTime())/(3600000*24)+1);
+				item = rs.getString("itemname");
+				
+				if(tag.equals(datediff+typeno)) {
+					items += (" "+item);
+				}
+				else {
+					items = item+" ";
+					tag = datediff+typeno;
+				}
+				
+				obj.put(tag, items);
+				
 			}
 			
 //			for(int i=0; i<7; i++) {
@@ -128,12 +150,5 @@ public class WeeklyMenu extends HttpServlet {
 		out.close();
 
 	}
-	
-	public static void main(String[] args) {
-		Date a = Date.valueOf("2014-03-17");
-		Date b = Date.valueOf("2014-03-10");
-		long c = (a.getTime() - b.getTime())/(3600000*24);
-		System.out.println(c);
-	}
-	
+
 }
