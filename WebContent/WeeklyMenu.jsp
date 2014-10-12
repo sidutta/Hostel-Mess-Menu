@@ -36,12 +36,12 @@
 <link rel="stylesheet" id="rangecalendar-style-css"
 	href="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/css/rangecalendar.css"
 	type="text/css" media="all">
-<link rel="stylesheet" id="rangecalendar-style-css" href="css/style.css" type="text/css" media="all">
-<link rel="stylesheet" id="jquery-ui-style-css" href="css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="rangecalendar-style-css" href="css/style.css"
+	type="text/css" media="all">
+<link rel="stylesheet" id="jquery-ui-style-css"
+	href="css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="all">
 
-	
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
+
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -64,257 +64,133 @@
 }
 </style>
 
-<script>
-	var jsondata;
-	var day;
-	var foodtype;
-	var flag = false;
-	$(function() {
-		$('#myForm').on('submit', function(e) {
-
-			e.preventDefault();
-		});
-	});
-	function callAjax() {
-		dataString = $("#myAjaxRequestForm").serialize();
-
-		//get the form data using another method 
-		if (flag == false) {
-			day = $("#day").val();
-			foodtype = $("#foodtype").val();
-		}
-		dataString = "day=" + day + "&foodtype=" + foodtype;
-		flag = false;
-		console.log("yo");
-
-		// jsondata;
-		//make the AJAX request, dataType is set to json
-		//meaning we are expecting JSON data in response from the server
-		$
-				.ajax({
-					type : "POST",
-					url : "Putrating",
-					data : dataString,
-					dataType : "json",
-
-					//if received a response from the server
-					success : function(data, textStatus, jqXHR) {
-						//our country code was correct so we have some information to display
-						$("#message").empty();
-						$("#table").empty();
-						console.log(data);
-						var txt = "";
-						txt += "<tr><th>ID</th><th>Item Name</th><th>Average Rating</th><th>Your Rating</th><th>Comments</th></td>";
-						var i = 0;
-						jsondata = data;
-						var n;
-						for ( var key in data) {
-							if (data.hasOwnProperty(key)) {
-								if (isNaN(key)) {
-									txt += "<tr><td>" + data[key] + "</td><td>"
-											+ key + "</td>";
-
-									txt += "<td><span id = 'avg"+data[key]+"'></span></td>";
-									txt += "<td><select class='combobox form-control' name='rate@"+data[key]+"' id='rate@"+data[key]+"'>"
-											+ "<option value='' selected='selected'>Rate</option>"
-											+ "<option value='1'>1</option>"
-											+ "<option value='2'>2</option>"
-											+ "<option value='3'>3</option>"
-											+ "<option value='4'>4</option>"
-											+ "<option value='5'>5</option>"
-											+ "</select></td>";
-									txt += "<td><textarea class='col-md-12 col-sm-12' rows='3' placeholder='Comment' name='comment@"+data[key]+"' id='comment@"+data[key]+"' required></textarea></td>";
-									txt += "</tr>";
-
-									i = i + 1;
-								} else {
-
-									console.log("Aditi");
-								}
-							}
-						}
-
-						if (txt != "") {
-							//	txt += "<input type=submit onclick='sendratings()'>"
-							//  txt += "</form>"
-							$("#table").append(txt).removeClass("hidden");
-							$('#butt').removeClass("hidden");
-							//console.log(txt);
-						} else {
-
-							$("#message").append("No Data Available");
-						}
-
-						for ( var key in data) {
-							if (data.hasOwnProperty(key)) {
-								if (isNaN(key)) {
-
-								} else {
-									var createid = "avg" + key.toString();
-									document.getElementById(createid).innerHTML = data[key];
-								}
-							}
-						}
-
-					},
-
-					//If there was no resonse from the server
-					error : function(jqXHR, textStatus, errorThrown) {
-						console.log("Something really bad happened "
-								+ textStatus);
-						$("#ajaxResponse").html(jqXHR.responseText);
-					},
-
-					//capture the request before it was sent to server
-					beforeSend : function(jqXHR, settings) {
-						$("#message").empty().append("Loading...");
-						$("#table").empty();
-						console.log("yoo3243o");
-						//adding some Dummy data to the request
-						settings.data += "&dummyData=whatever";
-						//disable the button until we get the response
-						// $('#myButton').attr("disabled", true);
-					},
-
-					//this is called after the response or error functions are finsihed
-					//so that we can take some action
-					complete : function(jqXHR, textStatus) {
-						//enable the button 
-						//$('#myButton').attr("disabled", false);
-					}
-
-				});
-	}
-	
-	
-
-</script>
-</head>		
+</head>
 
 
 
 <body>
-	
-		<div class="container">
 
-			<div class="masthead">
-				<!-- <table>
+	<div class="container">
+
+		<div class="masthead">
+			<!-- <table>
 			<tr> -->
-				<div class="row">
-					<!-- <td class='col-md-10	'> -->
-					<h3 class="text-muted col-md-10">Hostel Menu Management</h3>
-					<!-- </td> -->
-					<!-- <td> -->
-					<h4 class="text col-md-2" align="right" vertical-align="center"
-						style="margin-top: 25px;">
-						<%=session.getAttribute("consumername")%>
-					</h4>
-					<!-- </td> -->
-				</div>
-				<!-- </tr>
-			</table> -->
-				<ul class="nav nav-justified">
-					<li><a href="${pageContext.request.contextPath}/login.jsp">Home</a></li>
-					<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
-					<li class="active"><a href="#">Weekly Menu</a></li>
-					<li><a href="#">Downloads</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
-				</ul>
+			<div class="row">
+				<!-- <td class='col-md-10	'> -->
+				<h3 class="text-muted col-md-10">Hostel Menu Management</h3>
+				<!-- </td> -->
+				<!-- <td> -->
+				<h4 class="text col-md-2" align="right" vertical-align="center"
+					style="margin-top: 25px;">
+					<%=session.getAttribute("consumername")%>
+				</h4>
+				<!-- </td> -->
 			</div>
+			<!-- </tr>
+			</table> -->
+			<ul class="nav nav-justified">
+				<li><a href="${pageContext.request.contextPath}/login.jsp">Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
+				<li class="active"><a href="#">Weekly Menu</a></li>
+				<li><a href="#">Downloads</a></li>
+				<li><a href="#">About</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
+			</ul>
+		</div>
 
-			<div class="row centered-form"
-				style="margin-right: 0px; margin-left: 0px">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Weekly Menu</h3>
-					</div>
-					<div class="panel-body">
+		<div class="row centered-form"
+			style="margin-right: 0px; margin-left: 0px">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Weekly Menu</h3>
+				</div>
+				<div class="panel-body">
 
-						<div class="row">
-							<div class="col-lg-12">
+					<div class="row">
+						<div class="col-lg-12">
 							<div class="section">
 
 								<div id="cal4"></div>
 								<table class="table table-bordered">
-								<tr>
-									<th>Date</th>
-									<th>Breakfast</th>
-									<th>Lunch</th>
-									<th>Tiffin</th>
-									<th>Dinner</th>
-								</tr>
-								<tr>
-									<td id="11"></td>
-									<td id="12"></td>
-									<td id="13"></td>
-									<td id="14"></td>
-									<td id="15"></td>
-								</tr>
-								<tr>
-									<td id="21"></td>
-									<td id="22"></td>
-									<td id="23"></td>
-									<td id="24"></td>
-									<td id="25"></td>
-								</tr>
-								<tr>
-									<td id="31"></td>
-									<td id="32"></td>
-									<td id="33"></td>
-									<td id="34"></td>
-									<td id="35"></td>
-								</tr>
-								<tr>
-									<td id="41"></td>
-									<td id="42"></td>
-									<td id="43"></td>
-									<td id="44"></td>
-									<td id="45"></td>
-								</tr>
-								<tr>
-									<td id="51"></td>
-									<td id="52"></td>
-									<td id="53"></td>
-									<td id="54"></td>
-									<td id="55"></td>
-								</tr>
-								<tr>
-									<td id="61"></td>
-									<td id="62"></td>
-									<td id="63"></td>
-									<td id="64"></td>
-									<td id="65"></td>
-								</tr>
-								<tr>
-									<td id="71"></td>
-									<td id="72"></td>
-									<td id="73"></td>
-									<td id="74"></td>
-									<td id="75"></td>
-								</tr>
+									<tr>
+										<th>Date</th>
+										<th>Breakfast</th>
+										<th>Lunch</th>
+										<th>Tiffin</th>
+										<th>Dinner</th>
+									</tr>
+									<tr>
+										<td id="11"></td>
+										<td id="12"></td>
+										<td id="13"></td>
+										<td id="14"></td>
+										<td id="15"></td>
+									</tr>
+									<tr>
+										<td id="21"></td>
+										<td id="22"></td>
+										<td id="23"></td>
+										<td id="24"></td>
+										<td id="25"></td>
+									</tr>
+									<tr>
+										<td id="31"></td>
+										<td id="32"></td>
+										<td id="33"></td>
+										<td id="34"></td>
+										<td id="35"></td>
+									</tr>
+									<tr>
+										<td id="41"></td>
+										<td id="42"></td>
+										<td id="43"></td>
+										<td id="44"></td>
+										<td id="45"></td>
+									</tr>
+									<tr>
+										<td id="51"></td>
+										<td id="52"></td>
+										<td id="53"></td>
+										<td id="54"></td>
+										<td id="55"></td>
+									</tr>
+									<tr>
+										<td id="61"></td>
+										<td id="62"></td>
+										<td id="63"></td>
+										<td id="64"></td>
+										<td id="65"></td>
+									</tr>
+									<tr>
+										<td id="71"></td>
+										<td id="72"></td>
+										<td id="73"></td>
+										<td id="74"></td>
+										<td id="75"></td>
+									</tr>
 								</table>
 
 							</div>
-							</div>
 						</div>
-
-						<div class="row"></div>
-
-
-						<center>
-							<div class="text-muted" id="message"></div>
-						</center>
 					</div>
+
+					<div class="row"></div>
+
+
+					<center>
+						<div class="text-muted" id="message"></div>
+					</center>
 				</div>
-					
 			</div>
+
 		</div>
+	</div>
 
 
-	
+
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery.min.js">alert("frc");</script>
+		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery-ui.min.js"></script>
 	<script type="text/javascript"
@@ -323,12 +199,12 @@
 		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/moment+langs.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery.rangecalendar.js"></script>
-	
-	
+
+
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
-	
-	
+
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.combobox').combobox();
@@ -375,10 +251,44 @@
 			    today.setDate(today.getDate() + 1);
 			    $("#71").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
 			    
-				for(var j=2; j<6; j++)
-					for(var i=1; i<8; i++)
-						$("#"+i+j).append("de");
-			
+				
+				var dateset = today.getFullYear() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getDate();
+				
+				$.ajax({
+					type : "GET",
+					url : "WeeklyMenu",
+					data : "dateset="+dateset,
+					dataType : "json",
+					//if received a response from the server
+					success : function(data, textStatus, jqXHR) {
+						for ( var key in data) {
+							$("#"+key).empty();
+							$("#"+key).append(data[key]); 
+						}
+					},
+
+					//If there was no resonse from the server
+					error : function(jqXHR, textStatus, errorThrown) {
+						console.log("Something really bad happened " + textStatus);
+						$("#ajaxResponse").html(jqXHR.responseText);
+					},
+
+					//this is called after the response or error functions are finsihed
+					//so that we can take some action
+					complete : function(jqXHR, textStatus) {
+						//enable the button 
+						//$('#myButton').attr("disabled", false);
+					},
+					beforeSend : function(jqXHR, settings) {
+						for(var i=1; i<=7; i++)
+							for(var j=2; j<=5; j++) {
+						$("#"+i+j).empty();
+						$("#"+i+j).append("Loading...");
+					}
+					}
+					
+
+				});
 			}
 			
 			

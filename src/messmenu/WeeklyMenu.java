@@ -15,6 +15,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import messmenu.Connect;
 
@@ -22,142 +23,93 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WeeklyMenu extends HttpServlet {
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
 	ServletException, IOException
 	{
 		ResultSet rs = null;
 		Statement st = null;
-		Statement st2 = null;
-
-		String day = request.getParameter("day");
-		String foodtype = request.getParameter("foodtype");
-
-		if( day != null && foodtype != null && foodtype != "" && day != ""){
-			System.out.println(day);
-			System.out.println(foodtype);
-
-			String username ="";
-			String hostelno ="";
-
-			Cookie cookie = null;
-			Cookie[] cookies = null;
-			// Get an array of Cookies associated with this domain
-			cookies = request.getCookies();
-			if( cookies != null ){
-				for (int i = 0; i < cookies.length; i++){
-					cookie = cookies[i];
-					if((cookie.getName( )).toString().equals("username")){
-						username = (cookie.getValue( )).toString(); 	
-						break;
-					}
-				}
-			}
 
 
+		String dateset = request.getParameter("dateset");
 
-			try {
-				st = Connect.getConnection().createStatement();
-				st.executeUpdate("set time zone interval '05:30' hour to minute");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			try {
-				st2 = Connect.getConnection().createStatement();
-				st2.executeUpdate("set time zone interval '05:30' hour to minute");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			String dt;
-			String[] tp = {" "," "," "};
-			try {
-				rs = st.executeQuery("SELECT now()::date");
-				while(rs.next()){
-					dt =rs.getString(1);
-					tp = dt.split("-");
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-
-				e.printStackTrace();
-			}
-
-			Map<String, Integer> x = new HashMap();
-			x.put("Monday", 2);
-			x.put("Tuesday", 3);
-			x.put("Wednesday", 4);
-			x.put("Thursday", 5);
-			x.put("Friday", 6);
-			x.put("Saturday", 7);
-			x.put("Sunday", 1);
-
-			int asked = x.get(day);
-
-			System.out.println( "Shivam Check");
-			System.out.println(Integer.parseInt(tp[0])+" "+ Integer.parseInt(tp[1])+" "+ Integer.parseInt(tp[2]));
-			System.out.println( "Shivam Check");
-			
-			Calendar c = new GregorianCalendar(TimeZone.getTimeZone("Asia/Kolkata"));
-			//c.set(Integer.parseInt(tp[0]), Integer.parseInt(tp[1]), Integer.parseInt(tp[2]), 3, 30);
-			int day_of_week = c.get(Calendar.DAY_OF_WEEK);
-			//day_of_week = (day_of_week+6)
-			//System.out.println(day_of_week);
-
-			System.out.println(day_of_week + " " + asked);
-			String bs = "";
-			if(asked - day_of_week >= 0 ) {
-				bs = "+" + String.valueOf(asked - day_of_week);
-			}
-			else {
-				bs = String.valueOf(asked - day_of_week);
-			}
-			//int back_forw = day_of_week - asked;
-			//String bs = String.valueOf(-back_forw);
-			try {
-				rs = st.executeQuery("SELECT * FROM users WHERE username = '" + username +"'");
-				rs.next();
-				hostelno = rs.getString("hostelnumber");
-				System.out.println(hostelno+ " "+foodtype);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			try {
-				String toex = "SELECT itemname , sid FROM servings natural join fooditems where type='"+foodtype+"' and servedon=current_date"+bs+" and hostelnumber='"+hostelno+"'" ;
-				System.out.println(toex);
-				
-
-				ResultSet rs1=st.executeQuery(toex);
-				ResultSet rs2 = null;
-				
-				JSONObject obj = new JSONObject();
-
-				while(rs1.next()){
-					
-					toex = "SELECT avg(rating) from reviews where sid='"+rs1.getString(2)+"' group by sid";
-					System.out.println(toex);
-					rs2  = st2.executeQuery(toex);
-					if(rs2.next()){
-						obj.put(rs1.getString(2), rs2.getString(1).substring(0, 3)); // sid, average rating
-					}
-					obj.put(rs1.getString(1), rs1.getString(2)); // itemname, sid
-					
-				}
-				System.out.print(obj);
-
-				PrintWriter out = response.getWriter();
-
-				out.println(obj.toString());
-
-				out.close();
-
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
-			} 
+		HttpSession session = request.getSession();
+		String hostelno = (String) session.getAttribute("hostelno");
+		System.out.println("hostel num is "+ hostelno);
+		try {
+			st = Connect.getConnection().createStatement();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
+		JSONObject obj = new JSONObject();
+		Map<String, Integer> foodtype = new HashMap<String, Integer>();
+		foodtype.put("Breakfast", 2);
+		foodtype.put("Breakfast", 3);
+		foodtype.put("Breakfast", 4);
+		foodtype.put("Dinner", 5);
+		try {
+			for(int i=0; i<7; i++) {
+				rs = st.executeQuery("SELECT itemname FROM fooditems NATURAL JOIN servings WHERE type='BREAKFAST' AND servedon >= date '"+dateset+"' AND servedon < date '"+dateset+"' + interval '"+i+"' day AND hostelnumber = '"+hostelno+"' ORDER BY servedon");
+				String items = "";
+				if(rs.next())
+					items = rs.getString("itemname");
+				else 
+					items = "Data not available";
+				while(rs.next()) {
+					items = items + ", " + rs.getString("itemname");
+				}
+				obj.put(""+(i+1)+"2", items);
+			}
+			for(int i=0; i<7; i++) {
+				rs = st.executeQuery("SELECT itemname FROM fooditems NATURAL JOIN servings WHERE type='LUNCH' AND servedon >= date '"+dateset+"' AND servedon < date '"+dateset+"' + interval '"+i+"' day AND hostelnumber = '"+hostelno+"' ORDER BY servedon");
+				String items = "";
+				if(rs.next())
+					items = rs.getString("itemname");
+				else 
+					items = "Data not available";
+				while(rs.next()) {
+					items = items + ", " + rs.getString("itemname");
+				}
+				obj.put(""+(i+1)+"3", items);
+			}
+			for(int i=0; i<7; i++) {
+				rs = st.executeQuery("SELECT itemname FROM fooditems NATURAL JOIN servings WHERE type='TIFFIN' AND servedon >= date '"+dateset+"' AND servedon < date '"+dateset+"' + interval '"+i+"' day AND hostelnumber = '"+hostelno+"' ORDER BY servedon");
+				String items = "";
+				if(rs.next())
+					items = rs.getString("itemname");
+				else 
+					items = "Data not available";
+				while(rs.next()) {
+					items = items + ", " + rs.getString("itemname");
+				}
+				obj.put(""+(i+1)+"4", items);
+			}
+			for(int i=0; i<7; i++) {
+				rs = st.executeQuery("SELECT itemname FROM fooditems NATURAL JOIN servings WHERE type='DINNER' AND servedon >= date '"+dateset+"' AND servedon < date '"+dateset+"' + interval '"+i+"' day AND hostelnumber = '"+hostelno+"' ORDER BY servedon");
+				String items = "";
+				if(rs.next())
+					items = rs.getString("itemname");
+				else 
+					items = "Data not available";
+				while(rs.next()) {
+					items = items + ", " + rs.getString("itemname");
+				}
+				obj.put(""+(i+1)+"5", items);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("Menu for the selected week is " + obj);
+		PrintWriter out = response.getWriter();
+
+		out.println(obj.toString());
+
+		out.close();
+
+
+
 
 	}
 }
