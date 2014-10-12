@@ -36,11 +36,13 @@
 <link rel="stylesheet" id="rangecalendar-style-css"
 	href="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/css/rangecalendar.css"
 	type="text/css" media="all">
-<link rel="stylesheet" id="rangecalendar-style-css" href="css/style.css" type="text/css" media="all">
-<link rel="stylesheet" id="jquery-ui-style-css" href="css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="rangecalendar-style-css" href="css/style.css"
+	type="text/css" media="all">
+<link rel="stylesheet" id="jquery-ui-style-css"
+	href="css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="all">
 
-	
-	
+
+
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script
@@ -62,130 +64,131 @@
 }
 </style>
 
-</head>		
+</head>
 
 
 
 <body>
-	
-		<div class="container">
 
-			<div class="masthead">
-				<!-- <table>
+	<div class="container">
+
+		<div class="masthead">
+			<!-- <table>
 			<tr> -->
-				<div class="row">
-					<!-- <td class='col-md-10	'> -->
-					<h3 class="text-muted col-md-10">Hostel Menu Management</h3>
-					<!-- </td> -->
-					<!-- <td> -->
-					<h4 class="text col-md-2" align="right" vertical-align="center"
-						style="margin-top: 25px;">
-						<%=session.getAttribute("consumername")%>
-					</h4>
-					<!-- </td> -->
-				</div>
-				<!-- </tr>
-			</table> -->
-				<ul class="nav nav-justified">
-					<li><a href="${pageContext.request.contextPath}/login.jsp">Home</a></li>
-					<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
-					<li class="active"><a href="#">Weekly Menu</a></li>
-					<li><a href="#">Downloads</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
-				</ul>
+			<div class="row">
+				<!-- <td class='col-md-10	'> -->
+				<h3 class="text-muted col-md-10">Hostel Menu Management</h3>
+				<!-- </td> -->
+				<!-- <td> -->
+				<h4 class="text col-md-2" align="right" vertical-align="center"
+					style="margin-top: 25px;">
+					<%=session.getAttribute("consumername")%>
+				</h4>
+				<!-- </td> -->
 			</div>
+			<!-- </tr>
+			</table> -->
+			<ul class="nav nav-justified">
+				<li><a href="${pageContext.request.contextPath}/login.jsp">Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
+				<li class="active"><a href="#">Weekly Menu</a></li>
+				<li><a href="#">Downloads</a></li>
+				<li><a href="#">About</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
+			</ul>
+		</div>
 
-			<div class="row centered-form"
-				style="margin-right: 0px; margin-left: 0px">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Weekly Menu</h3>
-					</div>
-					<div class="panel-body">
+		<div class="row centered-form"
+			style="margin-right: 0px; margin-left: 0px">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Weekly Menu</h3>
+				</div>
+				<div class="panel-body">
 
-						<div class="row">
-							<div class="col-lg-12">
+					<div class="row">
+						<div class="col-lg-12">
 							<div class="section">
 
 								<div id="cal4"></div>
 								<table class="table table-bordered">
-								<tr>
-									<th>Date</th>
-									<th>Breakfast</th>
-									<th>Lunch</th>
-									<th>Tiffin</th>
-									<th>Dinner</th>
-								</tr>
-								<tr>
-									<td id="11"></td>
-									<td id="12"></td>
-									<td id="13"></td>
-									<td id="14"></td>
-									<td id="15"></td>
-								</tr>
-								<tr>
-									<td id="21"></td>
-									<td id="22"></td>
-									<td id="23"></td>
-									<td id="24"></td>
-									<td id="25"></td>
-								</tr>
-								<tr>
-									<td id="31"></td>
-									<td id="32"></td>
-									<td id="33"></td>
-									<td id="34"></td>
-									<td id="35"></td>
-								</tr>
-								<tr>
-									<td id="41"></td>
-									<td id="42"></td>
-									<td id="43"></td>
-									<td id="44"></td>
-									<td id="45"></td>
-								</tr>
-								<tr>
-									<td id="51"></td>
-									<td id="52"></td>
-									<td id="53"></td>
-									<td id="54"></td>
-									<td id="55"></td>
-								</tr>
-								<tr>
-									<td id="61"></td>
-									<td id="62"></td>
-									<td id="63"></td>
-									<td id="64"></td>
-									<td id="65"></td>
-								</tr>
-								<tr>
-									<td id="71"></td>
-									<td id="72"></td>
-									<td id="73"></td>
-									<td id="74"></td>
-									<td id="75"></td>
-								</tr>
+									<tr>
+										<th>Date</th>
+										<th>Breakfast</th>
+										<th>Lunch</th>
+										<th>Tiffin</th>
+										<th>Dinner</th>
+									</tr>
+									<tr>
+										<td id="11"></td>
+										<td id="12"></td>
+										<td id="13"></td>
+										<td id="14"></td>
+										<td id="15"></td>
+									</tr>
+									<tr>
+										<td id="21"></td>
+										<td id="22"></td>
+										<td id="23"></td>
+										<td id="24"></td>
+										<td id="25"></td>
+									</tr>
+									<tr>
+										<td id="31"></td>
+										<td id="32"></td>
+										<td id="33"></td>
+										<td id="34"></td>
+										<td id="35"></td>
+									</tr>
+									<tr>
+										<td id="41"></td>
+										<td id="42"></td>
+										<td id="43"></td>
+										<td id="44"></td>
+										<td id="45"></td>
+									</tr>
+									<tr>
+										<td id="51"></td>
+										<td id="52"></td>
+										<td id="53"></td>
+										<td id="54"></td>
+										<td id="55"></td>
+									</tr>
+									<tr>
+										<td id="61"></td>
+										<td id="62"></td>
+										<td id="63"></td>
+										<td id="64"></td>
+										<td id="65"></td>
+									</tr>
+									<tr>
+										<td id="71"></td>
+										<td id="72"></td>
+										<td id="73"></td>
+										<td id="74"></td>
+										<td id="75"></td>
+									</tr>
 								</table>
 
 							</div>
-							</div>
 						</div>
-
-						<div class="row"></div>
-
-
-						<center>
-							<div class="text-muted" id="message"></div>
-						</center>
 					</div>
+
+					<div class="row"></div>
+
+
+					<center>
+						<div class="text-muted" id="message"></div>
+					</center>
 				</div>
-					
 			</div>
+
 		</div>
+	</div>
 
 
-	
+
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery.min.js"></script>
 	<script type="text/javascript"
@@ -196,12 +199,12 @@
 		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/moment+langs.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar/js/jquery.rangecalendar.js"></script>
-	
-	
+
+
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
-	
-	
+
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.combobox').combobox();
@@ -277,7 +280,13 @@
 						//$('#myButton').attr("disabled", false);
 					},
 					beforeSend : function(jqXHR, settings) {
+						for(var i=1; i<=7; i++)
+							for(var j=2; j<=5; j++) {
+						$("#"+i+j).empty();
+						$("#"+i+j).append("Loading...");
 					}
+					}
+					
 
 				});
 			}
