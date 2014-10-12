@@ -19,3 +19,16 @@ CREATE TABLE IF NOT EXISTS foodtype (itemid numeric REFERENCES fooditems(itemid)
 CREATE TABLE IF NOT EXISTS servings (sid numeric PRIMARY KEY, itemid numeric REFERENCES fooditems(itemid) ON DELETE RESTRICT NOT NULL, type itemtype NOT NULL, servedon date NOT NULL, hostelnumber hostel NOT NULL);
 CREATE TABLE IF NOT EXISTS reviews (username varchar REFERENCES users(username), sid numeric REFERENCES servings(sid) ON DELETE RESTRICT, rating numeric CHECK(rating>=0 AND rating<=5) NOT NULL, review varchar(150));
 CREATE TABLE IF NOT EXISTS timeFoodType (type itemtype PRIMARY KEY, startTime time NOT NULL, endTime time NOT NULL);
+
+CREATE OR REPLACE FUNCTION insert_serving(iname text,itype itemtype, sdate date,hnum hostel) RETURNS void AS $$
+    DECLARE
+        fid numeric;
+        maxsid numeric;
+        newsid numeric;
+    BEGIN
+	SELECT itemid into fid from fooditems WHERE itemname=iname;
+	SELECT max(sid) into maxsid from servings;
+	newsid:=maxsid+1;
+	INSERT INTO servings VALUES(newsid,fid,itype,sdate,hnum);
+    END;
+$$ LANGUAGE plpgsql;
