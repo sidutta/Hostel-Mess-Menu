@@ -502,10 +502,6 @@ Repeat
 </div>
 </div>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 00448c8b3f496dc1db8c72204464350e9fad7851
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
