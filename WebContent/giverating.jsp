@@ -44,7 +44,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 <style>
-
 .centered-form {
 	margin-top: 60px;
 }
@@ -250,118 +249,125 @@
 
 
 <body>
-	<form id = 'myForm'>
-		<div class="container">
+<form id='myForm'>
+<div class="container">
 
-			<div class="masthead">
-				<!-- <table>
+<div class="masthead"><!-- <table>
 			<tr> -->
-				<div class="row">
-					<!-- <td class='col-md-10	'> -->
-					<h3 class="text-muted col-md-10">Hostel Menu Management</h3>
-					<!-- </td> -->
-					<!-- <td> -->
-					<h4 class="text col-md-2" align="right" vertical-align="center"
-						style="margin-top: 25px;">
-						<%=session.getAttribute("consumername")%>
-					</h4>
-					<!-- </td> -->
-				</div>
-				<!-- </tr>
+<div class="row"><!-- <td class='col-md-10	'> -->
+<h3 class="text-muted col-md-10">Hostel Menu Management</h3>
+<!-- </td> --> <!-- <td> -->
+<h4 class="text col-md-2" align="right" vertical-align="center"
+	style="margin-top: 25px;"><%=session.getAttribute("consumername")%>
+</h4>
+<!-- </td> --></div>
+<!-- </tr>
 			</table> -->
-				<ul class="nav nav-justified">
-					<li><a href="${pageContext.request.contextPath}/login.jsp">Home</a></li>
-					<li class="active"><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
-					<li><a href="${pageContext.request.contextPath}/WeeklyMenu.jsp">Weekly Menu</a></li>
-					<li><a href="#">Downloads</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
-				</ul>
-			</div>
+<ul class="nav nav-justified">
+	<li><a href="${pageContext.request.contextPath}/login.jsp">Home</a></li>
+	<li class="active"><a
+		href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
+	<%String category=(String)session.getAttribute("category");
+		if (category.equals("ADMINISTRATOR"))
+			{
+			String context=request.getContextPath();
+	out.println("<li><a href=\""+context+"/manager_home.jsp\">Set Menu</a></li>");
+		;} %>
 
-			<div class="row centered-form" style="margin-right:0px; margin-left:0px">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Give your Rating</h3>
-					</div>
-					<div class="panel-body">
+	<li><a href="${pageContext.request.contextPath}/WeeklyMenu.jsp">Weekly
+	Menu</a></li>
+	<li><a href="#">Downloads</a></li>
+	<li><a href="#">About</a></li>
+	<li><a
+		href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
+</ul>
+</div>
 
-						<div class="row">
-							<div class="col-xs-3 col-sm-3 col-md-3 col-md-offset-2">
-								<div class="form-group">
-									<select class="combobox form-control" name="day"
-										onchange="callAjax()" id="day">
-										<option value="" selected="selected">Day</option>
-										<option value="Monday">Monday</option>
-										<option value="Tuesday">Tuesday</option>
-										<option value="Wednesday">Wednesday</option>
-										<option value="Thursday">Thursday</option>
-										<option value="Friday">Friday</option>
-										<option value="Saturday">Saturday</option>
-										<option value="Sunday">Sunday</option>
-									</select>
-								</div>
-							</div>
+<div class="row centered-form"
+	style="margin-right: 0px; margin-left: 0px">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Give your Rating</h3>
+</div>
+<div class="panel-body">
 
-
-							<div class="col-xs-3 col-sm-3 col-md-3 col-md-offset-2 ">
-								<div class="form-group">
-									<select class="combobox form-control" name="foodtype"
-										onchange="callAjax()" id="foodtype">
-										<option value="" selected="selected">Type</option>
-										<option value="BREAKFAST">Breakfast</option>
-										<option value="LUNCH">Lunch</option>
-										<option value="TIFFIN">Snacks</option>
-										<option value="DINNER">Dinner</option>
-									</select>
-								</div>
-							</div>
+<div class="row">
+<div class="col-xs-3 col-sm-3 col-md-3 col-md-offset-2">
+<div class="form-group"><select class="combobox form-control"
+	name="day" onchange="callAjax()" id="day">
+	<option value="" selected="selected">Day</option>
+	<option value="Monday">Monday</option>
+	<option value="Tuesday">Tuesday</option>
+	<option value="Wednesday">Wednesday</option>
+	<option value="Thursday">Thursday</option>
+	<option value="Friday">Friday</option>
+	<option value="Saturday">Saturday</option>
+	<option value="Sunday">Sunday</option>
+</select></div>
+</div>
 
 
+<div class="col-xs-3 col-sm-3 col-md-3 col-md-offset-2 ">
+<div class="form-group"><select class="combobox form-control"
+	name="foodtype" onchange="callAjax()" id="foodtype">
+	<option value="" selected="selected">Type</option>
+	<option value="BREAKFAST">Breakfast</option>
+	<option value="LUNCH">Lunch</option>
+	<option value="TIFFIN">Snacks</option>
+	<option value="DINNER">Dinner</option>
+</select></div>
+</div>
 
-						</div>
 
-						<div class="row">
-							<div class="col-xs-3 col-sm-12 col-md-12  ">
-								<table id="table" class="hidden table">
-									<tr>
-										<th class='col-md-2 col-sm-2'>ItemId</th>
-										<th class='col-md-2 col-sm-2'>Food Name</th>
-										<th class='col-md-2 col-sm-2'>Rating</th>
-										<th class='col-md-2 col-sm-2'>Rate</th>
-										<th class='col-md-4 col-sm-4'>Comment</th>
-									</tr>
-								</table>
-							</div>
 
-							<center> <button   id="butt" onclick = "sendratings()"class="hidden" >Submit Your Rating</button></center>
-						</div>
-						
-						
-						<center><div class="text-muted" id="message"> </div></center>
-					</div>
-				</div>
-			</div>
-		</div>
+</div>
 
-	
+<div class="row">
+<div class="col-xs-3 col-sm-12 col-md-12  ">
+<table id="table" class="hidden table">
+	<tr>
+		<th class='col-md-2 col-sm-2'>ItemId</th>
+		<th class='col-md-2 col-sm-2'>Food Name</th>
+		<th class='col-md-2 col-sm-2'>Rating</th>
+		<th class='col-md-2 col-sm-2'>Rate</th>
+		<th class='col-md-4 col-sm-4'>Comment</th>
+	</tr>
+</table>
+</div>
+
+<center>
+<button id="butt" onclick="sendratings()" class="hidden">Submit
+Your Rating</button>
+</center>
+</div>
+
+
+<center>
+<div class="text-muted" id="message"></div>
+</center>
+</div>
+</div>
+</div>
+</div>
+
+
 </form>
 
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
-	
-	<script type="text/javascript">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
+
+<script type="text/javascript">
 		$(document).ready(function() {
 			$('.combobox').combobox();
 		});
 	</script>
-	<script
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie10-viewport-bug-workaround.js"></script>
+<script
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie10-viewport-bug-workaround.js"></script>
 
 </body>
 </html>
