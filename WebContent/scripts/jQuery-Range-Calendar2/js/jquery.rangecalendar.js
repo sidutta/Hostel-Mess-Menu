@@ -18,7 +18,7 @@ $.fn.rangeCalendar = function(options) {
 			theme: "default-theme",
 			themeContext: this,
 			startDate: moment(),
-			endDate: moment().add('months', 12),
+			endDate: moment().add('months', 3),
 			start : "+7",
 			startRangeWidth : 3, 
 			minRangeWidth: 1,
@@ -90,9 +90,9 @@ $.fn.rangeCalendar = function(options) {
 
 		    var startDateIndex = obj.calendarObj.find('.cell.selected:eq(0)').index();
 		    var endDateIndex = obj.calendarObj.find('.cell.selected').last().index();	
-		    var startDate = moment().add('days', startDateIndex+obj.start);
-		    var startDateFormatted = (startDateIndex>=0 ? moment().add('days', startDateIndex+obj.start).format() : null);
-		    var endDateFormatted = (endDateIndex>=0 ? moment().add('days', endDateIndex+obj.start).format() : null);
+		    var startDate = moment().add('days', startDateIndex+obj.start).subtract('months',2);
+		    var startDateFormatted = (startDateIndex>=0 ? moment().add('days', startDateIndex+obj.start).subtract('months',2).format() : null);
+		    var endDateFormatted = (endDateIndex>=0 ? moment().add('days', endDateIndex+obj.start).subtract('months',2).format() : null);
 		    var range = $.data( obj, "range", {
 						    	start: startDateFormatted,
 								end: endDateFormatted,
@@ -104,7 +104,7 @@ $.fn.rangeCalendar = function(options) {
 		
 		obj.setStartDate = function(startDate) {
 			
-			var date = moment(startDate);
+			var date = moment(startDate).subtract('months',2);
 			var fullYear = date.format("YYYY");
 			var monthNumber = date.format("MM");
 			var dayNumber = date.format('D');
@@ -167,7 +167,10 @@ $.fn.rangeCalendar = function(options) {
 			obj.calendarObj.find('.cell.start').addClass("selected");
 			obj.calendarObj.find('.cell.start').nextAll().slice(0, (!rangeWidth ? obj.minRangeWidth-1 : rangeWidth-1)).addClass('selected');
 			obj.calendarObj.find('.cell.selected').last().addClass("last");
-			obj._dispatchEvent(obj.changeRangeCallback,obj.range(),obj);
+			
+			
+
+//			obj._dispatchEvent(obj.changeRangeCallback,obj.range(),obj);
 		},
 		obj.didSelectMonth = function(e) {
 		
@@ -187,7 +190,7 @@ $.fn.rangeCalendar = function(options) {
 		    $(this).addClass('selected');
 		    
 			obj._placeElement(obj.calendarObj,monthPosition);
-			obj._dispatchEvent(obj.changeRangeCallback,obj.range(),obj);	
+//			obj._dispatchEvent(obj.changeRangeCallback,obj.range(),obj);	
 			
 		},
 		
@@ -214,9 +217,10 @@ $.fn.rangeCalendar = function(options) {
 		    obj.calendarObj.find(".start").removeClass("start");
 		    currentCalItem.addClass("start");
 		    
+		    
 		    obj._updateRangeBar();
 		    obj._updateMonths();
-			obj._dispatchEvent(obj.changeRangeCallback,obj.range(),obj);
+			obj._dispatchEvent(obj.changeRangeCallback,obj.range(),obj); //on click
 		    
 		},
 		
@@ -276,7 +280,7 @@ $.fn.rangeCalendar = function(options) {
 		      	
 		      	create: function (e, ui) {
 			      	
-			      	obj._updateMonths();
+			      	obj._updateMonths2();
 			      	obj._placeElement(obj.monthsObj);
 			      	
 		      	},
@@ -508,8 +512,8 @@ $.fn.rangeCalendar = function(options) {
 			var date = moment(startDate).add('days', obj.start);
 			var endDate = moment(endDate).add('days', obj.start);
 			var rangeWidth = obj.rangeWidth();
-			
-			for (var index = 1; (date.isBefore(endDate) || date.isSame(endDate)) ; index++){
+			date.subtract('months', 2);
+			for (var index = -1; (date.isBefore(endDate) || date.isSame(endDate)) ; index++){
 			
 				var fullYear = date.format("YYYY");
 				var month = date.format("MMM");
@@ -545,7 +549,8 @@ $.fn.rangeCalendar = function(options) {
 			var cell;
 			var date = moment(startDate).add('days', obj.start);
 			var endDate = moment(endDate).add('days', obj.start);
-			for (var index = 1; (date.isBefore(endDate) || date.isSame(endDate)) ; index++){
+			date.subtract('months', 2);
+			for (var index = -1; (date.isBefore(endDate) || date.isSame(endDate)) ; index++){
 			
 				var year = date.format("YY");
 				var fullYear = date.format("YYYY");
@@ -566,6 +571,18 @@ $.fn.rangeCalendar = function(options) {
 		obj._updateMonths = function() {
 
 		    var currentMonth = obj.calendarObj.find('.cell.selected:eq(0)').attr("month-id");
+		   
+		    obj.monthsObj.find('.cell').removeClass('selected');
+		    obj.monthsObj.find('.cell').removeClass('current');
+		    obj.monthsObj.find('.cell[month-id="'+currentMonth+'"]').addClass('selected');
+		    obj.monthsObj.find('.cell[month-id="'+currentMonth+'"]').addClass('current');
+		},
+		obj._updateMonths2 = function() {
+
+		    var currentMonth = obj.calendarObj.find('.cell.selected:eq(0)').attr("month-id");
+		    var curYear = parseInt(parseInt(currentMonth)/100);
+		    currentMonth = (parseInt(currentMonth)%100+1)%12 + 1 + (curYear*100);
+		    alert(currentMonth);
 		    obj.monthsObj.find('.cell').removeClass('selected');
 		    obj.monthsObj.find('.cell').removeClass('current');
 		    obj.monthsObj.find('.cell[month-id="'+currentMonth+'"]').addClass('selected');
