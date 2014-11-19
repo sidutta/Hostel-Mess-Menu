@@ -186,167 +186,168 @@ window.addEvent(window, "load", updateValue, false);
 </head>
 
 <body>
-	<%
+<%
 		if (session.getAttribute("consumername") == null)
 			response.sendRedirect("login.jsp");
 	%>
-	<div class="container">
+<div class="container">
 
-		<div class="masthead">
-			<!-- <table>
+<div class="masthead"><!-- <table>
 			<tr> -->
-			<div class="row">
-				<!-- <td class='col-md-10	'> -->
-				<h3 class="text-muted col-md-10">Hostel Menu Management</h3>
-				<!-- </td> -->
-				<!-- <td> -->
-				<h4 class="text col-md-2" align="right" vertical-align="center"
-					style="margin-top: 25px;"><%=session.getAttribute("consumername")%>
-				</h4>
-				<!-- </td> -->
-			</div>
-			<!-- </tr>
+<div class="row"><!-- <td class='col-md-10	'> -->
+<h3 class="text-muted col-md-10">Hostel Menu Management</h3>
+<!-- </td> --> <!-- <td> -->
+<h4 class="text col-md-2" align="right" vertical-align="center"
+	style="margin-top: 25px;"><%=session.getAttribute("consumername")%>
+</h4>
+<!-- </td> --></div>
+<!-- </tr>
 			</table> -->
-			<ul class="nav nav-justified">
-				<li class="active"><a href="${pageContext.request.contextPath}/home.jsp">Home</a></li>
-				<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
-				<li><a href="${pageContext.request.contextPath}/WeeklyMenu.jsp">Weekly Menu</a></li>
-				<li><a href="#">Downloads</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
-			</ul>
-		</div>
+<ul class="nav nav-justified">
+	<li class="active"><a
+		href="${pageContext.request.contextPath}/home.jsp">Home</a></li>
+	<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
+	
+	<%String category=(String)session.getAttribute("category");
+		if (category.equals("ADMINISTRATOR"))
+			{
+			String context=request.getContextPath();
+	out.println("<li><a href=\""+context+"/manager_home.jsp\">Set Menu</a></li>");
+		;} %>
+		
+	<li><a href="${pageContext.request.contextPath}/WeeklyMenu.jsp">Weekly
+	Menu</a></li>	
+	<li><a href="#">Downloads</a></li>
+	<li><a href="#">About</a></li>
+	<li><a
+		href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
+</ul>
+</div>
 
-		<!-- Jumbotron -->
-		<div class="jumbotron"
-			style="margin-bottom: 0px; padding-bottom: 0px; padding-top: 0px">
-			<%
+<!-- Jumbotron -->
+<div class="jumbotron"
+	style="margin-bottom: 0px; padding-bottom: 0px; padding-top: 0px">
+<%
 				Statement st = Connect.getConnection().createStatement();
 				ResultSet rs = st
 						.executeQuery("SELECT * FROM timeFoodType WHERE current_time>=startTime AND current_time<=endTime");
 				rs.next();
 				String mealJustEaten = rs.getString("type");
 			%>
-			<h2><%=mealJustEaten%></h2>
+<h2><%=mealJustEaten%></h2>
 
-			<p>
-				<a class="btn btn-lg btn-success" href="#" role="button">Review
-					It!</a>
-			</p>
-		</div>
+<p><a class="btn btn-lg btn-success" href="#" role="button">Review
+It!</a></p>
+</div>
 
-		<!-- Example row of columns -->
-		<div class="row">
-			<div class="col-lg-3">
-				<h2>
-					<center>Reviews</center>
-				</h2>
-				<p class="text-danger">As of v7.0.1, Safari exhibits a bug in
-					which resizing your browser horizontally causes rendering errors in
-					the justified nav that are cleared upon refreshing.</p>
-				<p>Donec id elit non mi porta gravida at eget metus. Fusce
-					dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-					ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-					magna mollis euismod. Donec sed odio dui.</p>
-				<p>
-					<a class="btn btn-primary" href="#" role="button">View details
-						&raquo;</a>
-				</p>
-			</div>
-			<div class="col-lg-6">
+<!-- Example row of columns -->
+<div class="row">
+<div class="col-lg-3">
+<h2>
+<center>Reviews</center>
+</h2>
+<p class="text-danger">As of v7.0.1, Safari exhibits a bug in which
+resizing your browser horizontally causes rendering errors in the
+justified nav that are cleared upon refreshing.</p>
+<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+euismod. Donec sed odio dui.</p>
+<p><a class="btn btn-primary" href="#" role="button">View
+details &raquo;</a></p>
+</div>
+<div class="col-lg-6">
 
 
 
-				<h2>
-					<center>
-						
-						Today's Menu at <div id="hosteltitle"></div></center>
-				</h2>
+<h2>
+<center>Today's Menu at
+<div id="hosteltitle"></div>
+</center>
+</h2>
 
-				<table id="table" class="table">
+<table id="table" class="table">
 
-				</table>
-				<br>
-				<div id="message"></div>
-				<br>
+</table>
+<br>
+<div id="message"></div>
+<br>
 
 
 
-				<div class="row">
-					<div class="col-lg-3">
-						<form>
-							<center>
-								<div class="form-group">
-									<select class="combobox form-control" id="hostelnum">
-										<option value="" selected="selected">Hostel</option>
-										<option value="H1">H-1</option>
-										<option value="H2">H-2</option>
-										<option value="H3">H-3</option>
-										<option value="H4">H-4</option>
-										<option value="H5">H-5</option>
-										<option value="H6">H-6</option>
-										<option value="H7">H-7</option>
-										<option value="H8">H-8</option>
-										<option value="H9">H-9</option>
-										<option value="H10">H-10</option>
-										<option value="H11">H-11</option>
-										<option value="H12">H-12</option>
-										<option value="H13">H-13</option>
-										<option value="H14">H-14</option>
-										<option value="H15">H-15</option>
+<div class="row">
+<div class="col-lg-3">
+<form>
+<center>
+<div class="form-group"><select class="combobox form-control"
+	id="hostelnum">
+	<option value="" selected="selected">Hostel</option>
+	<option value="H1">H-1</option>
+	<option value="H2">H-2</option>
+	<option value="H3">H-3</option>
+	<option value="H4">H-4</option>
+	<option value="H5">H-5</option>
+	<option value="H6">H-6</option>
+	<option value="H7">H-7</option>
+	<option value="H8">H-8</option>
+	<option value="H9">H-9</option>
+	<option value="H10">H-10</option>
+	<option value="H11">H-11</option>
+	<option value="H12">H-12</option>
+	<option value="H13">H-13</option>
+	<option value="H14">H-14</option>
+	<option value="H15">H-15</option>
 
-									</select> <br>
+</select> <br>
 
-								</div>
-							</center>
-						</form>
-					</div>
-					<div class="col-lg-3">
-						<button class="btn btn-sm btn-primary btn-block" value="Change"
-							onclick="callAjax();">Go</button>
-						<br>
-					</div>
-				</div>
+</div>
+</center>
+</form>
+</div>
+<div class="col-lg-3">
+<button class="btn btn-sm btn-primary btn-block" value="Change"
+	onclick="callAjax();">Go</button>
+<br>
+</div>
+</div>
 
-			</div>
-			<div class="col-lg-3">
-				<h2>
-					<center>Trending</center>
-				</h2>
-				<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
-					egestas eget quam. Vestibulum id ligula porta felis euismod semper.
-					Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-					nibh, ut fermentum massa.</p>
-				<p>
-					<a class="btn btn-primary" href="#" role="button">View details
-						&raquo;</a>
-				</p>
-			</div>
-		</div>
+</div>
+<div class="col-lg-3">
+<h2>
+<center>Trending</center>
+</h2>
+<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
+egestas eget quam. Vestibulum id ligula porta felis euismod semper.
+Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+ut fermentum massa.</p>
+<p><a class="btn btn-primary" href="#" role="button">View
+details &raquo;</a></p>
+</div>
+</div>
 
-		<!-- Site footer -->
-		<div class="footer">
-			<p>&copy; Developed by Siddhartha, Shivam and Aditya</p>
-		</div>
+<!-- Site footer -->
+<div class="footer">
+<p>&copy; Developed by Siddhartha, Shivam and Aditya</p>
+</div>
 
-	</div>
-	<!-- /container -->
+</div>
+<!-- /container -->
 
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 		$(document).ready(function() {
 			$('.combobox').combobox();
 		});
 	</script>
-	<script
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
 
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie10-viewport-bug-workaround.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>

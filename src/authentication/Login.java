@@ -73,14 +73,14 @@ public class Login extends HttpServlet {
 				session.setAttribute("consumername", name);
 				String hostelno = rs.getString("hostelnumber");
 				session.setAttribute("hostelno", hostelno);
-				if(category.equals("CONSUMER"))
-				{				
+				//if(category.equals("CONSUMER"))
+				//{				
 					response.sendRedirect("home.jsp");
-				}
-				else
-				{				
-					response.sendRedirect("manager_home.jsp");
-				}
+				//}
+				//else
+				//{				
+					//response.sendRedirect("manager_home.jsp");
+				//}
 			}
 
 		}
