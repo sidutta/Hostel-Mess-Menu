@@ -582,7 +582,7 @@ $.fn.rangeCalendar = function(options) {
 		    var currentMonth = obj.calendarObj.find('.cell.selected:eq(0)').attr("month-id");
 		    var curYear = parseInt(parseInt(currentMonth)/100);
 		    currentMonth = (parseInt(currentMonth)%100+1)%12 + 1 + (curYear*100);
-		    alert(currentMonth);
+		    //alert(currentMonth);
 		    obj.monthsObj.find('.cell').removeClass('selected');
 		    obj.monthsObj.find('.cell').removeClass('current');
 		    obj.monthsObj.find('.cell[month-id="'+currentMonth+'"]').addClass('selected');
