@@ -32,7 +32,6 @@ public class WeeklyMenu extends HttpServlet {
 		Statement st = null;
 
 		String dateset = request.getParameter("dateset");
-		
 
 		HttpSession session = request.getSession();
 		String hostelno = (String) session.getAttribute("hostelno");
@@ -80,10 +79,10 @@ public class WeeklyMenu extends HttpServlet {
 				item = rs.getString("itemname");
 				
 				if(tag.equals(datediff+typeno)) {
-					items += (", "+item);
+					items += (" "+item);
 				}
 				else {
-					items = item;
+					items = item+" ";
 					tag = datediff+typeno;
 				}
 				
