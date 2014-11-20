@@ -34,7 +34,10 @@ public class WeeklyMenu extends HttpServlet {
 		String dateset = request.getParameter("dateset");
 
 		HttpSession session = request.getSession();
-		String hostelno = (String) session.getAttribute("hostelno");
+		String hostelno = null;
+		hostelno = request.getParameter("hostelnum");
+		if(hostelno==null||hostelno=="")
+			hostelno = (String) session.getAttribute("hostelno");
 		System.out.println("hostel num is "+ hostelno);
 		
 		try {

@@ -36,12 +36,15 @@
 <link rel="stylesheet" id="rangecalendar-style-css"
 	href="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/css/rangecalendar.css"
 	type="text/css" media="all">
-<link rel="stylesheet" id="rangecalendar-style-css" href="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/css/style.css"
+<link rel="stylesheet" id="rangecalendar-style-css"
+	href="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/css/style.css"
 	type="text/css" media="all">
 <link rel="stylesheet" id="jquery-ui-style-css"
-	href="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="all">
+	href="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/css/jquery-ui-1.10.3.custom.min.css"
+	type="text/css" media="all">
 
-
+<link rel="stylesheet" type="text/css" media="screen"
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -63,6 +66,227 @@
 	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
 }
 </style>
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/jquery-ui.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/moment+langs.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/jquery.rangecalendar.js"></script>
+
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
+
+
+<script type="text/javascript">
+		$(document).ready(function() {
+			$('.combobox').combobox();
+		});
+		
+		var start = "";
+		
+		var callAjax = function() {
+			$.ajax({
+				type : "GET",
+				url : "WeeklyMenu",
+				data : "dateset="+start+"&hostelnum="+$("#hostelno").val(),
+				dataType : "json",
+				//if received a response from the server
+				success : function(data, textStatus, jqXHR) {
+					for ( var key in data) {
+						$("#"+key).empty();
+						$("#"+key).append(data[key]); 
+					}
+				},
+
+				//If there was no resonse from the server
+				error : function(jqXHR, textStatus, errorThrown) {
+					console.log("Something really bad happened " + textStatus);
+					$("#ajaxResponse").html(jqXHR.responseText);
+				},
+
+				//this is called after the response or error functions are finsihed
+				//so that we can take some action
+				complete : function(jqXHR, textStatus) {
+					//enable the button 
+					//$('#myButton').attr("disabled", false);
+				},
+				beforeSend : function(jqXHR, settings) {
+					for(var i=1; i<=7; i++)
+						for(var j=2; j<=5; j++) {
+					$("#"+i+j).empty();
+					$("#"+i+j).append("Loading...");
+				}
+				}
+				
+
+			});
+		}
+
+		
+		$(document).ready(function(){
+			
+			  var currentTime = new Date();
+			var month = currentTime.getMonth();
+			var day = currentTime.getDate()-13;
+			var year = currentTime.getFullYear();
+			
+			 
+			var rangeCalendar =  $("#cal4").rangeCalendar({startDate: new Date(year, month, day), weekends:true,startRangeWidth:7,changeRangeCallback: rangeChanged});
+			/* rangeCalendar.setStartDate(); */
+			
+			
+						
+			function rangeChanged(target,range){
+		    
+				
+				console.log(range);
+			    var startDay = moment(range.start).format('DD');
+			    var startMonth = moment(range.start).format('MM');
+			    var startYear = moment(range.start).format('YY');
+			    var today = new Date();
+			    /* today.setDate(startDay);
+			    today.setMonth(startMonth);
+ */			    today.setFullYear(20+startYear,(parseInt(startMonth)-1),startDay-13); 
+			    
+			    $("#11").empty();
+			    $("#21").empty();
+			    $("#31").empty();
+			    $("#41").empty();
+			    $("#51").empty();
+			    $("#61").empty();
+			    $("#71").empty();
+			    
+			    $("#11").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    today.setDate(today.getDate() + 1);
+			    $("#21").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    today.setDate(today.getDate() + 1);
+			    $("#31").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    today.setDate(today.getDate() + 1);
+			    $("#41").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    today.setDate(today.getDate() + 1);
+			    $("#51").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    today.setDate(today.getDate() + 1);
+			    $("#61").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    today.setDate(today.getDate() + 1);
+			    $("#71").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
+			    
+			    today.setDate(today.getDate() - 6);
+			    var date1 = "";
+			    if(today.getDate()<10) {
+			    	date1 = "0" + today.getDate();
+			    } 
+			    else {
+			    	date1 = "" + today.getDate();
+			    }
+			    var month1 = "";
+			    if(today.getMonth()<9) {
+			    	month1 = "0" + (parseInt(today.getMonth())+1);
+			    } 
+			    else {
+			    	month1 = (parseInt(today.getMonth())+1);
+			    }
+				var dateset = today.getFullYear() + "-" + (parseInt(today.getMonth())+1) + "-" + date1;
+				start = dateset;
+				$.ajax({
+					type : "GET",
+					url : "WeeklyMenu",
+					data : "dateset="+dateset,
+					dataType : "json",
+					//if received a response from the server
+					success : function(data, textStatus, jqXHR) {
+						for ( var key in data) {
+							$("#"+key).empty();
+							$("#"+key).append(data[key]); 
+						}
+					},
+
+					//If there was no resonse from the server
+					error : function(jqXHR, textStatus, errorThrown) {
+						console.log("Something really bad happened " + textStatus);
+						$("#ajaxResponse").html(jqXHR.responseText);
+					},
+
+					//this is called after the response or error functions are finsihed
+					//so that we can take some action
+					complete : function(jqXHR, textStatus) {
+						//enable the button 
+						//$('#myButton').attr("disabled", false);
+					},
+					beforeSend : function(jqXHR, settings) {
+						for(var i=1; i<=7; i++)
+							for(var j=2; j<=5; j++) {
+						$("#"+i+j).empty();
+						$("#"+i+j).append("Loading...");
+					}
+					}
+					
+
+				});
+			}
+			
+			
+			function ragneChanged(target,range) {
+				
+				console.log(range);
+			}
+			
+			
+			
+			$(function() {
+			    var startDate;
+			    var endDate;
+			    
+			    var selectCurrentWeek = function() {
+			        window.setTimeout(function () {
+			            $('.week-picker').find('.ui-datepicker-current-day a').addClass('ui-state-active')
+			        }, 1);
+			    }
+			    
+			    $('.week-picker').datepicker( {
+			        showOtherMonths: true,
+			        selectOtherMonths: true,
+			        onSelect: function(dateText, inst) { 
+			            var date = $(this).datepicker('getDate');
+			            startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+			            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+			            var dateFormat = "yy-mm-dd";
+			            $('#startDate').text($.datepicker.formatDate( dateFormat, startDate, inst.settings ));
+			            $('#endDate').text($.datepicker.formatDate( dateFormat, endDate, inst.settings ));
+			            start = $.datepicker.formatDate( dateFormat, startDate, inst.settings );
+			            callAjax();	
+			            selectCurrentWeek();
+			        },
+			        beforeShowDay: function(date) {
+			            var cssClass = '';
+			            if(date >= startDate && date <= endDate)
+			                cssClass = 'ui-datepicker-current-day';
+			            return [true, cssClass];
+			        },
+			        onChangeMonthYear: function(year, month, inst) {
+			            selectCurrentWeek();
+			        }
+			    });
+			    
+			    $('.week-picker .ui-datepicker-calendar tr').live('mousemove', function() { $(this).find('td a').addClass('ui-state-hover'); });
+			    $('.week-picker .ui-datepicker-calendar tr').live('mouseleave', function() { $(this).find('td a').removeClass('ui-state-hover'); });
+			});
+
+	    
+		});
+
+	</script>
+<script
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie10-viewport-bug-workaround.js"></script>
+
 
 </head>
 
@@ -91,14 +315,14 @@
 			<ul class="nav nav-justified">
 				<li><a href="${pageContext.request.contextPath}/login.jsp">Home</a></li>
 				<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
-				
-	<%String category=(String)session.getAttribute("category");
+
+				<%String category=(String)session.getAttribute("category");
 		if (category.equals("ADMINISTRATOR"))
 			{
 			String context=request.getContextPath();
 	out.println("<li><a href=\""+context+"/manager_home.jsp\">Set Menu</a></li>");
 		;} %>
-				
+
 				<li class="active"><a href="#">Weekly Menu</a></li>
 				<li><a href="#">Downloads</a></li>
 				<li><a href="#">About</a></li>
@@ -118,6 +342,7 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="section">
+
 
 								<div id="cal4"></div>
 								<table class="table table-bordered">
@@ -183,7 +408,39 @@
 						</div>
 					</div>
 
-					<div class="row"></div>
+					<div class="row">
+						<div class="col-xs-3 col-sm-3 col-md-3"></div>
+						<div class="col-xs-3 col-sm-3 col-md-3">
+							Choose by week:
+							<div class="week-picker"></div>
+						</div>
+
+						<div class="col-xs-3 col-sm-3 col-md-3">
+							Choose by hostel:
+							<div class="form-group">
+								<select multiple class="combobox form-control" name="hostelno"
+									id="hostelno" onchange="callAjax()">
+									<option value="" selected="selected">Hostel</option>
+									<option value="H1">H-1</option>
+									<option value="H2">H-2</option>
+									<option value="H3">H-3</option>
+									<option value="H4">H-4</option>
+									<option value="H5">H-5</option>
+									<option value="H6">H-6</option>
+									<option value="H7">H-7</option>
+									<option value="H8">H-8</option>
+									<option value="H9">H-9</option>
+									<option value="H10">H-10</option>
+									<option value="H11">H-11</option>
+									<option value="H12">H-12</option>
+									<option value="H13">H-13</option>
+									<option value="H14">H-14</option>
+									<option value="H15">H-15</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
 
 
 					<center>
@@ -197,139 +454,7 @@
 
 
 
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/jquery.min.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/jquery-ui.min.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/jquery.ui.touch-punch.min.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/moment+langs.min.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/jQuery-Range-Calendar2/js/jquery.rangecalendar.js"></script>
 
-
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
-
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('.combobox').combobox();
-		});
-		
-		$(document).ready(function(){
-			
-			  var currentTime = new Date();
-			var month = currentTime.getMonth();
-			var day = currentTime.getDate()-13;
-			var year = currentTime.getFullYear();
-			 
-			var rangeCalendar =  $("#cal4").rangeCalendar({startDate: new Date(year, month, day), weekends:true,startRangeWidth:7,changeRangeCallback: rangeChanged});
-			/* rangeCalendar.setStartDate(); */
-				
-			function rangeChanged(target,range){
-		    
-				
-				console.log(range);
-			    var startDay = moment(range.start).format('DD');
-			    var startMonth = moment(range.start).format('MM');
-			    var startYear = moment(range.start).format('YY');
-			    var today = new Date();
-			    /* today.setDate(startDay);
-			    today.setMonth(startMonth);
- */			    today.setFullYear(20+startYear,(parseInt(startMonth)+1),startDay-13); 
-			    
-			    $("#11").empty();
-			    $("#21").empty();
-			    $("#31").empty();
-			    $("#41").empty();
-			    $("#51").empty();
-			    $("#61").empty();
-			    $("#71").empty();
-			    
-			    $("#11").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
-			    today.setDate(today.getDate() + 1);
-			    $("#21").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
-			    today.setDate(today.getDate() + 1);
-			    $("#31").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
-			    today.setDate(today.getDate() + 1);
-			    $("#41").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
-			    today.setDate(today.getDate() + 1);
-			    $("#51").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
-			    today.setDate(today.getDate() + 1);
-			    $("#61").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
-			    today.setDate(today.getDate() + 1);
-			    $("#71").append(today.getDate() + "-" + (parseInt(today.getMonth())+1) + "-" + today.getFullYear());
-			    
-			    today.setDate(today.getDate() - 6);
-			    var date1 = "";
-			    if(today.getDate()<10) {
-			    	date1 = "0" + today.getDate();
-			    } 
-			    else {
-			    	date1 = "" + today.getDate();
-			    }
-			    var month1 = "";
-			    if(today.getMonth()<9) {
-			    	month1 = "0" + (parseInt(today.getMonth())+1);
-			    } 
-			    else {
-			    	month1 = (parseInt(today.getMonth())+1);
-			    }
-				var dateset = today.getFullYear() + "-" + (parseInt(today.getMonth())+1) + "-" + date1;
-				
-				$.ajax({
-					type : "GET",
-					url : "WeeklyMenu",
-					data : "dateset="+dateset,
-					dataType : "json",
-					//if received a response from the server
-					success : function(data, textStatus, jqXHR) {
-						for ( var key in data) {
-							$("#"+key).empty();
-							$("#"+key).append(data[key]); 
-						}
-					},
-
-					//If there was no resonse from the server
-					error : function(jqXHR, textStatus, errorThrown) {
-						console.log("Something really bad happened " + textStatus);
-						$("#ajaxResponse").html(jqXHR.responseText);
-					},
-
-					//this is called after the response or error functions are finsihed
-					//so that we can take some action
-					complete : function(jqXHR, textStatus) {
-						//enable the button 
-						//$('#myButton').attr("disabled", false);
-					},
-					beforeSend : function(jqXHR, settings) {
-						for(var i=1; i<=7; i++)
-							for(var j=2; j<=5; j++) {
-						$("#"+i+j).empty();
-						$("#"+i+j).append("Loading...");
-					}
-					}
-					
-
-				});
-			}
-			
-			
-			function ragneChanged(target,range) {
-				
-				console.log(range);
-			}
-	    
-		});
-
-	</script>
-	<script
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script
-		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie10-viewport-bug-workaround.js"></script>
 
 </body>
 </html>
