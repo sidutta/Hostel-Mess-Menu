@@ -14,18 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class AddItems
- */
+
 public class AddItems extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+
 	public AddItems() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -35,25 +30,30 @@ public class AddItems extends HttpServlet {
 		System.out.println("AddItemsCheck0");
 		Enumeration <String> en = request.getParameterNames();
 		Statement st = null;
-		// enumerate through the keys and extract the values 
-		// from the keys! 
 		try
 		{
+			// enumerate through the keys and extract the values 
+			// from the keys! 
 			while (en.hasMoreElements()) {
 				String parameterName = (String) en.nextElement();
-
-				//System.out.println(parameterName+":");
-
+				
+				//valueArray contains all the values corresponding to a particular key
 				String[] valueArray = request.getParameterValues(parameterName);
+				//bfast denotes whether the item to be added is of type breakfast
 				int bfast=0;
+				//lunch denotes whether the item to be added is of type breakfast
 				int lunch=0;
+				//tiffin denotes whether the item to be added is of type breakfast
 				int tiffin=0;
+				//dinner denotes whether the item to be added is of type breakfast
 				int dinner=0;
 
 				for(int i = 0; i < valueArray.length; i++){
-					System.out.println("AddItemsCheck1");
+					
+					//if item name is empty
 					if(valueArray[i].equals(""))
 						break;
+					//if item type is empty
 					if(valueArray.length==1)
 					{
 						bfast=lunch=tiffin=dinner=1;
@@ -67,17 +67,14 @@ public class AddItems extends HttpServlet {
 					else if(valueArray[i].equals("DINNER"))
 						dinner=1;				  
 				} 
-				System.out.println("AddItemsCheck2");
+				
 				if (!valueArray[0].equals(""))
 				{
 					System.out.println("AddItemsCheck3");
-					//st=Connect.getConnection().createStatement();;
-					//st.executeQuery("SELECT * FROM insert_item('"+valueArray[0]+"','"+bfast+"','"+lunch+"','"+tiffin+"','"+dinner+"')");
+					//Insert the given item in fooditems and foodtype table using a SQL function
 					PreparedStatement pstmt=Connect.getConnection().prepareStatement("SELECT * FROM insert_item(?,'"+bfast+"','"+lunch+"','"+tiffin+"','"+dinner+"')");
 					pstmt.setString(1, valueArray[0]);
 					pstmt.executeQuery();
-					System.out.println("Prepared Statement working");
-					System.out.println(valueArray[0]+"inserted!");
 				}
 			}
 		}
@@ -85,6 +82,7 @@ public class AddItems extends HttpServlet {
 			System.out.println("db query Exception");
 			e.printStackTrace();
 		}
+		//Redirect to managet_home.jsp
 		response.sendRedirect("manager_home.jsp");
 
 
@@ -94,7 +92,7 @@ public class AddItems extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 	}
 
 }

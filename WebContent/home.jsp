@@ -39,8 +39,17 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/css/bootstrap-combobox.css">
 
+
+<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+<!--[if lt IE 9]><script src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script
 	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie-emulation-modes-warning.js"></script>
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 <!-- ajax json starts -->
 
@@ -59,8 +68,20 @@ function updateValue(){
     }
 
 window.addEvent(window, "load", updateValue, false); 
+
+	<%-- window.onload = function() {
+		alert("fref");
+		var aaa= <%=session.getAttribute("hostelno")%>;
+		 document.getElementById("hostelnum").value = (String) session.getAttribute("hostelno"); 
+		alert(aaa);
+		callAjax();
+		alert("vre"); 
+	} --%>
  
 	function callAjax() {
+		//dataString = $("#myAjaxRequestForm").serialize();
+
+		//get the form data using another method 
 		var hnum = $("#hostelnum").val();
 		if(hnum=="") hnum="<%=session.getAttribute("hostelno")%>";
 		$("#hosteltitle").empty().append(hnum);
@@ -77,10 +98,16 @@ window.addEvent(window, "load", updateValue, false);
 			dataType : "json",
 			//if received a response from the server
 			success : function(data, textStatus, jqXHR) {
-				var bfastArray = data.bfast;
-				var lunchArray = data.lunch;
+				//our country code was correct so we have some information to display
+				//$("#message").empty();
+				//$("#table").empty();
+				//alert("eeff" + data.dinner);
+
+				//obj = JSON.parse(data);
+				var bfastArray = data.bfast;//alert("eegg"+bfastArray);
+				var lunchArray = data.lunch;//alert("eeff" + data.dinner);
 				var tiffinArray = data.tiffin;
-				var dinnerArray = data.dinner;
+				var dinnerArray = data.dinner;//alert("eeff" + data.dinner);
 				var bfasttxt = "";
 				var lunchtxt = "";
 				var tiffintxt = "";
@@ -180,16 +207,16 @@ window.addEvent(window, "load", updateValue, false);
 	<li class="active"><a
 		href="${pageContext.request.contextPath}/home.jsp">Home</a></li>
 	<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
-
+	
 	<%String category=(String)session.getAttribute("category");
 		if (category.equals("ADMINISTRATOR"))
 			{
 			String context=request.getContextPath();
 	out.println("<li><a href=\""+context+"/manager_home.jsp\">Set Menu</a></li>");
 		;} %>
-
+		
 	<li><a href="${pageContext.request.contextPath}/WeeklyMenu.jsp">Weekly
-	Menu</a></li>
+	Menu</a></li>	
 	<li><a href="#">Downloads</a></li>
 	<li><a href="#">About</a></li>
 	<li><a
