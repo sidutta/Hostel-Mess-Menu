@@ -394,7 +394,6 @@ window.addEvent(window, "load", updateValue, false);
 		
 	<li><a href="${pageContext.request.contextPath}/WeeklyMenu.jsp">Weekly
 	Menu</a></li>	
-	<li><a href="#">Services</a></li>
 	<li><a href="#">Downloads</a></li>
 	<li><a href="#">About</a></li>
 	<li><a
@@ -422,7 +421,7 @@ window.addEvent(window, "load", updateValue, false);
 </form>
 </div>
 
-<div class="row centered-form">
+<!--<div class="row centered-form">
 <div class="col-lg-5"></div>
 <div class="col-lg-2">
 <form>
@@ -433,12 +432,13 @@ Repeat
 	<option value="1" selected="selected">1 Week</option>
 	<option value="2">2 Weeks</option>
 	<option value="3">3 Weeks</option>
+	<option value="4">4 Weeks</option>
 </select></div>
 </center>
 </form>
 </div>
 
-</div>
+</div>-->
 
 <div class="row" style="margin-right: 0px; margin-left: 0px">
 <div class=""></div>
@@ -499,12 +499,28 @@ Repeat
 
 </select></div>
 </div>
-<br />
+
+<h4>Repeat</h4>
 <div class="row">
-<div class="col-lg-1">
+
+<div class="col-lg-6">
+<form>
+<div class="form-group"><select class="combobox form-control"
+	name="repeat" id="repeat">
+	<option value="1" selected="selected">This Week</option>
+	<option value="2">2 Weeks</option>
+	<option value="3">3 Weeks</option>
+	<option value="4">4 Weeks</option>
+</select></div>
+</form>
+</div>
+
+<div class="col-lg-6">
 <button id="button2" onclick="callAjax3()" class="btn">Submit</button>
 </div>
+
 </div>
+<a href="additem.jsp">Add Item</a>
 </div>
 </div>
 
