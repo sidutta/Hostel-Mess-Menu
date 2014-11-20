@@ -76,6 +76,7 @@
  window.addEvent=function(e,ev,f,c){if(e.addEventListener){e.addEventListener(ev,f,c);}else if(e.attachEvent){var r=e.attachEvent('on'+ev,f);return r;}else{e['on'+ev]=f;}};
 
 function updateValue(){ 
+	callAjax();
     callAjax2();
     }
 
@@ -194,7 +195,7 @@ window.addEvent(window, "load", updateValue, false);
 		});
 	}
 	function callAjax2() {
-		alert("f3fdd");
+		console.log("f3fdd");
 		$.ajax({
 			type : "GET",
 			url : "AddMenu",
@@ -255,7 +256,7 @@ window.addEvent(window, "load", updateValue, false);
 				//$('#myButton').attr("disabled", false);
 			},
 			beforeSend : function(jqXHR, settings) {
-				alert("f3f");
+				console.log("f3f");
 			}
 
 		});
