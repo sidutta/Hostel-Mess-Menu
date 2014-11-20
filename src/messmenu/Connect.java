@@ -21,20 +21,22 @@ public class Connect extends HttpServlet {
 	public void init() throws ServletException {
 
 
-		String hostname = "hmm.heliohost.org";
-		String dbname = "siddutta_project";
-		String username = "siddutta_team";
-		String password = "iitbcse2016";
+//		String hostname = "hmm.heliohost.org";
+//		String dbname = "siddutta_project";
+//		String username = "siddutta_team";
+//		String password = "iitbcse2016";
 
-		//		String hostname = "localhost";
-		//		String dbname = "mydb";
-		//		String username = "Siddhartha";
-		//		String password = "iitbcse2016";
+//				String hostname = "localhost";
+//				String dbname = "mydb";
+//				String username = "Siddhartha";
+//				String password = "iitbcse2016";
 
+				String hostname = "127.0.0.1"; //127.4.0.2
+				String dbname = "myapp";
+				String username = "admineamcgrq";
+				String password = "78wFsNQqyyi5";
+				
 		String dbURL = "jdbc:postgresql://"+hostname+"/"+dbname;
-		String createTablesScript = "/Users/aditya/Downloads/HMR/HMR/Hostel-Mess-Menu/WebContent/scripts/createtables.sql";
-		String fillTablesScript = "/Users/aditya/Downloads/HMR/HMR/Hostel-Mess-Menu/WebContent/scripts/filltables.sql";
-
 
 		try {
 			Class.forName("org.postgresql.Driver") ;
