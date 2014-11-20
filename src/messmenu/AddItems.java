@@ -3,6 +3,7 @@ import java.sql.ResultSet;
 
 import messmenu.Connect;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Enumeration;
@@ -70,8 +71,12 @@ public class AddItems extends HttpServlet {
 				if (!valueArray[0].equals(""))
 				{
 					System.out.println("AddItemsCheck3");
-					st=Connect.getConnection().createStatement();;
-					st.executeQuery("SELECT * FROM insert_item('"+valueArray[0]+"','"+bfast+"','"+lunch+"','"+tiffin+"','"+dinner+"')");
+					//st=Connect.getConnection().createStatement();;
+					//st.executeQuery("SELECT * FROM insert_item('"+valueArray[0]+"','"+bfast+"','"+lunch+"','"+tiffin+"','"+dinner+"')");
+					PreparedStatement pstmt=Connect.getConnection().prepareStatement("SELECT * FROM insert_item(?,'"+bfast+"','"+lunch+"','"+tiffin+"','"+dinner+"')");
+					pstmt.setString(1, valueArray[0]);
+					pstmt.executeQuery();
+					System.out.println("Prepared Statement working");
 					System.out.println(valueArray[0]+"inserted!");
 				}
 			}

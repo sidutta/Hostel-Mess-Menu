@@ -235,11 +235,10 @@
 			    var startDay = moment(range.start).format('DD');
 			    var startMonth = moment(range.start).format('MM');
 			    var startYear = moment(range.start).format('YY');
-			    
 			    var today = new Date();
 			    /* today.setDate(startDay);
 			    today.setMonth(startMonth);
- */			    today.setFullYear(20+startYear,(parseInt(startMonth)-1),startDay-13); 
+ */			    today.setFullYear(20+startYear,(parseInt(startMonth)+1),startDay-13); 
 			    
 			    $("#11").empty();
 			    $("#21").empty();
