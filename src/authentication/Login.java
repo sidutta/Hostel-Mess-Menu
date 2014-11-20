@@ -24,14 +24,9 @@ public class Login extends HttpServlet {
 		Statement st = null;
 		PreparedStatement pstmt=null;
 		boolean isCookie = false;
-		/*try {
-			st = Connect.getConnection().createStatement();
-			
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}*/
-
+		//username: Username of the user
 		String username = request.getParameter("username");
+		//password: Password of the user
 		String password = request.getParameter("password");
 
 		HttpSession session = request.getSession();
@@ -46,13 +41,12 @@ public class Login extends HttpServlet {
 		try {
 
 			if(!isCookie) {
-				//rs = st.executeQuery("SELECT * FROM users WHERE username = '" + username + "' AND password = '"+password+"'" );
-				
+				//Query to get user info
 				pstmt=Connect.getConnection().prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?" );
 				pstmt.setString(1,username);
 				pstmt.setString(2,password);
 				rs=pstmt.executeQuery();
-				
+
 				if(!rs.next()) {
 					response.sendRedirect("login.jsp?status=wrong");
 				}
@@ -72,11 +66,10 @@ public class Login extends HttpServlet {
 			}
 			else {
 				valid = true;
-				//rs = st.executeQuery("SELECT * FROM users WHERE username = '" + username +"'");
 				pstmt=Connect.getConnection().prepareStatement("SELECT * FROM users WHERE username = ?" );;
 				pstmt.setString(1,username);
 				rs=pstmt.executeQuery();
-				
+
 				rs.next();
 			}
 			if(valid) {
@@ -86,16 +79,11 @@ public class Login extends HttpServlet {
 				session.setAttribute("consumername", name);
 				String hostelno = rs.getString("hostelnumber");
 				session.setAttribute("hostelno", hostelno);
-	
-				//if(category.equals("CONSUMER"))
-				//{				
-					response.sendRedirect("home.jsp");
-					System.out.println("Prepared statement working");
-				//}
-				//else
-				//{				
-					//response.sendRedirect("manager_home.jsp");
-				//}
+
+
+				response.sendRedirect("home.jsp");
+				System.out.println("Prepared statement working");
+
 			}
 
 		}

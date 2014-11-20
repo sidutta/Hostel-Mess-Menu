@@ -96,13 +96,9 @@ public class Putrating extends HttpServlet {
 			System.out.println( "Shivam Check");
 			System.out.println(Integer.parseInt(tp[0])+" "+ Integer.parseInt(tp[1])+" "+ Integer.parseInt(tp[2]));
 			System.out.println( "Shivam Check");
-			
-			Calendar c = new GregorianCalendar(TimeZone.getTimeZone("Asia/Kolkata"));
-			//c.set(Integer.parseInt(tp[0]), Integer.parseInt(tp[1]), Integer.parseInt(tp[2]), 3, 30);
-			int day_of_week = c.get(Calendar.DAY_OF_WEEK);
-			//day_of_week = (day_of_week+6)
-			//System.out.println(day_of_week);
 
+			Calendar c = new GregorianCalendar(TimeZone.getTimeZone("Asia/Kolkata"));
+			int day_of_week = c.get(Calendar.DAY_OF_WEEK);
 			System.out.println(day_of_week + " " + asked);
 			String bs = "";
 			if(asked - day_of_week >= 0 ) {
@@ -111,30 +107,27 @@ public class Putrating extends HttpServlet {
 			else {
 				bs = String.valueOf(asked - day_of_week);
 			}
-			//int back_forw = day_of_week - asked;
-			//String bs = String.valueOf(-back_forw);
 			try {
 				rs = st.executeQuery("SELECT * FROM users WHERE username = '" + username +"'");
 				rs.next();
 				hostelno = rs.getString("hostelnumber");
 				System.out.println(hostelno+ " "+foodtype);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 			try {
 				String toex = "SELECT itemname , sid FROM servings natural join fooditems where type='"+foodtype+"' and servedon=current_date"+bs+" and hostelnumber='"+hostelno+"'" ;
 				System.out.println(toex);
-				
+
 
 				ResultSet rs1=st.executeQuery(toex);
 				ResultSet rs2 = null;
-				
+
 				JSONObject obj = new JSONObject();
 
 				while(rs1.next()){
-					
+
 					toex = "SELECT avg(rating) from reviews where sid='"+rs1.getString(2)+"' group by sid";
 					System.out.println(toex);
 					rs2  = st2.executeQuery(toex);
@@ -142,7 +135,7 @@ public class Putrating extends HttpServlet {
 						obj.put(rs1.getString(2), rs2.getString(1).substring(0, 3)); // sid, average rating
 					}
 					obj.put(rs1.getString(1), rs1.getString(2)); // itemname, sid
-					
+
 				}
 				System.out.print(obj);
 
@@ -188,7 +181,7 @@ public class Putrating extends HttpServlet {
 			e.printStackTrace();
 
 		}
-		
+
 		ResultSet rs = null;
 		try {
 			rs = st.executeQuery("SELECT now()::date");
