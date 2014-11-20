@@ -232,41 +232,41 @@ window.addEvent(window, "load", updateValue, false);
 
 				//obj = JSON.parse(data);
 				console.log("Ajax2callreturnhua");
-				/*var bfastArray = data.bfast;//alert("eegg"+bfastArray);
+				var bfastArray = data.bfast;//alert("eegg"+bfastArray);
 				var lunchArray = data.lunch;//alert("eeff" + data.dinner);
 				var tiffinArray = data.tiffin;
 				var dinnerArray = data.dinner;//alert("eeff" + data.dinner);
-				var bfasttxt = "";
+				/*var bfasttxt = "";
 				var lunchtxt = "";
 				var tiffintxt = "";
 				var dinnertxt = "";*/
 
-				for (i = 0; i < data.length; i++) {
-						var o = new Option(data[i], data[i]);
+				for (i = 0; i <bfastArray.length; i++) {
+						var o = new Option(bfastArray[i], bfastArray[i]);
 						//o.setAttribute("selected","selected");
-						$(o).html(data[i]);
+						$(o).html(bfastArray[i]);
 						$("#bfast").append(o);
 						
 					}
-				for (i = 0; i < data.length; i++) {
-					var o = new Option(data[i], data[i]);
+				for (i = 0; i < lunchArray.length; i++) {
+					var o = new Option(lunchArray[i], lunchArray[i]);
 					//o.setAttribute("selected","selected");
-					$(o).html(data[i]);
+					$(o).html(lunchArray[i]);
 					$("#lunch").append(o);
 					
 				}
 
-				for (i = 0; i < data.length; i++) {
-					var o = new Option(data[i], data[i]);
+				for (i = 0; i < tiffinArray.length; i++) {
+					var o = new Option(tiffinArray[i], tiffinArray[i]);
 					//o.setAttribute("selected","selected");
-					$(o).html(data[i]);
+					$(o).html(tiffinArray[i]);
 					$("#tiffin").append(o);
 					
 				}
-				for (i = 0; i < data.length; i++) {
-					var o = new Option(data[i], data[i]);
+				for (i = 0; i < dinnerArray.length; i++) {
+					var o = new Option(dinnerArray[i], dinnerArray[i]);
 					//o.setAttribute("selected","selected");
-					$(o).html(data[i]);
+					$(o).html(dinnerArray[i]);
 					$("#dinner").append(o);
 					
 				}
