@@ -233,41 +233,41 @@ window.addEvent(window, "load", updateValue, false);
 
 				//obj = JSON.parse(data);
 				console.log("Ajax2callreturnhua");
-				/*var bfastArray = data.bfast;//alert("eegg"+bfastArray);
+				var bfastArray = data.bfast;//alert("eegg"+bfastArray);
 				var lunchArray = data.lunch;//alert("eeff" + data.dinner);
 				var tiffinArray = data.tiffin;
 				var dinnerArray = data.dinner;//alert("eeff" + data.dinner);
-				var bfasttxt = "";
+				/*var bfasttxt = "";
 				var lunchtxt = "";
 				var tiffintxt = "";
 				var dinnertxt = "";*/
 
-				for (i = 0; i < data.length; i++) {
-						var o = new Option(data[i], data[i]);
+				for (i = 0; i <bfastArray.length; i++) {
+						var o = new Option(bfastArray[i], bfastArray[i]);
 						//o.setAttribute("selected","selected");
-						$(o).html(data[i]);
+						$(o).html(bfastArray[i]);
 						$("#bfast").append(o);
 						
 					}
-				for (i = 0; i < data.length; i++) {
-					var o = new Option(data[i], data[i]);
+				for (i = 0; i < lunchArray.length; i++) {
+					var o = new Option(lunchArray[i], lunchArray[i]);
 					//o.setAttribute("selected","selected");
-					$(o).html(data[i]);
+					$(o).html(lunchArray[i]);
 					$("#lunch").append(o);
 					
 				}
 
-				for (i = 0; i < data.length; i++) {
-					var o = new Option(data[i], data[i]);
+				for (i = 0; i < tiffinArray.length; i++) {
+					var o = new Option(tiffinArray[i], tiffinArray[i]);
 					//o.setAttribute("selected","selected");
-					$(o).html(data[i]);
+					$(o).html(tiffinArray[i]);
 					$("#tiffin").append(o);
 					
 				}
-				for (i = 0; i < data.length; i++) {
-					var o = new Option(data[i], data[i]);
+				for (i = 0; i < dinnerArray.length; i++) {
+					var o = new Option(dinnerArray[i], dinnerArray[i]);
 					//o.setAttribute("selected","selected");
-					$(o).html(data[i]);
+					$(o).html(dinnerArray[i]);
 					$("#dinner").append(o);
 					
 				}
@@ -386,6 +386,7 @@ window.addEvent(window, "load", updateValue, false);
 			</div>
 			<!-- </tr>
 			</table> -->
+<<<<<<< HEAD
 			<ul class="nav nav-justified">
 				<li><a href="${pageContext.request.contextPath}/home.jsp">Home</a></li>
 				<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
@@ -530,6 +531,158 @@ window.addEvent(window, "load", updateValue, false);
 		<script type="text/javascript"
 			src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
 		<%-- <script type="text/javascript"
+=======
+<ul class="nav nav-justified">
+	<li><a href="${pageContext.request.contextPath}/home.jsp">Home</a></li>
+	<li><a
+		href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
+	<%String category=(String)session.getAttribute("category");
+		if (category.equals("ADMINISTRATOR"))
+			{
+			String context=request.getContextPath();
+	out.println("<li class=\"active\"><a href=\""+context+"/manager_home.jsp\">Set Menu</a></li>");
+		;} %>
+		
+	<li><a href="${pageContext.request.contextPath}/WeeklyMenu.jsp">Weekly
+	Menu</a></li>	
+	<li><a href="#">Downloads</a></li>
+	<li><a href="#">About</a></li>
+	<li><a
+		href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
+</ul>
+</div>
+
+<div class="row centered-form">
+<div class="col-lg-5"></div>
+<div class="col-lg-2">
+<form>
+<center>
+<div class="form-group"><select class="combobox form-control"
+	name="day" id="day" onchange="callAjax()">
+	<option value="" selected="selected">Day</option>
+	<option value="Monday">Monday</option>
+	<option value="Tuesday">Tuesday</option>
+	<option value="Wednesday">Wednesday</option>
+	<option value="Thursday">Thursday</option>
+	<option value="Friday">Friday</option>
+	<option value="Saturday">Saturday</option>
+	<option value="Sunday">Sunday</option>
+</select></div>
+</center>
+</form>
+</div>
+
+<!--<div class="row centered-form">
+<div class="col-lg-5"></div>
+<div class="col-lg-2">
+<form>
+<center>
+Repeat
+<div class="form-group"><select class="combobox form-control"
+	name="repeat" id="repeat">
+	<option value="1" selected="selected">1 Week</option>
+	<option value="2">2 Weeks</option>
+	<option value="3">3 Weeks</option>
+	<option value="4">4 Weeks</option>
+</select></div>
+</center>
+</form>
+</div>
+
+</div>-->
+
+<div class="row" style="margin-right: 0px; margin-left: 0px">
+<div class=""></div>
+<div class="panel panel-default col-lg-5"
+	style="margin-right: 0px; margin-left: 3.8%">
+<div class="panel-heading">
+<h3 class="panel-title" id="hosteltitle">Today's menu</h3>
+</div>
+<div class="panel-body">
+
+
+<center>
+<table id="table" class="table">
+
+</table>
+<div class="text-muted" id="message"></div>
+</center>
+</div>
+</div>
+<div class="col-lg-1"></div>
+<div class="panel panel-default col-lg-5">
+<div class="panel-heading">
+<h3 class="panel-title" id="settitle">Set this week's menu</h3>
+
+</div>
+<div class="panel-body">
+
+<div class="row">
+<div class="col-lg-5">
+<h4>Breakfast</h4>
+
+<select multiple id="bfast" style="width: 300px min-width :       300px">
+
+</select></div>
+</div>
+<div class="row">
+<div class="col-lg-5">
+<h4>Lunch</h4>
+<select multiple id="lunch" style="width: 300px min-width :       300px">
+
+</select></div>
+</div>
+
+<div class="row">
+<div class="col-lg-5">
+<h4>Tiffin</h4>
+
+<select multiple id="tiffin"
+	style="width: 300px min-width :       300px">
+
+</select></div>
+</div>
+<div class="row">
+<div class="col-lg-5">
+<h4>Dinner</h4>
+<select multiple id="dinner"
+	style="width: 300px min-width :       300px">
+
+</select></div>
+</div>
+
+<h4>Repeat</h4>
+<div class="row">
+
+<div class="col-lg-6">
+<form>
+<div class="form-group"><select class="combobox form-control"
+	name="repeat" id="repeat">
+	<option value="1" selected="selected">This Week</option>
+	<option value="2">2 Weeks</option>
+	<option value="3">3 Weeks</option>
+	<option value="4">4 Weeks</option>
+</select></div>
+</form>
+</div>
+
+<div class="col-lg-6">
+<button id="button2" onclick="callAjax3()" class="btn">Submit</button>
+</div>
+
+</div>
+<a href="additem.jsp">Add Item</a>
+</div>
+</div>
+
+</div>
+</div>
+
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
+<%-- <script type="text/javascript"
+>>>>>>> f7e72522646d6ddd794e2c7ea2af2369278755e2
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/multiselect.js"></script> --%>
 		<script type="text/javascript"
 			src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>

@@ -5,6 +5,7 @@ import java.io.IOException;
 
 
 import java.io.PrintWriter;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -45,6 +46,7 @@ public class Putrating2 extends HttpServlet {
 		}
 		ResultSet rs = null;
 		Statement st = null;
+		PreparedStatement pstmt=null;
 		
 		try {
 			st = Connect.getConnection().createStatement();
@@ -85,16 +87,23 @@ public class Putrating2 extends HttpServlet {
 				rs = st.executeQuery(tocheck);
 				if(rs.next()){
 					 String upd1 = "UPDATE reviews set rating='"+entry.getValue()+"' where username='"+username+"' and sid ='"+entry.getKey()+"'";
-					 String upd2 = "UPDATE reviews set  review='"+comments.get(entry.getKey())+"' where username='"+username+"' and sid ='"+entry.getKey()+"'";
-
+					 //String upd2 = "UPDATE reviews set  review='"+comments.get(entry.getKey())+"' where username='"+username+"' and sid ='"+entry.getKey()+"'";
+					 String upd2 = "UPDATE reviews set  review=? where username='"+username+"' and sid ='"+entry.getKey()+"'";
+					pstmt=Connect.getConnection().prepareStatement(upd2);
+					pstmt.setString(1,comments.get(entry.getKey()));
 					 st.executeUpdate(upd1);
-					 st.executeUpdate(upd2);
+					 pstmt.executeUpdate();
+					 System.out.println("PreparedStatement working");
 
 				 }
 				else{
-					 String toex = "INSERT INTO reviews values('"+username+"','"+entry.getKey()+"','"+entry.getValue()+"','"+comments.get(entry.getKey())+"')";
+					 //String toex = "INSERT INTO reviews values('"+username+"','"+entry.getKey()+"','"+entry.getValue()+"','"+comments.get(entry.getKey())+"')";
+					String toex = "INSERT INTO reviews values('"+username+"','"+entry.getKey()+"','"+entry.getValue()+"',?)";
+					pstmt=Connect.getConnection().prepareStatement(toex);
+					pstmt.setString(1,comments.get(entry.getKey()));
 					 System.out.println(toex);
-					 st.executeUpdate(toex);
+					 pstmt.executeUpdate();
+					 System.out.println("PreparedStatement working");
 					
 				}
 			} catch (SQLException e1) {

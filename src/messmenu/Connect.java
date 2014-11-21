@@ -31,7 +31,7 @@ public class Connect extends HttpServlet {
 //				String username = "Siddhartha";
 //				String password = "iitbcse2016";
 
-				String hostname = "127.0.0.1"; //127.4.0.2
+				String hostname = "127.0.0.1";
 				String dbname = "myapp";
 				String username = "admineamcgrq";
 				String password = "78wFsNQqyyi5";

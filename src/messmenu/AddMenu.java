@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
+//To show menu on Set Menu Page
 public class AddMenu extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
 	ServletException, IOException
@@ -30,13 +31,11 @@ public class AddMenu extends HttpServlet {
 		ResultSet rs = null;
 		Statement st = null;
 		Statement st2 = null;
-		System.out.println("Gooooogle");
 
 		String day = request.getParameter("day");
-		//String foodtype = request.getParameter("foodtype");
 
 		if( day != null){
-			System.out.println(day);
+			
 
 			HttpSession session = request.getSession();
 			String hostelno =(String)session.getAttribute("hostelno");
@@ -55,38 +54,32 @@ public class AddMenu extends HttpServlet {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			
-			
+
+
 			try {
 				rs = st.executeQuery("SELECT now()::date");
 				while(rs.next()){
 					dt =rs.getString(1);
 					tp = dt.split("-");
-					System.out.println( "tpcheck1");
-					System.out.println( Integer.parseInt(tp[2]));
-					System.out.println( "tpcheck1");
-					
+
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-
 				e.printStackTrace();
 			}
 
 
 			try {
-				//String toex = "SELECT itemname , sid FROM servings natural join fooditems where type='"+foodtype+"' and servedon=current_date+"+bs+" and hostelnumber='"+hostelno+"'" ;
-
 				ResultSet rsserving=null;
 				ResultSet rsprevweek=null;
 				ArrayList <String> bfast=new ArrayList<String>();
 				ArrayList <String> lunch=new ArrayList<String>();
 				ArrayList <String> tiffin=new ArrayList<String>();
 				ArrayList <String> dinner=new ArrayList<String>();
-				System.out.println("AddMenu1");
+				
+				//Required day is today
 				if (day.equals("initial"))
 				{
-					System.out.println("AddMenu2");
+					//Get today's menu for this week and previous week
 					rsserving=st.executeQuery("SELECT distinct itemname,type FROM servings natural join fooditems where servedon=current_date and hostelnumber='"+session.getAttribute("hostelno")+"'" );
 					rsprevweek=st2.executeQuery("SELECT distinct itemname,type FROM servings natural join fooditems where servedon=current_date-7 and hostelnumber='"+session.getAttribute("hostelno")+"'" );
 				}
@@ -104,49 +97,54 @@ public class AddMenu extends HttpServlet {
 
 					int asked = x.get(day);
 
-					System.out.println("tpcheck2");
-					System.out.println( Integer.parseInt(tp[2]));
-					System.out.println("tpcheck2");
 					
+					
+
 					Calendar c = Calendar.getInstance();
 					c.set(Integer.parseInt(tp[0]), Integer.parseInt(tp[1])-1, Integer.parseInt(tp[2]));
 
 					int day_of_week = c.get(Calendar.DAY_OF_WEEK);
-					//day_of_week = (day_of_week+6)
-					System.out.println(day_of_week);
+					
 
 					int back_forw = day_of_week - asked;
+					//bs contains the required date offset (with respect to today's date)
 					String bs = String.valueOf(-back_forw);
+					//Get menu for required day (for this week as well as previous week)
 					rsserving=st.executeQuery("SELECT distinct itemname,type FROM servings natural join fooditems where servedon=current_date+"+bs+"and hostelnumber='"+session.getAttribute("hostelno")+"'" );
 					rsprevweek=st2.executeQuery("SELECT distinct itemname,type FROM servings natural join fooditems where servedon=current_date-7+"+bs+"and hostelnumber='"+session.getAttribute("hostelno")+"'" );
 				}
 
-				//request.setAttribute("hostelnumber",request.getParameter("hostelnum"));
-				//System.out.println(request.getParameter("hostelnum"));
+				//flagBfast shows whether the required day's breakfast menu has been set (for current week)
 				int flagBfast=0;
+				//flagLunch shows whether the required day's lunch menu has been set (for current week)
 				int flagLunch=0;
+				//flagTiffin shows whether the required day's tiffin menu has been set (for current week)
 				int flagTiffin=0;
+				//flagDinner shows whether the required day's dinner menu has been set (for current week)
 				int flagDinner=0;
-				
+
 				while(rsserving.next())
 				{
-					System.out.println("check1");
+					
 					String mealtype=rsserving.getString("type");
+					//If mealtype is BREAKFAST, add item to bfast ArrayList
 					if (mealtype.equals("BREAKFAST"))
 					{
 						flagBfast=1;
 						if(bfast.isEmpty())
 							bfast.add("thisweek");
 						bfast.add(rsserving.getString("itemname"));
-					}	
+					}
+					//If mealtype is LUNCH, add item to lunch ArrayList
 					else if (mealtype.equals("LUNCH"))
 					{
 						flagLunch=1;
 						if(lunch.isEmpty())
 							lunch.add("thisweek");
-						System.out.println("KuchToGadbadHaiDaya");
+					
 						lunch.add(rsserving.getString("itemname"));
 					}
+					//If mealtype is TIFFIN, add item to tiffin ArrayList
 					else if (mealtype.equals("TIFFIN"))
 					{
 						flagTiffin=1;
@@ -154,6 +152,7 @@ public class AddMenu extends HttpServlet {
 							tiffin.add("thisweek");
 						tiffin.add(rsserving.getString("itemname"));
 					}
+					//If mealtype is DINNER, add item to dinner ArrayList
 					else
 					{
 						flagDinner=1;
@@ -163,29 +162,34 @@ public class AddMenu extends HttpServlet {
 					}
 				}
 				
+				
 				while(rsprevweek.next())
 				{
-					System.out.println("check2");
+					
 					String mealtype=rsprevweek.getString("type");
+					//If current week's required day's breakfast menu is not set, add previous week's menu to bfast
 					if (mealtype.equals("BREAKFAST") && flagBfast==0)
 					{
 						if(bfast.isEmpty())
 							bfast.add("prevweek");
 						bfast.add(rsprevweek.getString("itemname"));
-					}	
+					}
+					//If current week's required day's lunch menu is not set, add previous week's menu to lunch
 					else if (mealtype.equals("LUNCH")&& flagLunch==0)
 					{
 						if(lunch.isEmpty())
 							lunch.add("prevweek");
-						System.out.println("SabTheekHai");
+						
 						lunch.add(rsprevweek.getString("itemname") );
 					}
+					//If current week's required day's tiffin menu is not set, add previous week's menu to tiffin
 					else if (mealtype.equals("TIFFIN") && flagTiffin==0)
 					{
 						if(tiffin.isEmpty())
 							tiffin.add("prevweek");
 						tiffin.add(rsprevweek.getString("itemname"));
 					}
+					//If current week's required day's dinner menu is not set, add previous week's menu to dinner
 					else if(flagDinner==0)
 					{
 						if(dinner.isEmpty())
@@ -194,16 +198,17 @@ public class AddMenu extends HttpServlet {
 					}
 
 				}
-
+				//listMap contains the mapping from food type to items
 				Map<String, ArrayList<String>> listMap = new HashMap<String, ArrayList<String>>();
 				listMap.put("bfast", bfast);
 				listMap.put("lunch", lunch);
 				listMap.put("tiffin", tiffin);
 				listMap.put("dinner", dinner);
-
+				
+				//foodMap conatains the JSON object corresponding to listMap
 				String foodMap = new Gson().toJson(listMap);
-				System.out.println("AddMenu0");
-				System.out.println(foodMap);
+				
+				
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
 				response.getWriter().write(foodMap);

@@ -106,7 +106,7 @@ body {
 
 								<div class="col-xs-3 col-sm-3 col-md-3">
 									<div class="form-group">
-										<select multiple class="combobox form-control" name="hostelno">
+										<select multiple class="combobox form-control" name="hostelno" id="hostelno">
 											<option value="" selected="selected">Hostel</option>
 											<option value="H1">H-1</option>
 											<option value="H2">H-2</option>
@@ -150,7 +150,7 @@ body {
 
 								<div class="col-xs-3 col-sm-4 col-md-3 	">
 									<div class="form-group">
-										<select class="combobox form-control" name="category">
+										<select class="combobox form-control" name="category" id="category">
 											<option value="" selected="selected">Category</option>
 											<option value="Consumer">Consumer</option>
 											<option value="Administrator">Admin</option>
@@ -228,7 +228,7 @@ body {
 				  email: {
 				      required: true,
 				      email: true
-				    },
+				    },				
 			    password: "required",
 			    password_again: {
 			      equalTo: "#password"

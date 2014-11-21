@@ -265,6 +265,16 @@ insert into servings values('38','33','DINNER','2014-10-09','H1');
 insert into servings values('39','32','DINNER','2014-10-09','H1');
 
 
-
+select * from insert_item('BHINDI',0,1,0,1);
+select * from insert_item('CABBAGE',0,1,0,1);
+select * from insert_item('RAJMA',0,1,0,1);
+select * from insert_item('SHAHI PANEER',0,1,0,1);
+select * from insert_item('MATTAR PANEER',0,1,0,1);
+select * from insert_item('IDLI',1,0,1,0);
+select * from insert_item('SAMOSA',0,0,1,0);
+select * from insert_item('PLAIN DOSA',1,0,1,0);
+select * from insert_item('ONION DOSA',1,0,1,0);
+select * from insert_item('SAMBHAR',1,1,1,1);
+select * from insert_item('DAL MAKHANI',0,1,0,1);
 
 
