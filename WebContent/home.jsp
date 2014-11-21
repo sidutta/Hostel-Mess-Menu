@@ -217,7 +217,7 @@ window.addEvent(window, "load", updateValue, false);
 		
 	<li><a href="${pageContext.request.contextPath}/WeeklyMenu.jsp">Weekly
 	Menu</a></li>	
-	<li><a href="#">Downloads</a></li>
+	<li><a href="${pageContext.request.contextPath}/SeeRatings.jsp">View Ratings</a></li>
 	<li><a href="#">About</a></li>
 	<li><a
 		href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>

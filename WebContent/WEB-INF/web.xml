@@ -57,6 +57,36 @@
     <servlet-class>authentication.Putrating2</servlet-class>
   </servlet>
   <servlet-mapping>
+    <servlet-name>Viewrating</servlet-name>
+    <url-pattern>/Viewrating</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Viewrating</display-name>
+    <servlet-name>Viewrating</servlet-name>
+    <servlet-class>messmenu.Viewrating</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Viewrating2</servlet-name>
+    <url-pattern>/Viewrating2</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Viewrating2</display-name>
+    <servlet-name>Viewrating2</servlet-name>
+    <servlet-class>messmenu.Viewrating2</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>Viewrating3</servlet-name>
+    <url-pattern>/Viewrating3</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Viewrating3</display-name>
+    <servlet-name>Viewrating3</servlet-name>
+    <servlet-class>messmenu.Viewrating3</servlet-class>
+  </servlet>
+  <servlet-mapping>
     <servlet-name>Putrating2</servlet-name>
     <url-pattern>/Putrating2</url-pattern>
   </servlet-mapping>

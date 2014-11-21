@@ -48,6 +48,7 @@ public class Connect extends HttpServlet {
 
 		} catch (Exception e) {
 			System.out.println("JDBC Connection/ db initialization Exception");
+			System.out.println(e.getMessage() + " " + e.toString() + " " + e.getCause());
 			e.printStackTrace();
 
 		}
