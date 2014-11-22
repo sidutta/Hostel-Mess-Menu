@@ -49,51 +49,47 @@ public class Viewrating3 extends HttpServlet {
 			JSONObject obj = new JSONObject();
 			
 			try{
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				Date d1 = formatter.parse(date_start);
 				Date d2 = formatter.parse(date_end);
 				
-				
-				int daysdiff=0;
+				  System.out.println(date_start);
+				  System.out.println(date_end);
+				long daysdiff=0;
 				Calendar cal = Calendar.getInstance(); 
-				int diff = (int) (d2.getTime() - d1.getTime());
-				int diffDays = diff / (24 * 60 * 60 * 1000)+1;
+				long diff = (long) (d2.getTime() - d1.getTime());
+				long diffDays = diff / (24 * 60 * 60 * 1000)+1;
 				  daysdiff = diffDays;
-				  int add = daysdiff/5;
+				  long add = daysdiff/10;
 				  String query = "";
-				  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-				  Calendar c1 = Calendar.getInstance();
-				  Calendar c2 = Calendar.getInstance();
+				 
+				  System.out.println(diffDays);
+				  System.out.println(diff);
 
-				  c1.setTime(d1); // Now use today date.
-				  c2.setTime(d1);
-				  
-			
 				  if(hno != "ALL"){
 				for(int i=1; i<=10; i++){
-					 c1.add(Calendar.DATE, add*i);
-					 c2.add(Calendar.DATE, add*(i-1));
-					 String ty1= sdf.format(c1.getTime());
-					 String ty2= sdf.format(c2.getTime());
-
-					 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>='"+ty2+"'and servedon<='"+ty1+"' and hostelnumber='"+hno+"' and itemname='"+itemname+"'";						
+				//	
+					 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>=TIMESTAMP '"+date_start+"'+ INTERVAL '"+Long.toString(add*(i-1))+" days' and servedon<TIMESTAMP '"+date_start+"'+ INTERVAL '"+Long.toString(add*i)+" days' and hostelnumber='"+hno+"' and itemname='"+itemname+"'";						
+					System.out.println(query);
 					 rs = st.executeQuery(query);
-					 while(rs.next()){
+					 if(rs.next()){
+						 if(rs.getString(1) ==  null)
+							 obj.put(Integer.toString(i),"0");
+						 else
 						 obj.put(Integer.toString(i),rs.getString(1));
+						 System.out.println(rs.getString(1));
 						 System.out.println(obj);
 					 }
+					 
 					 
 				}
 				
 				  }
 				  else{
 					  for(int i=1; i<=10; i++){
-							 c1.add(Calendar.DATE, add*i);
-							 c2.add(Calendar.DATE, add*(i-1));
-							 String ty1= sdf.format(c1.getTime());
-							 String ty2= sdf.format(c2.getTime());
+							 
 
-							 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>='"+ty2+"'and servedon<='"+ty1+"' and itemname='"+itemname+"'";						
+							 //query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>='"+ty2+"'and servedon<='"+ty1+"' and itemname='"+itemname+"'";						
 							 rs = st.executeQuery(query);
 							 while(rs.next()){
 								 obj.put(Integer.toString(i),rs.getString(1));
@@ -114,7 +110,7 @@ public class Viewrating3 extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			System.out.println("--------");
 			System.out.println(obj);
 			PrintWriter out = response.getWriter();
 

@@ -247,8 +247,7 @@
 		// jsondata;
 		//make the AJAX request, dataType is set to json
 		//meaning we are expecting JSON data in response from the server
-		$
-				.ajax({
+		$.ajax({
 					type : "POST",
 					url : "Viewrating",
 					data : dataString,
@@ -428,7 +427,7 @@
 
 		});
 		
-		var lineData=[];
+		
 		 $.ajax({
 			type : "POST",
 			url : "Viewrating3",
@@ -436,13 +435,15 @@
 			dataType : "json",
 			//if received a response from the server
 			success : function(data, textStatus, jqXHR) {
-				
+				var lineData=[];
 				for( i=1; i<=10; i++){
-					
-					var data={x: i, y: data[i]};
-					lineData.push(data);
+					if (data.hasOwnProperty(i.toString())){
+					var data123={x: i.toString(), y: data[i]};
+					lineData.push(data123);
+					console.log(data123);
+					}
 				}
-				InitChart();
+				InitChart(lineData);
 
 			},
 
@@ -468,9 +469,10 @@
 	}
 	
 	
-	function InitChart() {
+	function InitChart(lineData) {
 	 console.log("paani");
-	
+	console.log(lineData);
+	$('#graph').empty();
 	 var vis = d3.select('#graph'),
 	    WIDTH = 700,
 	    HEIGHT = 300,
@@ -540,21 +542,46 @@
 				//alert("eeff" + data.dinner);
 
 				//obj = JSON.parse(data);
-				console.log("Ajax2callreturnhua");
-				/*var bfastArray = data.bfast;//alert("eegg"+bfastArray);
+				var bfastArray = data.bfast;//alert("eegg"+bfastArray);
 				var lunchArray = data.lunch;//alert("eeff" + data.dinner);
 				var tiffinArray = data.tiffin;
-				var dinnerArray = data.dinner;//alert("eeff" + data.dinner);
-				var bfasttxt = "";
-				var lunchtxt = "";
-				var tiffintxt = "";
-				var dinnertxt = "";*/
+				var dinnerArray = data.dinner;
+				console.log(lunchArray.length);
+			
 				var tp = [];
 				//$("#srch").select2("val", tp);
-				for (i = 0; i < data.length; i++) {
-					var o = new Option(data[i], data[i]);
+				for (i = 0; i < bfastArray.length; i++) {
+					console.log("Qsdfsdfsdfsfdsfsdfad");
+					var o = new Option(bfastArray[i], bfastArray[i]);
 					//o.setAttribute("selected","selected");
-					$(o).html(data[i]);
+					$(o).html(bfastArray[i]);
+					console.log(o);
+					$("#srch").append(o);
+
+				}
+				for (i = 0; i < lunchArray.length; i++) {
+					console.log("Qsdfsdfsdfsfdsfsdfad");
+					var o = new Option(lunchArray[i], lunchArray[i]);
+					//o.setAttribute("selected","selected");
+					$(o).html(lunchArray[i]);
+					console.log(o);
+					$("#srch").append(o);
+
+				}
+				for (i = 0; i < tiffinArray.length; i++) {
+					console.log("Qsdfsdfsdfsfdsfsdfad");
+					var o = new Option(tiffinArray[i], tiffinArray[i]);
+					//o.setAttribute("selected","selected");
+					$(o).html(tiffinArray[i]);
+					console.log(o);
+					$("#srch").append(o);
+
+				}
+				for (i = 0; i < dinnerArray.length; i++) {
+					console.log("Qsdfsdfsdfsfdsfsdfad");
+					var o = new Option(dinnerArray[i], dinnerArray[i]);
+					//o.setAttribute("selected","selected");
+					$(o).html(dinnerArray[i]);
 					console.log(o);
 					$("#srch").append(o);
 
