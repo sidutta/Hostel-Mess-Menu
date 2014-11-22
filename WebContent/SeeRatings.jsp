@@ -396,7 +396,7 @@
 				
 				var txt = "";
 				$("#ans").empty();
-				txt = "<b>"+itemname + " &nbsp &nbsp "+data[itemname]+"</b>";
+				txt = "<b>"+itemname + " &nbsp &nbsp "+data[itemname]+" &nbsp &nbsp "+data["@#"]+"</b>";
 				if (txt != "") {
 					//	txt += "<input type=submit onclick='sendratings()'>"
 					//  txt += "</form>"

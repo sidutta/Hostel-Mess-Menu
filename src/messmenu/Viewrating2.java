@@ -28,6 +28,7 @@ public class Viewrating2 extends HttpServlet {
 	ServletException, IOException
 	{
 		ResultSet rs = null;
+		ResultSet rs1= null;
 		Statement st = null;
 		Statement st2 = null;
 		
@@ -45,21 +46,28 @@ public class Viewrating2 extends HttpServlet {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			
+			try {
+				st2 = Connect.getConnection().createStatement();
+				st2.executeUpdate("set time zone interval '05:30' hour to minute");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			JSONObject obj = new JSONObject();
 			
 			try{
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
 				Date d0 = formatter.parse(date_start);
 				String query= "";
-				if(hno != "ALL")
+				String query2 ="";
+				if(hno != "ALL"){
 				 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>='"+d0+"'and servedon<='"+date_end+"' and hostelnumber='"+hno+"' and itemname='"+itemname+"'";						
-				else{
+				 query2 = "select count(rating) from servings natural join fooditems natural join reviews where servedon>='"+d0+"'and servedon<='"+date_end+"' and hostelnumber='"+hno+"' and itemname='"+itemname+"'";						 
+				}else{
 					 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>='"+d0+"'and servedon<='"+date_end+"' and itemname='"+itemname+"'";						
 
 				}
 				rs = st.executeQuery(query);
-
+				rs1 =st2.executeQuery(query2);
 				while( rs.next()){
 					String rating = rs.getString(1);
 					if(rating != "" && rating != null)
@@ -67,6 +75,10 @@ public class Viewrating2 extends HttpServlet {
 					obj.put(itemname,rating);
 					
 				}
+				while(rs1.next()){
+					String cnt = rs1.getString(1);
+					obj.put("@#", cnt);
+;				}
 			}
 			catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -78,7 +90,7 @@ public class Viewrating2 extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			System.out.println(obj);
 			PrintWriter out = response.getWriter();
 
 			out.println(obj.toString());

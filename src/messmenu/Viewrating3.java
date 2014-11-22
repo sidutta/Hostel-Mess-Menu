@@ -70,15 +70,14 @@ public class Viewrating3 extends HttpServlet {
 				for(int i=1; i<=10; i++){
 				//	
 					 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>=TIMESTAMP '"+date_start+"'+ INTERVAL '"+Long.toString(add*(i-1))+" days' and servedon<TIMESTAMP '"+date_start+"'+ INTERVAL '"+Long.toString(add*i)+" days' and hostelnumber='"+hno+"' and itemname='"+itemname+"'";						
-					System.out.println(query);
+					
 					 rs = st.executeQuery(query);
 					 if(rs.next()){
 						 if(rs.getString(1) ==  null)
 							 obj.put(Integer.toString(i),"0");
 						 else
 						 obj.put(Integer.toString(i),rs.getString(1));
-						 System.out.println(rs.getString(1));
-						 System.out.println(obj);
+						
 					 }
 					 
 					 
@@ -89,11 +88,14 @@ public class Viewrating3 extends HttpServlet {
 					  for(int i=1; i<=10; i++){
 							 
 
-							 //query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>='"+ty2+"'and servedon<='"+ty1+"' and itemname='"+itemname+"'";						
+							 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>=TIMESTAMP '"+date_start+"'+ INTERVAL '"+Long.toString(add*(i-1))+" days' and servedon<TIMESTAMP '"+date_start+"'+ INTERVAL '"+Long.toString(add*i)+" days' and itemname='"+itemname+"'";						
 							 rs = st.executeQuery(query);
 							 while(rs.next()){
+								 if(rs.getString(1) ==  null)
+									 obj.put(Integer.toString(i),"0");
+								 else
 								 obj.put(Integer.toString(i),rs.getString(1));
-								 System.out.println(rs.getString(1));
+								 
 							 }
 							 
 						}  
