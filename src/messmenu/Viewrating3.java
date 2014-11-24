@@ -81,7 +81,9 @@ public class Viewrating3 extends HttpServlet {
 					 }
 					 
 					 
+					 
 				}
+				obj.put("daydiff", Long.toString(add));
 				
 				  }
 				  else{
@@ -99,6 +101,7 @@ public class Viewrating3 extends HttpServlet {
 							 }
 							 
 						}  
+					  obj.put("daydiff", Long.toString(add));
 				  }
 				
 			}

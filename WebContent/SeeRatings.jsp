@@ -295,7 +295,7 @@
 							}
 						}
 
-						var avg = sumbf / cntbf;
+						var avg = parseFloat(sumbf) / parseFloat(cntbf);
 						txt += "<tr><td><b>BreakFast</b></td><td><b>"
 								+ avg.toString() + "</b><td></tr>";
 						for (var i = 0; i < Breakfast.length; i++) {
@@ -303,21 +303,21 @@
 							txt += "<tr><td>" + Breakfast[i] + "</td><td>"
 									+ data[Breakfast[i]] + "</td></tr>";
 						}
-						avg = sumlunch / cntlunch;
+						avg = parseFloat(sumlunch) / parseFloat(cntlunch);
 						txt += "<tr><td><b>Lunch</b></td><td><b>"
 								+ avg.toString() + "</b><td></tr>";
 						for (var i = 0; i < Lunch.length; i++) {
 							txt += "<tr><td>" + Lunch[i] + "</td><td>"
 									+ data[Lunch[i]] + "</td></tr>";
 						}
-						avg = sumtiff / cnttiff;
+						avg = parseFloat(sumtiff) /parseFloat(cnttiff);
 						txt += "<tr><td><b>Tiffin</b></td><td><b>"
 								+ avg.toString() + "</b><td></tr>";
 						for (var i = 0; i < Tiffin.length; i++) {
 							txt += "<tr><td>" + Tiffin[i] + "</td><td>"
 									+ data[Tiffin[i]] + "</td></tr>";
 						}
-						avg = sumdinner / cntdinner;
+						avg = parseFloat(sumdinner)/ parseFloat(cntdinner);
 						txt += "<tr><td><b>Diner</b></td><td><b>"
 								+ avg.toString() + "</b><td></tr>";
 						for (var i = 0; i < Dinner.length; i++) {
@@ -385,7 +385,11 @@
 			var hostelnum = $("#hnum").val();
 		
 		dataString = "hostelnum=" + hostelnum + "&date_start=" + date_start+ "&date_end="+date_end+"&itemname="+itemname;
-		console.log(dataString)
+		console.log(dataString);
+		var t1 = date_start.split("-");
+		
+		var ds = new Date(t1[0], t1[1]-1, t1[2]);
+		console.log(ds);
 		$.ajax({
 			type : "POST",
 			url : "Viewrating2",
@@ -395,14 +399,14 @@
 			success : function(data, textStatus, jqXHR) {
 				
 				var txt = "";
-				$("#ans").empty();
-				txt = "<b>"+itemname + " &nbsp &nbsp "+data[itemname]+" &nbsp &nbsp "+data["@#"]+"</b>";
+				$("#table2").empty();
+				txt = "<tr><th>Item Name</th><th>Average Rating</th><th>Number Of Votes</th></tr>";
+
+				txt += "<tr><td>"+itemname+"</td><td>"+data[itemname]+"</td><td>"+data["@#"]+"</td></tr>";
 				if (txt != "") {
-					//	txt += "<input type=submit onclick='sendratings()'>"
-					//  txt += "</form>"
-					$("#ans").append(txt).removeClass("hidden");
-					//$('#butt').removeClass("hidden");
-					//console.log(txt);
+					
+					$("#table2").append(txt).removeClass("hidden");
+					
 				} else {
 
 					$("#ans").append("No Data Available");
@@ -427,6 +431,11 @@
 
 		});
 		
+		function addDays(date, days) {
+		    var result = new Date(date);
+		    result.setDate(date.getDate() + days);
+		    return result;
+		}
 		
 		 $.ajax({
 			type : "POST",
@@ -436,9 +445,11 @@
 			//if received a response from the server
 			success : function(data, textStatus, jqXHR) {
 				var lineData=[];
+				var daydiff = data["daydiff"];
 				for( i=1; i<=10; i++){
 					if (data.hasOwnProperty(i.toString())){
-					var data123={x: i.toString(), y: data[i]};
+
+					var data123={time: addDays(ds,daydiff*(i-1)), x: data[i]};
 					lineData.push(data123);
 					console.log(data123);
 					}
@@ -469,63 +480,133 @@
 	}
 	
 	
-	function InitChart(lineData) {
+	function InitChart(data) {
 	 console.log("paani");
-	console.log(lineData);
+	console.log(data);
 	$('#graph').empty();
-	 var vis = d3.select('#graph'),
-	    WIDTH = 700,
-	    HEIGHT = 300,
-	    MARGINS = {
-	      top: 20,
-	      right: 20,
-	      bottom: 20,
-	      left: 50
-	    },
-	    xRange = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([d3.min(lineData, function(d) {
-	      return d.x;
-	    }), d3.max(lineData, function(d) {
-	      return d.x;
-	    })]),
-	    yRange = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([d3.min(lineData, function(d) {
-	      return d.y;
-	    }), d3.max(lineData, function(d) {
-	      return d.y;
-	    })]),
-	    xAxis = d3.svg.axis()
-	      .scale(xRange)
-	      .tickSize(5)
-	      .tickSubdivide(true),
-	    yAxis = d3.svg.axis()
-	      .scale(yRange)
-	      .tickSize(5)
-	      .orient('left')
-	      .tickSubdivide(true);
-	 
-	vis.append('svg:g')
-	  .attr('class', 'x axis')
-	  .attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')')
-	  .call(xAxis);
-	 
-	vis.append('svg:g')
-	  .attr('class', 'y axis')
-	  .attr('transform', 'translate(' + (MARGINS.left) + ',0)')
-	  .call(yAxis);
+	 var color = d3.scale.category10();
+     // map one colour each to x, y and z
+     // keys grabs the key value or heading of each key value pair in the json
+     // but not time
+     color.domain(d3.keys(data[0]).filter(function (key) {
+       return key !== "time";
+     }));
+console.log(color);
+     // create a nested series for passing to the line generator
+     // it's best understood by console logging the data
+   var series = color.domain().map(function (name) {
+	   console.log("sfit " +name);
+       return {
+    	   
+         name: name,
+         values: data.map(function (d) {
+           return {
+             time: d.time,
+             score: +d[name]
+           };
+         })
+       };
+     }); 
+console.log(series);
+     // Set the dimensions of the canvas / graph
+     var margin = {
+         top: 30,
+         right: 20,
+         bottom: 60,
+         left: 75
+       },
+       width = 650 - margin.left - margin.right,
+       height = 250 - margin.top - margin.bottom;
+
+     // Set the ranges
+     //var x = d3.time.scale().range([0, width]).domain([0,10]);
+     var x = d3.time.scale().range([0, width]);
+     var y = d3.scale.linear().range([height, 0]);
+
+     // Define the axes
+     var xAxis = d3.svg.axis().scale(x)
+       .orient("bottom").ticks(10);
+
+     var yAxis = d3.svg.axis().scale(y)
+       .orient("left").ticks(5);
+
+     // Define the line
+     // Note you plot the time / score pair from each key you created ealier
+     var valueline = d3.svg.line()
+       .x(function (d) {
+         return x(d.time);
+       })
+       .y(function (d) {
+         return y(d.score);
+       });
+console.log("valueline");
+console.log(valueline);
+     // Adds the svg canvas
+     var svg = d3.select("#graph")
+       .append("svg")
+       .attr("width", width + margin.left + margin.right)
+       .attr("height", height + margin.top + margin.bottom)
+       .append("g")
+       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+     // Scale the range of the data
+     x.domain(d3.extent(data, function (d) {
+       return d.time;
+     }));
+
+     // note the nested nature of this you need to dig an additional level
+     y.domain(
+       [0,
+       5]
+      );
+     svg.append("text")      // text label for the x axis
+       .attr("x", width / 2)
+       .attr("y", height + margin.bottom)
+       .style("text-anchor", "middle")
+       .text("Time");
+
+     svg.append("text")      // text label for the x axis
+
+       .style("text-anchor", "middle")
+       .text("Average Ratings").attr("transform",function (d) {
+         return "rotate(-90)"
+       }).attr("x", -height / 2)
+       .attr("y", -30);
+     ;
+     // create a variable called series and bind the date
+     // for each series append a g element and class it as series for css styling
+     var series = svg.selectAll(".series")
+       .data(series)
+       .enter().append("g")
+       .attr("class", "series");
+
+     // create the path for each series in the variable series i.e. x, y and z
+     // pass each object called x, y nad z to the lne generator
+     series.append("path")
+     .style("fill", "none") 
+       .attr("class", "line")
+       .attr("d", function (d) {
+          console.log(d); // to see how d3 iterates through series
+         return valueline(d.values);
+       })
+       .style("stroke", "blue")
+
+     // Add the X Axis
+     svg.append("g") // Add the X Axis
+       .attr("class", "x axis")
+       .attr("transform", "translate(0," + height + ")")
+       .call(xAxis)
+       .selectAll("text")
+       .attr("transform", function(d) {
+         return "rotate(-30) translate(0,15) "})
+         
+
+   // Add the Y Axis
+     svg.append("g") // Add the Y Axis
+       .attr("class", "y axis")
+       .call(yAxis);
 	
-	var lineFunc = d3.svg.line()
-	  .x(function(d) {
-	    return xRange(d.x);
-	  })
-	  .y(function(d) {
-	    return yRange(d.y);
-	  })
-	  .interpolate('linear');
 	
-	vis.append('svg:path')
-	  .attr('d', lineFunc(lineData))
-	  .attr('stroke', 'blue')
-	  .attr('stroke-width', 2)
-	  .attr('fill', 'none');
 	}
 
 	function callAjax2() {
@@ -760,7 +841,18 @@
 								</div>
 							</div>
 							<div class="row">
-							<div id="ans" class="hidden" style="position: relative; left: 300px; top: -40px;"></div>
+							<div id="ans"  style="position: relative; left: 300px; top: -40px;">
+							<table border =1 id="table2"
+									style="position: relative; left: 150px; top: 40px;"
+									class="hidden">
+									<tr>
+										<th>Item Name</th>
+										<th>Average Rating</th>
+										<th>Number Of Votes</th>
+
+									</tr>
+								</table>
+							</div>
 							</div>
 							<div class = "row">
 							<svg id="graph" style="position: relative; left: 300px;" width="700" height="300" ></svg>

@@ -60,10 +60,11 @@ public class Viewrating2 extends HttpServlet {
 				String query= "";
 				String query2 ="";
 				if(hno != "ALL"){
-				 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>='"+d0+"'and servedon<='"+date_end+"' and hostelnumber='"+hno+"' and itemname='"+itemname+"'";						
-				 query2 = "select count(rating) from servings natural join fooditems natural join reviews where servedon>='"+d0+"'and servedon<='"+date_end+"' and hostelnumber='"+hno+"' and itemname='"+itemname+"'";						 
+				 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>='"+date_start+"'and servedon<='"+date_end+"' and hostelnumber='"+hno+"' and itemname='"+itemname+"'";						
+				 query2 = "select count(rating) from servings natural join fooditems natural join reviews where servedon>='"+date_start+"'and servedon<='"+date_end+"' and hostelnumber='"+hno+"' and itemname='"+itemname+"'";						 
 				}else{
-					 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>='"+d0+"'and servedon<='"+date_end+"' and itemname='"+itemname+"'";						
+					 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>='"+date_start+"'and servedon<='"+date_end+"' and itemname='"+itemname+"'";						
+					 query2 = "select count(rating) from servings natural join fooditems natural join reviews where servedon>='"+date_start+"'and servedon<='"+date_end+"' and itemname='"+itemname+"'";						 
 
 				}
 				rs = st.executeQuery(query);
@@ -72,6 +73,8 @@ public class Viewrating2 extends HttpServlet {
 					String rating = rs.getString(1);
 					if(rating != "" && rating != null)
 					rating = rating.substring(0, 3);
+					else
+						rating ="0";
 					obj.put(itemname,rating);
 					
 				}
