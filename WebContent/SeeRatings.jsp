@@ -695,6 +695,7 @@ console.log(valueline);
 
 
 <body>
+<div class="container">
 	<form id='myForm'>
 		<div class="masthead">
 
@@ -713,21 +714,20 @@ console.log(valueline);
 			<ul class="nav nav-justified">
 				<li><a href="${pageContext.request.contextPath}/home.jsp">Home</a></li>
 				<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
+				<li class="active"><a href="${pageContext.request.contextPath}/SeeRatings.jsp">View
+						Ratings</a></li>
 				<%
 					String category = (String) session.getAttribute("category");
 					if (category.equals("ADMINISTRATOR")) {
 						String context = request.getContextPath();
-						out.println("<li class=\"active\"><a href=\"" + context
+						out.println("<li><a href=\"" + context
 								+ "/manager_home.jsp\">Set Menu</a></li>");;
 					}
 				%>
 
 				<li><a href="${pageContext.request.contextPath}/WeeklyMenu.jsp">Weekly
 						Menu</a></li>
-				<li><a href="#">Services</a></li>
-				<li><a href="${pageContext.request.contextPath}/SeeRatings.jsp">View
-						Ratings</a></li>
-				<li><a href="#">About</a></li>
+				
 				<li><a
 					href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
 			</ul>
@@ -781,7 +781,7 @@ console.log(valueline);
 
 								<div class="col-xs-2 col-sm-2 col-md-2">
 									<input type="text" name="dt" id="datepicker"
-										onchange="callAjax()">
+										onchange="callAjax()" placeholder="Select Date">
 								</div>
 							</div>
 							<div class="col-xs-3 col-sm-12 col-md-12 ">
@@ -804,16 +804,16 @@ console.log(valueline);
 							<div class="row">
 								<div class="col-xs-2 col-sm-2 col-md-2">
 									<select id="srch" style="width: 300px min-width:       300px" onchange="callAjax3()">
-
+									<option value="" selected="selected">Food Item</option>
 									</select>
 								</div>
 								<div class="col-xs-1 col-sm-1 col-md-1"></div>
 								<div class="col-xs-2 col-sm-2 col-md-2">
-									<input type="text" name="dt" id="datepicker_start" onchange="callAjax3()">
+									<input type="text" name="dt" id="datepicker_start" placeholder="Start Date" onchange="callAjax3()">
 
 								</div>
 								<div class="col-xs-2 col-sm-2 col-md-2">
-									<input type="text" name="dt" id="datepicker_end" onchange="callAjax3()">
+									<input type="text" name="dt" id="datepicker_end" placeholder="End Date" onchange="callAjax3()">
 
 								</div>
 								<div class="col-xs-2 col-sm-2 col-md-2">
@@ -871,7 +871,7 @@ console.log(valueline);
 		</div>
 
 	</form>
-
+</div>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.combobox').combobox();

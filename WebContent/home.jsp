@@ -155,6 +155,7 @@ window.addEvent(window, "load", updateValue, false);
 
 				appendtxt += "<tr>" + "<td>Dinner</td>"  + "<td>"
 						+ dinnertxt + "</td></tr>";
+				appendtxt+="<tr><td></td><td></td></tr>"		
 				
 				$("#table").append(appendtxt); 
 				
@@ -204,26 +205,24 @@ window.addEvent(window, "load", updateValue, false);
 <!-- </tr>
 			</table> -->
 <ul class="nav nav-justified">
-				<li><a href="${pageContext.request.contextPath}/home.jsp">Home</a></li>
-				<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
-				<%
-					String category = (String) session.getAttribute("category");
-					if (category.equals("ADMINISTRATOR")) {
-						String context = request.getContextPath();
-						out.println("<li class=\"active\"><a href=\"" + context
-								+ "/manager_home.jsp\">Set Menu</a></li>");;
-					}
-				%>
-
-				<li><a href="${pageContext.request.contextPath}/WeeklyMenu.jsp">Weekly
-						Menu</a></li>
-				<li><a href="#">Services</a></li>
-				<li><a href="${pageContext.request.contextPath}/SeeRatings.jsp">View
+	<li class="active"><a
+		href="${pageContext.request.contextPath}/home.jsp">Home</a></li>
+	<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
+	<li><a href="${pageContext.request.contextPath}/SeeRatings.jsp">View
 						Ratings</a></li>
-				<li><a href="#">About</a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
-			</ul>
+	<%String category=(String)session.getAttribute("category");
+		if (category.equals("ADMINISTRATOR"))
+			{
+			String context=request.getContextPath();
+	out.println("<li><a href=\""+context+"/manager_home.jsp\">Set Menu</a></li>");
+		;} %>
+		
+	<li><a href="${pageContext.request.contextPath}/WeeklyMenu.jsp">Weekly
+	Menu</a></li>	
+	
+	<li><a
+		href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
+</ul>
 </div>
 
 <!-- Jumbotron -->
@@ -238,7 +237,7 @@ window.addEvent(window, "load", updateValue, false);
 			%>
 <h2><%=mealJustEaten%></h2>
 
-<p><a class="btn btn-lg btn-success" href="#" role="button">Review
+<p><a class="btn btn-lg btn-success" href="giverating.jsp" role="button">Review
 It!</a></p>
 </div>
 
@@ -248,15 +247,8 @@ It!</a></p>
 <h2>
 <center>Reviews</center>
 </h2>
-<p class="text-danger">As of v7.0.1, Safari exhibits a bug in which
-resizing your browser horizontally causes rendering errors in the
-justified nav that are cleared upon refreshing.</p>
-<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
-tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
-massa justo sit amet risus. Etiam porta sem malesuada magna mollis
-euismod. Donec sed odio dui.</p>
-<p><a class="btn btn-primary" href="#" role="button">View
-details &raquo;</a></p>
+<p>Didn't like the menu? Wanna see the food ratings for other messes?</p>
+<p><a class="btn btn-primary" href="SeeRatings.jsp" role="button">Click Here &raquo;</a></p>
 </div>
 <div class="col-lg-6">
 
@@ -316,13 +308,10 @@ details &raquo;</a></p>
 </div>
 <div class="col-lg-3">
 <h2>
-<center>Trending</center>
+<center>Other day's menu</center>
 </h2>
-<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
-egestas eget quam. Vestibulum id ligula porta felis euismod semper.
-Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-ut fermentum massa.</p>
-<p><a class="btn btn-primary" href="#" role="button">View
+<p>Want to see whats there in the store for other days. See Weekly menu.</p>
+<p><a class="btn btn-primary" href="WeeklyMenu.jsp" role="button">View
 details &raquo;</a></p>
 </div>
 </div>

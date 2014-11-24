@@ -78,7 +78,6 @@
 
  
 function updateValue(){ 
-
 	callAjax2();
 	callAjax();
     }
@@ -219,7 +218,7 @@ window.addEvent(window, "load", updateValue, false);
 		});
 	}
 	function callAjax2() {
-
+		console.log("Ajax2callhua");
 		$.ajax({
 			type : "GET",
 			url : "GetItems",
@@ -286,7 +285,7 @@ window.addEvent(window, "load", updateValue, false);
 				//$('#myButton').attr("disabled", false);
 			},
 			beforeSend : function(jqXHR, settings) {
-
+				
 			}
 
 		});
@@ -369,173 +368,25 @@ window.addEvent(window, "load", updateValue, false);
 
 <body>
 
-	<div class="container">
+<div class="container">
 
-		<div class="masthead">
-			<!-- <table>
+<div class="masthead"><!-- <table>
 			<tr> -->
-			<div class="row">
-				<!-- <td class='col-md-10	'> -->
-				<h3 class="text-muted col-md-10">Hostel Menu Management</h3>
-				<!-- </td> -->
-				<!-- <td> -->
-				<h4 class="text col-md-2" align="right" vertical-align="center"
-					style="margin-top: 25px;"><%=session.getAttribute("consumername")%>
-				</h4>
-				<!-- </td> -->
-			</div>
-			<!-- </tr>
+<div class="row"><!-- <td class='col-md-10	'> -->
+<h3 class="text-muted col-md-10">Hostel Menu Management</h3>
+<!-- </td> --> <!-- <td> -->
+<h4 class="text col-md-2" align="right" vertical-align="center"
+	style="margin-top: 25px;"><%=session.getAttribute("consumername")%>
+</h4>
+<!-- </td> --></div>
+<!-- </tr>
 			</table> -->
-			<ul class="nav nav-justified">
-				<li><a href="${pageContext.request.contextPath}/home.jsp">Home</a></li>
-				<li><a href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
-				<%
-					String category = (String) session.getAttribute("category");
-					if (category.equals("ADMINISTRATOR")) {
-						String context = request.getContextPath();
-						out.println("<li class=\"active\"><a href=\"" + context
-								+ "/manager_home.jsp\">Set Menu</a></li>");;
-					}
-				%>
-
-				<li><a href="${pageContext.request.contextPath}/WeeklyMenu.jsp">Weekly
-						Menu</a></li>
-				<li><a href="#">Services</a></li>
-				<li><a href="${pageContext.request.contextPath}/SeeRatings.jsp">View
-						Ratings</a></li>
-				<li><a href="#">About</a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
-			</ul>
-		</div>
-
-		<div class="row centered-form">
-			<div class="col-lg-5"></div>
-			<div class="col-lg-2">
-				<form>
-					<center>
-						<div class="form-group">
-							<select class="combobox form-control" name="day" id="day"
-								onchange="callAjax()">
-								<option value="" selected="selected">Day</option>
-								<option value="Monday">Monday</option>
-								<option value="Tuesday">Tuesday</option>
-								<option value="Wednesday">Wednesday</option>
-								<option value="Thursday">Thursday</option>
-								<option value="Friday">Friday</option>
-								<option value="Saturday">Saturday</option>
-								<option value="Sunday">Sunday</option>
-							</select>
-						</div>
-					</center>
-				</form>
-			</div>
-
-			<div class="row centered-form">
-				<div class="col-lg-5"></div>
-				<div class="col-lg-2">
-					<form>
-						<center>
-							Repeat
-							<div class="form-group">
-								<select class="combobox form-control" name="repeat" id="repeat">
-									<option value="1" selected="selected">1 Week</option>
-									<option value="2">2 Weeks</option>
-									<option value="3">3 Weeks</option>
-								</select>
-							</div>
-						</center>
-					</form>
-				</div>
-
-			</div>
-
-			<div class="row" style="margin-right: 0px; margin-left: 0px">
-				<div class=""></div>
-				<div class="panel panel-default col-lg-5"
-					style="margin-right: 0px; margin-left: 3.8%">
-					<div class="panel-heading">
-						<h3 class="panel-title" id="hosteltitle">Today's menu</h3>
-					</div>
-					<div class="panel-body">
-
-
-						<center>
-							<table id="table" class="table">
-
-							</table>
-							<div class="text-muted" id="message"></div>
-						</center>
-					</div>
-				</div>
-				<div class="col-lg-1"></div>
-				<div class="panel panel-default col-lg-5">
-					<div class="panel-heading">
-						<h3 class="panel-title" id="settitle">Set this week's menu</h3>
-
-					</div>
-					<div class="panel-body">
-
-						<div class="row">
-							<div class="col-lg-5">
-								<h4>Breakfast</h4>
-
-								<select multiple id="bfast"
-									style="width: 300px min-width:       300px">
-
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-5">
-								<h4>Lunch</h4>
-								<select multiple id="lunch"
-									style="width: 300px min-width:       300px">
-
-								</select>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-lg-5">
-								<h4>Tiffin</h4>
-
-								<select multiple id="tiffin"
-									style="width: 300px min-width:       300px">
-
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-5">
-								<h4>Dinner</h4>
-								<select multiple id="dinner"
-									style="width: 300px min-width:       300px">
-
-								</select>
-							</div>
-						</div>
-						<br />
-						<div class="row">
-							<div class="col-lg-1">
-								<button id="button2" onclick="callAjax3()" class="btn">Submit</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-
-
-		<script type="text/javascript"
-			src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
-		<%-- <script type="text/javascript"
-=======
 <ul class="nav nav-justified">
 	<li><a href="${pageContext.request.contextPath}/home.jsp">Home</a></li>
 	<li><a
 		href="${pageContext.request.contextPath}/giverating.jsp">Rate</a></li>
+		<li><a href="${pageContext.request.contextPath}/SeeRatings.jsp">View
+						Ratings</a></li>
 	<%String category=(String)session.getAttribute("category");
 		if (category.equals("ADMINISTRATOR"))
 			{
@@ -545,8 +396,7 @@ window.addEvent(window, "load", updateValue, false);
 		
 	<li><a href="${pageContext.request.contextPath}/WeeklyMenu.jsp">Weekly
 	Menu</a></li>	
-	<li><a href="#">Downloads</a></li>
-	<li><a href="#">About</a></li>
+	
 	<li><a
 		href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
 </ul>
@@ -682,12 +532,11 @@ Repeat
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/jquery.js"></script>
 <%-- <script type="text/javascript"
->>>>>>> f7e72522646d6ddd794e2c7ea2af2369278755e2
 		src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/multiselect.js"></script> --%>
-		<script type="text/javascript"
-			src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap-combobox.js"></script>
 
-		<script type="text/javascript">
+<script type="text/javascript">
 		$(document).ready(function() {
 			$('.combobox').combobox();
 		});
@@ -707,9 +556,9 @@ Repeat
 			$("#txtRight").val(selectedItem.text());
 		});
 	</script>
-		<script
-			src="${pageContext.request.contextPath}/scripts/select2-3.5.1/select2.js"></script>
-		<script>
+<script
+	src="${pageContext.request.contextPath}/scripts/select2-3.5.1/select2.js"></script>
+<script>
         $(document).ready(function() {
         	$("#bfast").select2({
             placeholder: "Select an item"
@@ -728,10 +577,11 @@ Repeat
             	});
         });
     </script>
-		<script
-			src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<script
-			src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie10-viewport-bug-workaround.js"></script>
+<script
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script
+	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie10-viewport-bug-workaround.js"></script>
+
 </body>
 </html>
