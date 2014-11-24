@@ -55,14 +55,13 @@ public class Viewrating2 extends HttpServlet {
 			JSONObject obj = new JSONObject();
 			
 			try{
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
-				Date d0 = formatter.parse(date_start);
 				String query= "";
 				String query2 ="";
 				if(!hno.equals("ALL")){
 				 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>='"+date_start+"'and servedon<='"+date_end+"' and hostelnumber='"+hno+"' and itemname='"+itemname+"'";						
 				 query2 = "select count(rating) from servings natural join fooditems natural join reviews where servedon>='"+date_start+"'and servedon<='"+date_end+"' and hostelnumber='"+hno+"' and itemname='"+itemname+"'";						 
 				}else{
+					System.out.println("Dfdsf");
 					 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>='"+date_start+"'and servedon<='"+date_end+"' and itemname='"+itemname+"'";						
 					 query2 = "select count(rating) from servings natural join fooditems natural join reviews where servedon>='"+date_start+"'and servedon<='"+date_end+"' and itemname='"+itemname+"'";						 
 
@@ -89,10 +88,7 @@ public class Viewrating2 extends HttpServlet {
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 			System.out.println(obj);
 			PrintWriter out = response.getWriter();
 

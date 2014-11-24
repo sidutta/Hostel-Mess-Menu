@@ -103,6 +103,16 @@
     <servlet-class>messmenu.Viewrating3</servlet-class>
   </servlet>
   <servlet-mapping>
+    <servlet-name>GetComments</servlet-name>
+    <url-pattern>/GetComments</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetComments</display-name>
+    <servlet-name>GetComments</servlet-name>
+    <servlet-class>messmenu.GetComments</servlet-class>
+  </servlet>
+  <servlet-mapping>
     <servlet-name>Putrating2</servlet-name>
     <url-pattern>/Putrating2</url-pattern>
   </servlet-mapping>

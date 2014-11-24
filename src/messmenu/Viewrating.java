@@ -71,6 +71,7 @@ public class Viewrating extends HttpServlet {
 					else
 					obj.put(itemname,rating);
 				}
+				
 			}
 			catch (SQLException e1) {
 				// TODO Auto-generated catch block

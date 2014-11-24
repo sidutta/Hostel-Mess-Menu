@@ -533,6 +533,52 @@
 
 		});
 		 
+		 $.ajax({
+				type : "POST",
+				url : "GetComments",
+				data : dataString,
+				dataType : "json",
+				//if received a response from the server
+				success : function(data, textStatus, jqXHR) {
+					var txt = "";
+					var txt1 ="";
+					$("#comments").empty();
+					txt = "<tr><th>User Name</th><th>Comments</th></tr>";
+					for(var key in data){
+					txt1 += "<tr><td style=\"min-width:130px;\">"+key+"</td><td style=\"min-width:300px;\">"+data[key]+"</td></tr>";
+					}
+					if (txt1 != "") {
+						txt = txt + txt1;
+						console.log(txt);
+						$("#com_hide").removeClass("hidden");
+						$("#comments").append(txt).removeClass("hidden");
+						
+						
+					} else {
+
+						$("#comments").append("No Data Available");
+					}
+
+				},
+
+				//If there was no resonse from the server
+				error : function(jqXHR, textStatus, errorThrown) {
+					console.log("Something really bad happened " + textStatus);
+					$("#ajaxResponse").html(jqXHR.responseText);
+				},
+
+				//this is called after the response or error functions are finsihed
+				//so that we can take some action
+				complete : function(jqXHR, textStatus) {
+					//enable the button 
+					//$('#myButton').attr("disabled", false);
+				},
+				beforeSend : function(jqXHR, settings) {
+
+				}
+
+			});
+		 
 		
 	}
 	
@@ -913,6 +959,14 @@ console.log(valueline);
 							</div>
 							<div class = "row">
 							<svg id="graph" style="position: relative; left: 300px;" width="700" height="300" ></svg>
+							</div>
+							<div class = "row">
+							<div id = "com_hide"  class ="hidden"style="position: relative; left: 300px;">
+							<h4>Comments</h4>
+							<table cellpadding=20px id="comments" border=1; class = "hidden" >
+							
+							</table>
+							</div>
 							</div>
 						</div>
 
