@@ -66,6 +66,9 @@ public class Viewrating extends HttpServlet {
 					String type = rs.getString(1);
 					String rating = rs.getString(3).substring(0, 3);
 					obj.put(type,itemname);
+					if(rating == "" || rating == null)
+						obj.put(itemname, "Not Available");
+					else
 					obj.put(itemname,rating);
 				}
 			}

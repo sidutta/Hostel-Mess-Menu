@@ -275,54 +275,111 @@
 							if (data.hasOwnProperty(key)) {
 								if (key == "BREAKFAST") {
 									Breakfast.push(data[key]);
+									if(data[data[key]] != "Not Available"){
 									cntbf++;
 									sumbf += parseInt(data[data[key]]);
+									}
 									console.log(data[key]);
 									console.log(data[data[key]]);
 								} else if (key == "LUNCH") {
+									if(data[data[key]] != "Not Available"){
 									Lunch.push(data[key]);
 									cntlunch++;
 									sumlunch += parseInt(data[data[key]]);
+									}
 								} else if (key == "TIFFIN") {
+									if(data[data[key]] != "Not Available"){
 									Tiffin.push(data[key]);
 									cnttiff++;
 									sumtiff += parseInt(data[data[key]]);
+									}
 								} else if (key == "DINNER") {
+									if(data[data[key]] != "Not Available"){
 									Dinner.push(data[key]);
 									cntdinner++;
 									sumdinner += parseInt(data[data[key]]);
+									}
+									
 								}
 							}
 						}
 
 						var avg = parseFloat(sumbf) / parseFloat(cntbf);
+						if(!isNaN(avg)){
 						txt += "<tr><td><b>BreakFast</b></td><td><b>"
 								+ avg.toString() + "</b><td></tr>";
+						}
+						else{
+							txt += "<tr><td><b>BreakFast</b></td><td><b>"
+								+"Not Available" + "</b><td></tr>";
+						}
 						for (var i = 0; i < Breakfast.length; i++) {
-
+							if(data[Lunch[i]] != "Not Available"){							
 							txt += "<tr><td>" + Breakfast[i] + "</td><td>"
 									+ data[Breakfast[i]] + "</td></tr>";
+							}
+							else{
+								txt += "<tr><td>" + Breakfast[i] + "</td><td>"
+								+ "Not Available" + "</td></tr>";
+							}
 						}
 						avg = parseFloat(sumlunch) / parseFloat(cntlunch);
+						if(!isNaN(avg)){
 						txt += "<tr><td><b>Lunch</b></td><td><b>"
 								+ avg.toString() + "</b><td></tr>";
+						}
+						else{
+							txt += "<tr><td><b>Lunch</b></td><td><b>"
+								+ "Not Available" + "</b><td></tr>";
+						}
 						for (var i = 0; i < Lunch.length; i++) {
+							if(data[Lunch[i]] != "Not Available"){
 							txt += "<tr><td>" + Lunch[i] + "</td><td>"
 									+ data[Lunch[i]] + "</td></tr>";
+							}
+							else {
+								txt += "<tr><td>" + Lunch[i] + "</td><td>"
+								+ "Not Available" + "</td></tr>";
+							}
 						}
 						avg = parseFloat(sumtiff) /parseFloat(cnttiff);
+						if(!isNaN(avg)){
 						txt += "<tr><td><b>Tiffin</b></td><td><b>"
 								+ avg.toString() + "</b><td></tr>";
+						}
+						else{
+							txt += "<tr><td><b>Tiffin</b></td><td><b>"
+								+ "Not Available" + "</b><td></tr>";
+						}
+					
 						for (var i = 0; i < Tiffin.length; i++) {
+							if(data[Lunch[i]] != "Not Available"){
 							txt += "<tr><td>" + Tiffin[i] + "</td><td>"
 									+ data[Tiffin[i]] + "</td></tr>";
+							}
+							else{
+								txt += "<tr><td>" + Tiffin[i] + "</td><td>"
+								+ "Not Available" + "</td></tr>";
+							}
 						}
 						avg = parseFloat(sumdinner)/ parseFloat(cntdinner);
+						if(!isNaN(avg)){
 						txt += "<tr><td><b>Diner</b></td><td><b>"
 								+ avg.toString() + "</b><td></tr>";
+						}
+						else{
+							txt += "<tr><td><b>Diner</b></td><td><b>"
+								+ "Not Available "+"</b><td></tr>";
+						}
 						for (var i = 0; i < Dinner.length; i++) {
+							if(data[Lunch[i]] != "Not Available"){
 							txt += "<tr><td>" + Dinner[i] + "</td><td>"
 									+ data[Dinner[i]] + "</td></tr>";
+							}
+							else{
+								txt += "<tr><td>" + Dinner[i] + "</td><td>"
+								+ "Not Available" + "</td></tr>";
+							}
 						}
 
 						if (txt != "") {
