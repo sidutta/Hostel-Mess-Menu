@@ -36,6 +36,7 @@ public class Viewrating3 extends HttpServlet {
 		String hno = request.getParameter("hostelnum");
 		String date_start = request.getParameter("date_start");
 		String date_end = request.getParameter("date_end");
+		System.out.println("!@#"+hno);
 		if( hno != null && itemname != null && date_start != null  && date_end != null && hno != "" && date_start != "" && date_end != ""  && itemname != "" ){
 			
 			
@@ -66,7 +67,8 @@ public class Viewrating3 extends HttpServlet {
 				  System.out.println(diffDays);
 				  System.out.println(diff);
 
-				  if(hno != "ALL"){
+				  if(!hno.equals("ALL")){
+					  System.out.println("sexy");
 				for(int i=1; i<=10; i++){
 				//	
 					 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>=TIMESTAMP '"+date_start+"'+ INTERVAL '"+Long.toString(add*(i-1))+" days' and servedon<TIMESTAMP '"+date_start+"'+ INTERVAL '"+Long.toString(add*i)+" days' and hostelnumber='"+hno+"' and itemname='"+itemname+"'";						
@@ -91,6 +93,7 @@ public class Viewrating3 extends HttpServlet {
 							 
 
 							 query = "select avg(rating) from servings natural join fooditems natural join reviews where servedon>=TIMESTAMP '"+date_start+"'+ INTERVAL '"+Long.toString(add*(i-1))+" days' and servedon<TIMESTAMP '"+date_start+"'+ INTERVAL '"+Long.toString(add*i)+" days' and itemname='"+itemname+"'";						
+							  System.out.println(query);
 							 rs = st.executeQuery(query);
 							 while(rs.next()){
 								 if(rs.getString(1) ==  null)

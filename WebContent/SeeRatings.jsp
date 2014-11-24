@@ -746,7 +746,7 @@ console.log(valueline);
 				<!--  <div class="col-md-6"><h3>Tabs -left</h3>  -->
 
 				<!-- tabs left -->
-				<div class="tabbable tabs-left">
+				<div class="tabbable tabs-left" style="position:relative;  left :20px;">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#a" data-toggle="tab">Hostel</a></li>
 						<li><a href="#b" data-toggle="tab">Particular Food Item</a></li>
