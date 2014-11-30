@@ -97,6 +97,9 @@
 <script
 	src="${pageContext.request.contextPath}/scripts/bootstrap-3.2.0-dist/js/ie-emulation-modes-warning.js"></script>
 
+<link rel="stylesheet" type="text/css" media="screen"
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
+
 <style>
 .centered-form {
 	margin-top: 60px;
@@ -835,6 +838,9 @@ console.log(valueline);
 					href="${pageContext.request.contextPath}/login.jsp?status=logout">Logout</a></li>
 			</ul>
 		</div>
+		<div class="row centered-form"
+	style="margin-right: 0px; margin-left: 0px">
+		
 		<div class="panel panel-default">
 
 			<div class="panel-heading">
